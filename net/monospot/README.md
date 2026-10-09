@@ -94,14 +94,19 @@ Eklenti OPNsense sol menüsünde **Services → Monospot** altında ayrı sayfal
 |---|---|---|
 | Servis Ayarları | `/ui/monospot` | servis/zone/port ayarları, zone şablonu, 5651 düğmesi |
 | Captive Portal | `/ui/monospot/captive_portal` | core zone ayarları (arayüzler, timeout'lar, roaming, açıklama) |
+| Portal ve Zone Şablonu | `/ui/monospot/portal` | portal adresi, zone şablonu durumu ve kurulumu |
+| 5651 Günlükleri | `/ui/monospot/archive` | arşiv özeti, elle toplama, günlük tarayıcısı bağlantısı |
 | Durum | `/ui/monospot/status` | servis/portal/zone/istemci/veritabanı/5651 özeti |
 | Kullanıcılar | `/ui/monospot/users` | **native** liste/ekle/düzenle/sil (hotspot veritabanı) |
 | Gruplar / SMS Raporu / İzin Raporu | `/monospot.php?u=...` | henüz uygulama paneli rotaları |
-| 5651 Günlükleri | `/5651/` | günlük arşiv tarayıcısı |
+
 
 - **Durum sayfası** (`/ui/monospot/status`) `api/monospot/service/info` → `status.php` çıktısını gösterir: portal adresi, zone ve
   arayüzleri, yetkili istemci sayısı (+ilk 10 kayıt), uygulama veritabanı sayaçları, 5651 arşiv özeti,
   SMS sağlayıcı dosyası.
+- **Sayfa yüzeyi OPNsense'in kendi diliyle çizilir:** sekme + *Apply* düzeni (`base_tabs_content`),
+  durum/özet tabloları (`table table-condensed`), eylemler kendi sayfasında tek düğme. Ad-hoc `btn-default`
+  satırları kaldırıldı; gezinti menüden yapılır.
 - **Kullanıcılar sayfası** (native): UIBootgrid + dialog form (`forms/dialogUser.xml`); veri `api/monospot/users/search|get|add|set|del`
   → `configctl monospot user_admin` → `user_admin.php` (root) SQLite CRUD. Yazma root'tan yapılır çünkü portal
   veritabanına `www` olarak yazar ve sahiplik değiştirilmez. **Şifre hiçbir zaman geri dönmez** (formda boş = değişmez).
