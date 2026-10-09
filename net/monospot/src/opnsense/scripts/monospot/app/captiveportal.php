@@ -110,6 +110,12 @@ function welcome()
     if (isset($settings['sms']['simple_screen'])) {
         set('form', 'sms_register');
     }
+    /* POST-redirect-GET sonrası tek seferlik mesaj (örn. başarılı giriş) */
+    if (!empty($_SESSION['monospot_flash'])) {
+        set('message', $_SESSION['monospot_flash']);
+        set('message_arg', '');
+        unset($_SESSION['monospot_flash']);
+    }
     return html('layouts/captiveportal.html.php');
 }
 
@@ -476,7 +482,14 @@ function login($user, $field)
         ));
     }
 
-    header('Location: ' . monospot_redirurl(), true, 302);
+    $target = monospot_redirurl();
+    if ($target === '/') {
+        /* Dönülecek adres yok (istemci portala doğrudan geldi): portala dönüp
+         * başarı mesajını göster; aksi hâlde giriş formu aynen yeniden çizilir
+         * ve giriş başarısız sanılır. */
+        $_SESSION['monospot_flash'] = 'logged_in';
+    }
+    header('Location: ' . $target, true, 302);
     exit();
 }
 

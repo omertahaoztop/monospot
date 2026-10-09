@@ -74,7 +74,7 @@ $active_form = !empty($form) ? $form : (isset($settings['authentication']['sms']
     <div id="js-errors" class="message error" role="alert" aria-live="assertive" tabindex="-1" hidden></div>
 
     <? if (isset($message)): ?>
-        <div class="message <?= $message == 'password_sent' ? 'success' : 'error' ?>" role="alert"><?= t($message, $message_arg) ?></div>
+        <div class="message <?= in_array($message, array('password_sent', 'logged_in')) ? 'success' : 'error' ?>" role="alert"><?= t($message, $message_arg) ?></div>
     <? endif; ?>
 
     <nav id="form-selection" aria-label="<?= t('sms_login') ?>">
