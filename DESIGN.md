@@ -74,6 +74,11 @@ typography:
     fontSize: "20px"
     fontWeight: 650
     letterSpacing: "-0.01em"
+  display:
+    fontSize: "26px"
+    fontWeight: 650
+    letterSpacing: "-0.02em"
+    lineHeight: 1.15
   section-label:
     fontSize: "13px"
     fontWeight: 700
@@ -185,7 +190,7 @@ bandı, iç içe kutu ağacı ve her yerde tek vurgu rengi. Onun yerine: ölçü
 
 Tek bir sistem UI yığını her şeyi taşır (misafir portalı, panel tabloları, etiketler). Ölçek sabit
 rem basamaklarıdır, akışkan clamp yok: 12px bölüm etiketi, 13px etiket, 14px yardımcı, 15px gövde,
-16px portal başlığı, 17/20px panel başlıkları, 19/21px kod.
+16px portal başlığı, 17/20px panel başlıkları, 26px geniş ekran portal başlığı, 19/21px kod.
 Kod alanı tek monospace kullanımıdır ve hak eder: oradaki içerik sayıdır, ölçümdür. Sayısal hücreler
 `font-variant-numeric: tabular-nums` alır; tablolar sağa hizalı sayı sütunlarında okunur.
 
