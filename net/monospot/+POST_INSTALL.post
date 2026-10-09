@@ -1,0 +1,6 @@
+if [ -f /usr/local/sbin/configctl ]; then
+	echo -n "Restarting monospot portal: "
+	/usr/local/sbin/configctl monospot restart || true
+	echo -n "Preparing 5651 archive: "
+	/usr/local/sbin/configctl monospot collect5651 || true
+fi

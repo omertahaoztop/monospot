@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Monospot servis denetimi (status/start/stop/restart/reconfigure) ve
- * zone şablon şiminin kurulması.
+ * Monospot servis denetimi (status/start/stop/restart/reconfigure), zone şablon
+ * şiminin kurulması ve 5651 günlük arşivinin elle çalıştırılması.
  */
 
 namespace OPNsense\Monospot\Api;
@@ -43,4 +43,32 @@ class ServiceController extends ApiMutableServiceControllerBase
         }
         return $result;
     }
+
+    /**
+     * 5651 arşivini şimdi toplar (ayarlar sayfasındaki düğme).
+     */
+    public function collect5651Action()
+    {
+        $result = ['status' => 'failed'];
+        if (!$this->request->isPost()) {
+            return $result;
+        }
+        $response = trim((string)(new Backend())->configdpRun('monospot collect5651'));
+        $decoded = json_decode($response, true);
+        return is_array($decoded) ? $decoded : ['status' => 'failed', 'error' => $response];
+    }
+
+    /**
+     * Ayarlar kaydedilirken 5651 cron işi config'ten üretilir
+     * (plugins_cron → root crontab); crontab'ı yeniden kurmak için yeniden başlatılır.
+     */
+    public function reconfigureAction()
+    {
+        $result = parent::reconfigureAction();
+        if ($this->request->isPost()) {
+            (new Backend())->configdRun('cron restart');
+        }
+        return $result;
+    }
 }
+

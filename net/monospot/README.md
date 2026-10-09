@@ -86,12 +86,40 @@ tail -f /var/log/monospot-error.log
 # portal kimlik doğrulama kayıtları: syslog (auth), ident 'monospot'
 ```
 
+## 5651 günlük arşivi
+
+Portal giriş kayıtları, DHCP kira tablosu ve captive portal oturum listesi gün bazında arşivlenir
+(5651 kimlik kaydı için kanıt defteri). Varsayılan olarak **açıktır**; `Services > Monospot`
+sayfasındaki *5651 günlükleri* sekmesinden kapatılır ve saklama süresi değiştirilir.
+
+```
+/var/db/monospot/5651/
+  incoming/portal-<YYYYMMDD>.log     # portal girişleri (www yazar, canlı)
+  <yıl>/<ay>/<gün>/
+    identity.log      # o günün giriş kayıtları (ISO8601, kullanıcı, MAC, IP, zone)
+    dhcp-leases.log   # DHCP kira anlık görüntüsü (IP ↔ MAC ↔ başlangıç/bitiş)
+    cp-sessions.log   # captive portal oturum listesi
+    manifest.sha256   # dosya özetleri (imzalama için temel)
+```
+
+- Arşivleme `collect5651.py` ile yapılır; OPNsense'in kendi cron üretimine kaydedilir
+  (`monospot_cron()` → root crontab, her gün **23:59**). `configctl cron restart` crontab'ı yeniler.
+- Elle çalıştırma: `configctl monospot collect5651` (veya sayfadaki *5651 arşivini şimdi topla*
+  düğmesi). Saklama, `OPNsense/Monospot/collect5651/retention_days` (varsayılan 365 gün) ile uygulanır.
+- **Dizin izinleri:** portal PHP'si `www` olarak çalışır; `/var/db/monospot` ve `.../5651`
+  `root:www 0750`, `incoming` `www:www 0750`. Arşiv gün dizinleri `root` sahipliğinde kalır.
+  Toplayıcı bu zinciri her çalışmada düzeltir.
+- **Neden dosyaya yazılıyor:** bu sistemde portalın `syslog(LOG_AUTH)` kayıtları kalıcı bir dosyaya
+  düşmüyor (syslog-ng yönlendirmesi); kimlik kaydının güvenilir yeri 5651 dosyasıdır.
+- İmzalama (RFC3161 TSA) ve tarayıcı arayüzü sonraki turlardadır; `manifest.sha256` bunun temelidir.
+
 ## Bilinen sınırlar
 
 - **Portal portu değişirse** zone şablonu yeniden kurulmalıdır (şim, portu
   içerir): `configctl monospot install_zonetemplate <id> <yeni> "Monospot Portal"`.
-- **5651/logsigner** paketi bu sürümde yok; portal giriş/çıkış kayıtları
-  syslog'a yazılır.
+- **5651 günlük arşivinin imzalanması** (RFC3161 TSA, `logsigner` karşılığı) ve
+  günlük tarayıcı arayüzü (`/5651`) bu turda yoktur; kayıt + saklama hazırdır
+  (bkz. *5651 günlük arşivi*).
 - `settings.inc`, `hotspot.ini`, `db/`, `lang/`, `media/` dosyaları `www`
   sahipliğindedir (yönetim paneli ve portal aynı kullanıcıyla çalışır).
 - Zone şiminden sonra portal, zone'un arayüzleri üzerinden erişilebilir;

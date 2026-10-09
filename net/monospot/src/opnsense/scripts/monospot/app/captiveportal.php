@@ -28,6 +28,8 @@ if (file_exists(__DIR__ . '/custom_functions.php')) {
 
 $MONOSPOT_CONF = is_array($tmp = @include '/var/etc/monospot.conf') ? $tmp : array();
 define('MONOSPOT_ZONEID', (string)(isset($MONOSPOT_CONF['zoneid']) ? $MONOSPOT_CONF['zoneid'] : 0));
+/* 5651 günlük arşivinin canlı giriş dizini (toplayıcı buradan arşive taşır) */
+define('MONOSPOT_5651_INCOMING', '/var/db/monospot/5651/incoming');
 
 // Portal istemciye doğrudan bağlandığı için REMOTE_ADDR geçerlidir (zone şimi 302 yapar).
 $clientip = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
@@ -735,12 +737,26 @@ function monospot_session_for_ip($ip)
 
 /**
  * Portal kimlik doğrulama kaydı. pfSense'te captiveportal_logportalauth() vardı;
- * OPNsense'te karşılığı yok, syslog(auth) kullanılır.
+ * OPNsense'te karşılığı yok, syslog(auth) kullanılır. Ayrıca 5651 için kalıcı
+ * dosyaya yazılır: bu sistemde auth kayıtları syslog-ng yönlendirmesi yüzünden
+ * kalıcı bir dosyaya düşmüyor, kimlik kaydının güvenilir tek yeri 5651 dosyası.
  */
 function monospot_log_auth($username, $mac, $ip, $status)
 {
+    $who = $mac === '' ? '-' : $mac;
     openlog('monospot', LOG_PID, LOG_AUTH);
     syslog(LOG_NOTICE, sprintf('portal %s user=%s mac=%s ip=%s zone=%s',
-        $status, $username, $mac === '' ? '-' : $mac, $ip, MONOSPOT_ZONEID));
+        $status, $username, $who, $ip, MONOSPOT_ZONEID));
     closelog();
+
+    $dir = MONOSPOT_5651_INCOMING;
+    if (!is_dir($dir)) {
+        @mkdir($dir, 0750, true);
+    }
+    @file_put_contents(
+        $dir . '/portal-' . date('Ymd') . '.log',
+        sprintf("%s\t%s\tuser=%s\tmac=%s\tip=%s\tzone=%s\n",
+            date('c'), $status, $username, $who, $ip, MONOSPOT_ZONEID),
+        FILE_APPEND | LOCK_EX
+    );
 }

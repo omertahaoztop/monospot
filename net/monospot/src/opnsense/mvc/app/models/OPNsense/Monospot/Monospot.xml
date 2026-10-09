@@ -22,5 +22,18 @@
                 <ValidationMessage>Geçerli bir port numarası girin.</ValidationMessage>
             </portal_port>
         </general>
+        <collect5651>
+            <enabled type="BooleanField">
+                <Default>1</Default>
+                <Required>Y</Required>
+            </enabled>
+            <retention_days type="IntegerField">
+                <MinimumValue>1</MinimumValue>
+                <MaximumValue>3650</MaximumValue>
+                <Default>365</Default>
+                <Required>N</Required>
+                <ValidationMessage>Saklama süresi 1-3650 gün arasında olmalı.</ValidationMessage>
+            </retention_days>
+        </collect5651>
     </items>
 </model>

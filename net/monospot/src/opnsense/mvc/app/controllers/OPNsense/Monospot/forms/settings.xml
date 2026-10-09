@@ -19,5 +19,19 @@
       <help>Portalın dinleyeceği TCP portu (varsayılan 8100). Değiştirdikten sonra zone şablonunu yeniden kurun.</help>
     </field>
   </tab>
+  <tab id="collect5651" description="5651 günlükleri">
+    <field>
+      <id>monospot.collect5651.enabled</id>
+      <label>5651 günlük arşivini topla</label>
+      <type>checkbox</type>
+      <help>Her gün 23:59'da portal kimlik kayıtları, DHCP kira tablosu ve captive portal oturum listesi /var/db/monospot/5651 altında gün bazında arşivlenir. Arşivleme işi System &gt; Settings &gt; Cron listesinde "Monospot 5651 günlük arşivi" olarak görünür.</help>
+    </field>
+    <field>
+      <id>monospot.collect5651.retention_days</id>
+      <label>Saklama süresi (gün)</label>
+      <type>text</type>
+      <help>Bu süreden eski arşiv dizinleri silinir (varsayılan 365 gün).</help>
+    </field>
+  </tab>
   <activetab>monospot</activetab>
 </form>

@@ -75,6 +75,30 @@ function monospot_services()
 }
 
 /**
+ * 5651 günlük arşivi: OPNsense'in kendi cron üretimine (plugins_cron) iş verir.
+ * Kayıt biçimi core_cron ile aynıdır: [komut, dakika, saat, gün, ay, hafta günü].
+ * İş root olarak çalışır (arşiv dizinleri root sahipliğinde).
+ */
+function monospot_cron()
+{
+    global $config;
+
+    $settings = isset($config['OPNsense']['Monospot']) ? $config['OPNsense']['Monospot'] : [];
+    $enabled = (string)(isset($settings['general']['enabled']) ? $settings['general']['enabled'] : '0') === '1';
+    /* collect5651 düğümü ilk ayar kaydına kadar config'te yoktur; model
+       varsayılanı açık olduğu için tanımsız hâli de açık sayılır. */
+    $collect = (string)(isset($settings['collect5651']['enabled']) ? $settings['collect5651']['enabled'] : '1') === '1';
+
+    $jobs = [];
+    if ($enabled && $collect) {
+        $jobs[]['autocron'] = ['/usr/local/opnsense/scripts/monospot/collect5651.py', '59', '23'];
+    }
+
+    return $jobs;
+}
+
+
+/**
  * Portal portuna, yalnızca hizmet verdiğimiz zone arayüzlerinden geçiş izni.
  * Admin yüzeyi core WebGUI'de yaşar; buraya kural yazılmaz.
  */

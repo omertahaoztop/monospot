@@ -28,6 +28,19 @@ $(document).ready(function () {
         });
     });
 
+    $("#collect5651").click(function () {
+        $("#collect5651_progress").addClass("fa fa-spinner fa-pulse");
+        ajaxCall(url = "/api/monospot/service/collect5651", sendData = {}, callback = function (data, status) {
+            $("#collect5651_progress").removeClass("fa fa-spinner fa-pulse");
+            BootstrapDialog.show({
+                type: (status == "success" && data['status'] == 'ok') ? BootstrapDialog.TYPE_INFO : BootstrapDialog.TYPE_WARNING,
+                title: '{{ lang._("5651 günlük arşivi") }}',
+                message: '<pre>' + JSON.stringify(data, null, 2) + '</pre>',
+                draggable: true
+            });
+        });
+    });
+
     $("#install_zonetemplate").click(function () {
         stdDialogConfirm(
             '{{ lang._("Zone şablonu") }}',
@@ -58,6 +71,8 @@ $(document).ready(function () {
         <div class="col-md-12">
             <button class="btn btn-default" id="install_zonetemplate">{{ lang._("Zone şablonunu kur") }}</button>
             <i id="install_zonetemplate_progress"></i>
+            <button class="btn btn-default" id="collect5651">{{ lang._("5651 arşivini şimdi topla") }}</button>
+            <i id="collect5651_progress"></i>
             <a class="btn btn-default" href="/monospot.php">{{ lang._("Monospot yönetim paneli") }}</a>
         </div>
     </div>
