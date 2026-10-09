@@ -9,18 +9,24 @@ $(document).ready(function () {
             $("#portal_info").html('<em>' + ((data && data.error) ? data.error : '—') + '</em>');
             return;
         }
+        function badge(ok, text) {
+            return '<span class="label label-opnsense label-opnsense-xs label-' + (ok ? 'success' : 'danger') + '">' + text + '</span>';
+        }
         var rows = [];
-        function row(k, v) { rows.push('<tr><th style="width:32%">' + k + '</th><td>' + v + '</td></tr>'); }
+        function row(k, v) { rows.push('<tr><th class="col-md-4">' + k + '</th><td>' + v + '</td></tr>'); }
         var url = 'http://' + window.location.hostname + ':' + data.portal_port + '/';
         row('{{ lang._("Portal adresi") }}', '<a href="' + url + '" target="_blank">' + url + '</a>');
         row('{{ lang._("Zone") }}', data.zoneid
             + (data.zone.description ? ' — ' + data.zone.description : '')
             + (data.zone.interfaces.length ? ' (' + data.zone.interfaces.join(', ') + ')' : ''));
-        row('{{ lang._("Zone şablonu") }}', data.zone.template_name
-            ? data.zone.template_name
-            : '<span class="text-danger">{{ lang._("kurulmamış — istemci portalı görmez") }}</span>');
-        row('{{ lang._("Servis") }}', data.enabled ? '{{ lang._("etkin") }}' : '{{ lang._("kapalı") }}');
-        $("#portal_info").html('<table class="table table-condensed table-striped">' + rows.join('') + '</table>');
+        row('{{ lang._("Zone şablonu") }}', data.zone.template_name === ''
+            ? badge(false, '{{ lang._("kurulmamış — istemci portalı görmez") }}')
+            : badge(true, data.zone.template_name));
+        row('{{ lang._("Servis") }}', badge(data.enabled, data.enabled ? '{{ lang._("etkin") }}' : '{{ lang._("kapalı") }}'));
+        $("#portal_info").html(
+            '<table class="table table-condensed table-hover table-striped table-responsive">'
+            + '<thead><tr><th>{{ lang._("Öğe") }}</th><th>{{ lang._("Değer") }}</th></tr></thead>'
+            + '<tbody>' + rows.join('') + '</tbody></table>');
     }
 
     function loadPortalInfo() {

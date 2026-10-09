@@ -6,10 +6,11 @@
           <Portal order="30" VisibleName="Portal ve Zone Şablonu" url="/ui/monospot/portal"/>
           <CaptivePortal order="40" VisibleName="Captive Portal" url="/ui/monospot/captive_portal"/>
           <Users order="50" VisibleName="Kullanıcılar" url="/ui/monospot/users"/>
-          <Groups order="60" VisibleName="Gruplar" url="/monospot.php?u=groups"/>
-          <Sms order="70" VisibleName="SMS Raporu" url="/monospot.php?u=sms"/>
-          <Permissions order="80" VisibleName="İzin Raporu" url="/monospot.php?u=permissions"/>
+          <Groups order="60" VisibleName="Gruplar" url="/ui/monospot/groups"/>
+          <Sms order="70" VisibleName="SMS Raporu" url="/ui/monospot/sms"/>
+          <Permissions order="80" VisibleName="İzin Raporu" url="/ui/monospot/permissions"/>
           <Archive order="90" VisibleName="5651 Günlükleri" url="/ui/monospot/archive"/>
+          <Panel order="99" VisibleName="Yönetim Paneli (grup ayarları, dil, tema)" url="/monospot.php"/>
       </Monospot>
     </Services>
 </menu>

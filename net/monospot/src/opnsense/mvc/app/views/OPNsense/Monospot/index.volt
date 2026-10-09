@@ -3,10 +3,30 @@
  #}
 <script>
 $(document).ready(function () {
-    mapDataToFormUI({'frm_monospot': '/api/monospot/settings/get'}).done(function () {
-        formatTokenizersUI();
-        $('.selectpicker').selectpicker('refresh');
+    function loadForm() {
+        mapDataToFormUI({'frm_monospot': '/api/monospot/settings/get'}).done(function () {
+            formatTokenizersUI();
+            $('.selectpicker').selectpicker('refresh');
+        });
+    }
+
+    /* zone listesi core captive portal modelinden gelir; açılır liste JS ile doldurulur */
+    ajaxCall(url = "/api/monospot/service/zones", sendData = {}, callback = function (data, status) {
+        var select = document.getElementById('monospot.general.zoneid');
+        var zones = (data && data.zones) ? data.zones : [];
+        if (select) {
+            zones.forEach(function (zone) {
+                var option = document.createElement('option');
+                option.value = zone.zoneid;
+                option.text = zone.zoneid + ' — ' + (zone.description === '' ? '{{ lang._("açıklamasız") }}' : zone.description)
+                    + (zone.interfaces === '' ? '' : ' (' + zone.interfaces + ')');
+                select.appendChild(option);
+            });
+            $('.selectpicker').selectpicker('refresh');
+        }
+        loadForm();
     });
+
     updateServiceControlUI('monospot');
 
     $("#save_monospot").click(function () {

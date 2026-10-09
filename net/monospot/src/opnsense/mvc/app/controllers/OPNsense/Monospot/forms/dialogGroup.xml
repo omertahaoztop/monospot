@@ -1,0 +1,28 @@
+<form>
+    <field>
+        <id>group.name</id>
+        <label>Grup adı</label>
+        <type>text</type>
+        <help>Gruba anlamlı bir ad verin (ör. "Personel", "Kamera"). Kullanıcı kaydındaki "Grup" alanı bu numarayı kullanır.</help>
+        <grid_view>
+            <sequence>10</sequence>
+        </grid_view>
+    </field>
+    <field>
+        <id>group.macs</id>
+        <label>MAC adresleri</label>
+        <type>text</type>
+        <help>Virgül veya yeni satırla ayrılmış MAC listesi (aa:bb:cc:dd:ee:ff). Aynı MAC başka bir grupta yer alamaz.</help>
+        <grid_view>
+            <visible>false</visible>
+        </grid_view>
+    </field>
+    <field>
+        <id>group.mac_count</id>
+        <label>MAC sayısı</label>
+        <type>info</type>
+        <grid_view>
+            <sequence>20</sequence>
+        </grid_view>
+    </field>
+</form>

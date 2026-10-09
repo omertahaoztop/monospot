@@ -9,25 +9,47 @@ $(document).ready(function () {
             $("#monospot_info").html('<em>' + ((data && data.error) ? data.error : '—') + '</em>');
             return;
         }
+        function badge(ok, text) {
+            return '<span class="label label-opnsense label-opnsense-xs label-' + (ok ? 'success' : 'danger') + '">' + text + '</span>';
+        }
         var rows = [];
-        function row(k, v) { rows.push('<tr><th style="width:32%">' + k + '</th><td>' + v + '</td></tr>'); }
-        row('{{ lang._("Portal servisi") }}', data.enabled ? '{{ lang._("etkin") }}' : '{{ lang._("kapalı") }}');
-        row('{{ lang._("Portal adresi") }}', 'http://' + window.location.hostname + ':' + data.portal_port + '/');
+        function row(k, v) { rows.push('<tr><th class="col-md-4">' + k + '</th><td>' + v + '</td></tr>'); }
+        row('{{ lang._("Portal servisi") }}', badge(data.enabled, data.enabled ? '{{ lang._("etkin") }}' : '{{ lang._("kapalı") }}'));
+        row('{{ lang._("Portal adresi") }}', '<a href="http://' + window.location.hostname + ':' + data.portal_port + '/" target="_blank">http://'
+            + window.location.hostname + ':' + data.portal_port + '/</a>');
         row('{{ lang._("Zone") }}', data.zoneid
             + (data.zone.description ? ' — ' + data.zone.description : '')
             + (data.zone.interfaces.length ? ' (' + data.zone.interfaces.join(', ') + ')' : ''));
+        row('{{ lang._("Zone şablonu") }}', data.zone.template_name === ''
+            ? badge(false, '{{ lang._("kurulmamış") }}')
+            : badge(true, data.zone.template_name));
         row('{{ lang._("Boşta kalma / azami oturum (dk)") }}', data.zone.idletimeout + ' / ' + data.zone.hardtimeout);
-        row('{{ lang._("Yetkili istemci") }}', data.clients.authorized
-            + (data.clients.sample.length ? '<br><small>' + data.clients.sample.join('<br>') + '</small>' : ''));
         row('{{ lang._("Veritabanı") }}', data.db.users + ' {{ lang._("kullanıcı") }}, '
             + data.db.sms + ' SMS, ' + data.db.permissions + ' {{ lang._("izin kaydı") }}');
-        row('5651', (data.collect5651 ? '{{ lang._("açık") }}' : '{{ lang._("kapalı") }}')
+        row('5651', badge(data.collect5651, data.collect5651 ? '{{ lang._("açık") }}' : '{{ lang._("kapalı") }}')
             + ' — ' + data.archive.days + ' {{ lang._("gün arşiv") }}, {{ lang._("saklama") }} '
             + data.retention_days + ' {{ lang._("gün") }}');
         row('{{ lang._("SMS sağlayıcı") }}', data.sms.provider_file
-            ? '{{ lang._("yapılandırıldı (sms.php)") }}'
-            : '{{ lang._("dosya yok — sms.php yerleştirilmeli") }}');
-        $("#monospot_info").html('<table class="table table-condensed table-striped">' + rows.join('') + '</table>');
+            ? badge(true, '{{ lang._("yapılandırıldı") }}')
+            : badge(false, '{{ lang._("sms.php yok") }}'));
+        $("#monospot_info").html(
+            '<table class="table table-condensed table-hover table-striped table-responsive">'
+            + '<thead><tr><th>{{ lang._("Öğe") }}</th><th>{{ lang._("Değer") }}</th></tr></thead>'
+            + '<tbody>' + rows.join('') + '</tbody></table>');
+
+        /* yetkili istemciler: gerçek tablo (ilk 10) */
+        var clientRows = (data.clients.sample || []).map(function (c) {
+            return '<tr><td>' + c.user + '</td><td>' + c.ip + '</td><td>' + c.mac + '</td><td>' + c.start + '</td></tr>';
+        });
+        if (clientRows.length === 0) {
+            $('#monospot_clients').html('<em>{{ lang._("Yetkili istemci yok.") }}</em>');
+        } else {
+            $('#monospot_clients').html(
+                '<table class="table table-condensed table-hover table-striped table-responsive">'
+                + '<thead><tr><th>{{ lang._("Kullanıcı") }}</th><th>{{ lang._("IP adresi") }}</th>'
+                + '<th>MAC</th><th>{{ lang._("Başlangıç") }}</th></tr></thead>'
+                + '<tbody>' + clientRows.join('') + '</tbody></table>');
+        }
     }
 
     $("#monospot_info_refresh").click(function () {
@@ -48,11 +70,8 @@ $(document).ready(function () {
                 <button class="btn btn-default btn-xs" id="monospot_info_refresh">{{ lang._("Yenile") }}</button>
             </h2>
             <div id="monospot_info"><em>{{ lang._("Yükleniyor...") }}</em></div>
-            <hr/>
-            <a class="btn btn-default" href="/ui/monospot">{{ lang._("Servis ayarları") }}</a>
-            <a class="btn btn-default" href="/ui/monospot/captive_portal">{{ lang._("Captive Portal") }}</a>
-            <a class="btn btn-default" href="/5651/" target="_blank">{{ lang._("5651 günlük arşivi") }}</a>
-            <a class="btn btn-default" href="/monospot.php">{{ lang._("Monospot yönetim paneli") }}</a>
+            <h3>{{ lang._("Yetkili istemciler (ilk 10)") }}</h3>
+            <div id="monospot_clients"><em>{{ lang._("Yükleniyor...") }}</em></div>
         </div>
     </div>
 </div>

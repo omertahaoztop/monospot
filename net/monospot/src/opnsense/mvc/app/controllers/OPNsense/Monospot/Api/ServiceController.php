@@ -45,6 +45,24 @@ class ServiceController extends ApiMutableServiceControllerBase
     }
 
     /**
+     * Core captive portal zone listesi (ayarlar sayfasındaki zone seçimi).
+     */
+    public function zonesAction()
+    {
+        $zones = [];
+        $cp = new \OPNsense\CaptivePortal\CaptivePortal();
+        foreach ($cp->zones->zone->iterateItems() as $zone) {
+            $zones[] = [
+                'zoneid' => (string)$zone->zoneid,
+                'description' => (string)$zone->description,
+                'interfaces' => implode(', ', $zone->interfaces->getValues()),
+                'enabled' => (string)$zone->enabled === '1',
+            ];
+        }
+        return ['zones' => $zones];
+    }
+
+    /**
      * Durum özeti (Services > Monospot sayfasındaki Durum paneli).
      */
     public function infoAction()

@@ -1,0 +1,50 @@
+<form>
+    <field>
+        <id>permission.time</id>
+        <label>Kayıt zamanı</label>
+        <type>info</type>
+        <grid_view>
+            <sequence>10</sequence>
+        </grid_view>
+    </field>
+    <field>
+        <id>permission.gsm</id>
+        <label>GSM</label>
+        <type>info</type>
+        <grid_view>
+            <sequence>20</sequence>
+        </grid_view>
+    </field>
+    <field>
+        <id>permission.email</id>
+        <label>E-posta</label>
+        <type>info</type>
+        <grid_view>
+            <sequence>30</sequence>
+        </grid_view>
+    </field>
+    <field>
+        <id>permission.mac</id>
+        <label>MAC</label>
+        <type>info</type>
+        <grid_view>
+            <sequence>40</sequence>
+        </grid_view>
+    </field>
+    <field>
+        <id>permission.ip</id>
+        <label>IP adresi</label>
+        <type>info</type>
+        <grid_view>
+            <sequence>50</sequence>
+        </grid_view>
+    </field>
+    <field>
+        <id>permission.username</id>
+        <label>Kullanıcı</label>
+        <type>info</type>
+        <grid_view>
+            <sequence>60</sequence>
+        </grid_view>
+    </field>
+</form>

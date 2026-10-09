@@ -61,11 +61,13 @@ $clients = json_decode(trim((string)$raw), true);
 if (is_array($clients)) {
     $result['clients']['authorized'] = count($clients);
     foreach (array_slice($clients, 0, 10) as $client) {
-        $result['clients']['sample'][] = sprintf(
-            '%s (%s)',
-            $client['userName'] ?? '?',
-            $client['ipAddress'] ?? '?'
-        );
+        $started = (float)($client['startTime'] ?? 0);
+        $result['clients']['sample'][] = [
+            'user' => (string)($client['userName'] ?? ''),
+            'ip' => (string)($client['ipAddress'] ?? ''),
+            'mac' => (string)($client['macAddress'] ?? ''),
+            'start' => $started > 0 ? date('Y-m-d H:i', (int)$started) : '',
+        ];
     }
 }
 

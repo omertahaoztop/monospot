@@ -1,0 +1,34 @@
+<form>
+    <field>
+        <id>sms.time</id>
+        <label>Gönderim zamanı</label>
+        <type>info</type>
+        <grid_view>
+            <sequence>10</sequence>
+        </grid_view>
+    </field>
+    <field>
+        <id>sms.gsm</id>
+        <label>GSM</label>
+        <type>info</type>
+        <grid_view>
+            <sequence>20</sequence>
+        </grid_view>
+    </field>
+    <field>
+        <id>sms.username</id>
+        <label>Kullanıcı</label>
+        <type>info</type>
+        <grid_view>
+            <sequence>30</sequence>
+        </grid_view>
+    </field>
+    <field>
+        <id>sms.mac</id>
+        <label>MAC</label>
+        <type>info</type>
+        <grid_view>
+            <sequence>40</sequence>
+        </grid_view>
+    </field>
+</form>

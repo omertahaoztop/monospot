@@ -8,9 +8,9 @@
     </field>
     <field>
       <id>monospot.general.zoneid</id>
-      <label>Captive portal zone numarası</label>
-      <type>text</type>
-      <help>Monospot portalının hizmet verdiği zone (0-19). Zone, OPNsense captive portal ayarlarında tanımlı olmalıdır.</help>
+      <label>Captive Portal zone</label>
+      <type>dropdown</type>
+      <help>Monospot portalının hizmet verdiği zone. Liste OPNsense captive portal zone'larından gelir (yeni zone eklemek için Services &gt; Captive Portal).</help>
     </field>
     <field>
       <id>monospot.general.portal_port</id>
