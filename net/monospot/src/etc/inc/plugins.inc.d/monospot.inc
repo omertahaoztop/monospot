@@ -92,12 +92,30 @@ function monospot_firewall($fw)
         return;
     }
     foreach ($interfaces as $interface) {
+        /*
+         * Yetkili istemci portala giremez: zone tablosundakiler (açık oturumu
+         * olanlar) portal portuna erişemez. Kural, aşağıdaki pass kuralından ve
+         * core'un "Default Captive Portal block" kuralından önce (quick) gelir.
+         */
         $fw->registerFilterRule(1, [
+            'type' => 'block',
+            'interface' => $interface,
+            'protocol' => 'tcp',
+            'direction' => 'in',
+            'from' => "<__captiveportal_zone_{$zoneid}>",
+            'to' => '(self)',
+            'to_port' => $portal_port,
+            'descr' => sprintf('Monospot portal: yetkili istemciye kapalı (zone %s)', $zoneid),
+            'log' => false,
+            '#ref' => 'ui/monospot/index',
+        ]);
+        $fw->registerFilterRule(2, [
             'type' => 'pass',
             'interface' => $interface,
             'protocol' => 'tcp',
             'direction' => 'in',
-            'from' => 'any',
+            'from' => "<__captiveportal_zone_{$zoneid}>",
+            'from_not' => true,
             'to' => '(self)',
             'to_port' => $portal_port,
             'descr' => sprintf('Monospot portal (zone %s)', $zoneid),

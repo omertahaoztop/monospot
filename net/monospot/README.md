@@ -30,10 +30,13 @@ yönetici --(https://fw/monospot.php)--> core WebGUI (guiconfig.inc + ACL page-M
   taşır ve giriş sonrası doğrudan o adrese dönülür. `redirurl` yoksa (portala doğrudan
   gelindiyse) `settings.inc` içindeki `after_login_url` adresine yönlendirilir; bu ayar boşsa
   portalda kalınır ve yalnız başarı mesajı gösterilir.
-- **Yetkili istemci:** açık oturumu olan istemci portala tekrar gelirse giriş formu
-  **gösterilmez**; "internet erişiminiz açık" ekranı çıkar (`configctl captiveportal
-  list_clients` ile tespit). Oturumu bitirmek için: `configctl captiveportal disconnect
-  "<sessionId>" "<sebep>"` (bkz. `list_clients`).
+- **Yetkili istemci portala giremez:** açık oturumu olan istemci (zone tablosunda
+  `__captiveportal_zone_<id>`) portal portuna **erişemez**; geçiş kuralı
+  `from !<zone tablosu>` iledir ve yetkililer için `block` kuralı önce gelir
+  (`monospot.inc`). Böylece internete çıkan istemci portalı tekrar göremez.
+  Uygulama tarafında da açık oturum `configctl captiveportal list_clients` ile tespit
+  edilir ve form çizilmez (kural etkin değilse "internet erişiminiz açık" ekranı).
+  Oturumu bitirmek: `configctl captiveportal disconnect "<sessionId>" "<sebep>"`.
 - **Ayarlar** iki katmanlıdır: portal ayarları uygulama dosyalarında
   (`settings.inc`, `hotspot.ini`, `db/hotspot.db`, `lang/*.inc`), servis
   parametreleri (etkinlik/zone/port) config.xml içinde `OPNsense/Monospot`
