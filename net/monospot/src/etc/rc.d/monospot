@@ -55,35 +55,35 @@ monospot_prestart()
 monospot_start()
 {
     if [ ! -f "${conffile}" ]; then
-        echo "yapılandırma dosyası yok: ${conffile} (önce 'configctl template reload OPNsense/Monospot')"
+        echo "configuration file missing: ${conffile} (run: configctl template reload OPNsense/Monospot)"
         exit 1
     fi
     if [ -f "${pidfile}" ] && pgrep -qF "${pidfile}" 2> /dev/null; then
-        echo "zaten çalışıyor"
+        echo "monospot is running"
         exit 0
     fi
-    echo "Monospot portal lighttpd başlatılıyor"
+    echo "Starting monospot portal"
     ${lighttpd} -f "${conffile}"
 }
 
 monospot_stop()
 {
     if [ -f "${pidfile}" ]; then
-        echo "Monospot portal lighttpd durduruluyor"
+        echo "Stopping monospot portal"
         /bin/pkill -TERM -F "${pidfile}"
         rm -f "${pidfile}"
     else
-        echo "çalışmıyor"
+        echo "monospot is not running"
     fi
 }
 
 monospot_status()
 {
     if [ -f "${pidfile}" ] && pgrep -qF "${pidfile}" 2> /dev/null; then
-        echo "monospot çalışıyor (pid $(cat "${pidfile}"))"
+        echo "monospot is running (pid $(cat "${pidfile}"))"
         exit 0
     fi
-    echo "monospot çalışmıyor"
+    echo "monospot not running"
     exit 1
 }
 

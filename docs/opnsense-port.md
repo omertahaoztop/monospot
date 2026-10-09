@@ -119,6 +119,9 @@ Lab modu: OPNsense (LAN=vtnet0 gerçek L2 mcast, WAN=vtnet1 slirp) + Alpine iste
 | Şablon kaydı reddedildi | Core template ad maskesi `-` kabul etmiyor | Ad: `Monospot Portal` |
 | Kullanıcı `settings.inc`/`hotspot.ini` yok | Uygulama dizini root sahipliğinde; artık kopyalanmıyor | `setup.sh deploy` ihtiyaç duyulan dosyaları örneklerden üretir, `www` sahipliğine alır |
 | Konsol heredoc aktarımında içerik bozuldu | tsh `;` kaybı ve hızlı yapıştırmada satır kaybı | `tools/vm/console-push.sh`: satır satır `tmux paste-buffer` + `md5` doğrulaması |
+| `/ui/monospot` 500: `count(): Argument #1 must be of type Countable\|array, null given` (base_form) | Core `base_tabs_content`, `subtab` dalında `tab['subtabs']` üzerinde dönerken parse sonucunun `sections/advanced/help` anahtarlarını da dolaşıyor ve `fields`'e null veriyor; hiçbir core form `<subtab>` kullanmıyor | Form XML'i düz `<tab>` ile yazıldı; tab id = form id (`frm_monospot`) olacak şekilde `activetab` ayarlandı |
+| Servis durumu widget'ı boş kalıyor | `ApiMutableServiceControllerBase::statusAction()` `configctl <servis> status` çıktısında İngilizce `is running` / `not running` arıyor | `rc.d/monospot status` metinleri bu kalıba uygun (`monospot is running (pid N)`), çıktı başında servis adı var |
+| Ayarlar sayfasında Kaydet sessizce başarısız | API POST'ları `X-CSRFToken` ister; GUI oturumu yoksa 403 | Tarayıcıdan test: `tools/vm/vm-test-mvc.py` (gerçek oturumla form yükleniyor, widget doluyor, Kaydet → `/api/monospot/settings/set` + `service/reconfigure`, `config.xml` revizyonu yazılıyor) |
 
 ## <opnsense-fw> kurulumu (2026-10-09)
 
