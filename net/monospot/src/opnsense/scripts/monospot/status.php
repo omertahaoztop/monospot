@@ -33,12 +33,26 @@ $result = [
 ];
 
 /* zone: core captive portal modelinden */
-$zone = (new \OPNsense\CaptivePortal\CaptivePortal())->getByZoneID($zoneid);
+$cp = new \OPNsense\CaptivePortal\CaptivePortal();
+$zone = $cp->getByZoneID($zoneid);
+$result['zone']['template_id'] = '';
+$result['zone']['template_name'] = '';
 if ($zone !== null) {
     $result['zone']['description'] = (string)$zone->description;
     $result['zone']['interfaces'] = $zone->interfaces->getValues();
     $result['zone']['hardtimeout'] = (int)(string)$zone->hardtimeout;
     $result['zone']['idletimeout'] = (int)(string)$zone->idletimeout;
+    $result['zone']['template_id'] = (string)$zone->template;
+    /* zone.template bir ModelRelationField: getNodeData() uuid => ad eşlemesi verir */
+    $templates = $zone->template->getNodeData();
+    if (is_array($templates) && isset($templates[$result['zone']['template_id']])) {
+        $entry = $templates[$result['zone']['template_id']];
+        /* ModelRelationField seçenekleri dizi olabilir (name/value/selected) */
+        if (is_array($entry)) {
+            $entry = $entry['name'] ?? ($entry['value'] ?? reset($entry));
+        }
+        $result['zone']['template_name'] = (string)$entry;
+    }
 }
 
 /* yetkili istemciler */

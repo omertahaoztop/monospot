@@ -3,12 +3,13 @@
       <Monospot VisibleName="Monospot" cssClass="fa fa-wifi fa-fw">
           <Status order="10" VisibleName="Durum" url="/ui/monospot/status"/>
           <Settings order="20" VisibleName="Servis Ayarları" url="/ui/monospot"/>
-          <CaptivePortal order="30" VisibleName="Captive Portal" url="/ui/monospot/captive_portal"/>
-          <Users order="40" VisibleName="Kullanıcılar" url="/ui/monospot/users"/>
-          <Groups order="50" VisibleName="Gruplar" url="/monospot.php?u=groups"/>
-          <Sms order="60" VisibleName="SMS Raporu" url="/monospot.php?u=sms"/>
-          <Permissions order="70" VisibleName="İzin Raporu" url="/monospot.php?u=permissions"/>
-          <Archive order="80" VisibleName="5651 Günlükleri" url="/5651/"/>
+          <Portal order="30" VisibleName="Portal ve Zone Şablonu" url="/ui/monospot/portal"/>
+          <CaptivePortal order="40" VisibleName="Captive Portal" url="/ui/monospot/captive_portal"/>
+          <Users order="50" VisibleName="Kullanıcılar" url="/ui/monospot/users"/>
+          <Groups order="60" VisibleName="Gruplar" url="/monospot.php?u=groups"/>
+          <Sms order="70" VisibleName="SMS Raporu" url="/monospot.php?u=sms"/>
+          <Permissions order="80" VisibleName="İzin Raporu" url="/monospot.php?u=permissions"/>
+          <Archive order="90" VisibleName="5651 Günlükleri" url="/ui/monospot/archive"/>
       </Monospot>
     </Services>
 </menu>

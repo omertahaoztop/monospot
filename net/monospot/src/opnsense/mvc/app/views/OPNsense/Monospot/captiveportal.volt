@@ -34,12 +34,4 @@ $(document).ready(function () {
 </ul>
 <div class="content-box tab-content">
     {{ partial("layout_partials/base_tabs_content",['formData':captivePortalForm]) }}
-    <div class="row">
-        <div class="col-md-12">
-            <button class="btn btn-primary" id="save_captiveportal">{{ lang._("Kaydet") }}</button>
-            <i id="save_captiveportal_progress"></i>
-            <a class="btn btn-default" href="/ui/captiveportal">{{ lang._("OPNsense captive portal sayfası") }}</a>
-            <a class="btn btn-default" href="/ui/monospot">{{ lang._("Monospot servis ayarları") }}</a>
-        </div>
-    </div>
 </div>
