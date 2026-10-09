@@ -122,11 +122,14 @@ button {
 	align-items: center;
 }
 
+/*
+ * Wi-Fi Hotspot rozeti: Wi-Fi Alliance'ın resmi işareti olduğu gibi kullanılır —
+ * yeniden renklendirilmez, soluklaştırılmaz, yalnız ölçeklenir.
+ */
 #wifi-logo img {
 	display: block;
-	height: 18px;
+	height: 56px;
 	width: auto;
-	opacity: 0.55;
 }
 
 /* ---------- kart -------------------------------------------------------- */
@@ -531,7 +534,7 @@ input.submit.busy {
 	}
 
 	#wifi-logo img {
-		height: 20px;
+		height: 48px;
 	}
 
 	#container {
