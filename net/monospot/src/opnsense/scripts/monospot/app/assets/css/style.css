@@ -62,15 +62,41 @@ button {
 	caret-color: var(--brand);
 }
 
-:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+/*
+ * Odak halkası. `:where()` sıfır özgüllük verir ve OPNsense GUI'sinin kendi
+ * `a:focus` kuralına kaybeder; bu yüzden gerçek seçiciler + #container kapsamı.
+ */
+#container a:focus-visible,
+#container button:focus-visible,
+#container input:focus-visible,
+#container select:focus-visible,
+#container textarea:focus-visible,
+#container [tabindex]:focus-visible {
 	outline: 2px solid var(--focus);
 	outline-offset: 2px;
-	border-radius: var(--r-xs);
+}
+#container a:focus:not(:focus-visible) {
+	outline: none;
 }
 
 #container {
-	max-width: 1180px;
+	max-width: 1240px;
 	margin: 0 auto;
+}
+
+/* tek kolon alan listeleri çok geniş ekranda kaybolmasın */
+.settings-pane {
+	max-width: 880px;
+}
+
+@media (min-width: 1440px) {
+	body {
+		padding: 32px 40px 56px;
+	}
+
+	#container {
+		max-width: 1400px;
+	}
 }
 
 /* ---------- başlık ve navigasyon ---------------------------------------- */
@@ -127,10 +153,10 @@ h3 {
 .notice {
 	margin: 16px 0 0;
 	padding: 10px 13px;
-	border: 1px solid var(--err-rule);
+	border: 1px solid var(--rule-strong);
 	border-radius: var(--r-sm);
-	background: var(--err-bg);
-	color: var(--err);
+	background: var(--shell);
+	color: var(--ink);
 	font-size: 0.875rem;
 	font-weight: 600;
 }

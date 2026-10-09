@@ -78,9 +78,23 @@ $active_form = !empty($form) ? $form : (isset($settings['authentication']['sms']
     <? endif; ?>
 
     <nav id="form-selection" aria-label="<?= t('sms_login') ?>">
+        <? $id_number_active = $active_form == 'id_number_login'
+            || (!isset($settings['authentication']['sms']) && isset($settings['id_number']['open_extended'])); ?>
+
+        <div class="tabs">
+<? if (isset($settings['authentication']['sms'])): ?>
+        <button id="sms_register"<?= $active_form == 'sms_register' ? ' class="active"' : '' ?>><?= t('sms_register') ?></button>
+        <button id="sms_login"<?= $active_form == 'sms_login' ? ' class="active"' : '' ?>><?= t('sms_login') ?></button>
+<? endif; ?>
+<? if (isset($settings['authentication']['id_number']) && $lang == 'tr'): ?>
+        <button id="id_number_login"<?= $id_number_active ? ' class="active"' : '' ?>><?= t('id_number_login') ?></button>
+<? endif; ?>
+<? if (isset($settings['authentication']['manual_user'])): ?>
+        <button id="manual_user_login"<?= $form == 'manual_user_login' ? ' class="active"' : '' ?>><?= t('manual_user_login') ?></button>
+<? endif; ?>
+        </div>
 
     <? if (isset($settings['authentication']['sms'])): ?>
-        <button id="sms_register"<?= $active_form == 'sms_register' ? ' class="active"' : '' ?>><?= t('sms_register') ?></button>
         <div class="form<?= $active_form == 'sms_register' ? ' active' : '' ?>" id="form_sms_register">
             <div class="content">
                 <form method="post" onSubmit="return validateForm(this)" action="">
@@ -129,7 +143,6 @@ $active_form = !empty($form) ? $form : (isset($settings['authentication']['sms']
             </div>
         </div>
 
-        <button id="sms_login"<?= $active_form == 'sms_login' ? ' class="active"' : '' ?>><?= t('sms_login') ?></button>
         <div class="form<?= $active_form == 'sms_login' ? ' active' : '' ?>" id="form_sms_login">
             <div class="content">
                 <form method="post" onSubmit="return validateForm(this)" action="">
@@ -165,9 +178,6 @@ $active_form = !empty($form) ? $form : (isset($settings['authentication']['sms']
     <? endif; ?>
 
     <? if (isset($settings['authentication']['id_number']) && $lang == 'tr'): ?>
-        <? $id_number_active = $active_form == 'id_number_login'
-            || (!isset($settings['authentication']['sms']) && isset($settings['id_number']['open_extended'])); ?>
-        <button id="id_number_login"<?= $id_number_active ? ' class="active"' : '' ?>><?= t('id_number_login') ?></button>
         <div class="form<?= $id_number_active ? ' active' : '' ?>"
              id="form_id_number_login">
             <div class="content">
@@ -208,7 +218,6 @@ $active_form = !empty($form) ? $form : (isset($settings['authentication']['sms']
     <? endif; ?>
 
     <? if (isset($settings['authentication']['manual_user'])): ?>
-        <button id="manual_user_login"<?= $form == 'manual_user_login' ? ' class="active"' : '' ?>><?= t('manual_user_login') ?></button>
         <div class="form<?= $form == 'manual_user_login' ? ' active' : '' ?>" id="form_manual_user_login">
             <div class="content">
                 <form method="post" onSubmit="return validateForm(this)" action="">
@@ -238,9 +247,9 @@ $active_form = !empty($form) ? $form : (isset($settings['authentication']['sms']
         </div>
     <? endif; ?>
 
-    <? include dirname(__FILE__) . '/captiveportal_custom.html.php'; ?>
-
     </nav>
+
+    <? include dirname(__FILE__) . '/captiveportal_custom.html.php'; ?>
 
     <div id="lang">
         <form method="post" action="">

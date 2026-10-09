@@ -20,8 +20,8 @@ $(document).ready(function() {
 
 	$(".form.active").slideDown();
 
-	$("#form-selection > button").click(function() {
-		$("#form-selection > button.active").removeClass("active");
+	$("#form-selection .tabs > button").click(function() {
+		$("#form-selection .tabs > button.active").removeClass("active");
 		$(this).addClass("active");
 		var currentId = $(this).attr("id");
 		// adım göstergesi de yöntemle birlikte güncellenir

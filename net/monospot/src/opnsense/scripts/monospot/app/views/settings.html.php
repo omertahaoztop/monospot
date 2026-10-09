@@ -8,6 +8,8 @@
     </ul>
 <? endif; ?>
 
-<form action="<?=url_for('settings')?>" method="POST" enctype="multipart/form-data">
-    <? include 'settings_form_inner.html.php'; ?>
-</form>
+<div class="settings-pane">
+    <form action="<?=url_for('settings')?>" method="POST" enctype="multipart/form-data">
+        <? include 'settings_form_inner.html.php'; ?>
+    </form>
+</div>
