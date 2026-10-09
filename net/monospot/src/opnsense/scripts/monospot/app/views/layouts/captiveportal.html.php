@@ -51,7 +51,7 @@
     </div>
     <div id="title"><?= $title ?></div>
     <div id="wifi-logo">
-        <img src="<?= $hotspot['_assets'] ?>/img/wifi-hotspot.png" alt="Wi-Fi Hotspot">
+        <img src="<?= $hotspot['_assets'] ?>/img/wifi-hotspot-bw.png" alt="Wi-Fi Hotspot">
     </div>
 </header>
 
