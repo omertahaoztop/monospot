@@ -1,0 +1,109 @@
+<form>
+  <tab id="auth" description="Giriş yöntemi">
+    <field>
+      <id>settings.auth_sms</id>
+      <label>SMS ile şifre gönderimi</label>
+      <type>checkbox</type>
+      <help>Bu gruptaki MAC adresleri için geçerli olur; boş bırakılırsa global ayar kullanılır.</help>
+    </field>
+    <field>
+      <id>settings.sms_simple_screen</id>
+      <label>Basitleştirilmiş ekran</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>settings.sms_international</id>
+      <label>Uluslararası numara girişi</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>settings.sms_always_send_password</id>
+      <label>Geçerli şifresi olsa bile yeni şifre gönder</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>settings.sms_id_number</id>
+      <label>SMS kaydında TC Kimlik No doğrulaması</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>settings.auth_id_number</id>
+      <label>TC Kimlik No ile giriş</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>settings.id_number_open_extended</id>
+      <label>TC Kimlik No alanı açık gelsin</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>settings.auth_manual_user</id>
+      <label>Elle kullanıcı açma (kullanıcı adı + şifre)</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>settings.terms</id>
+      <label>Sözleşme onayı iste</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>settings.terms_checked</id>
+      <label>Sözleşme onayı işaretli gelsin</label>
+      <type>checkbox</type>
+    </field>
+  </tab>
+  <tab id="general" description="Genel">
+    <field>
+      <id>settings.session_timeout</id>
+      <label>Oturum geçerlilik süresi (dakika)</label>
+      <type>text</type>
+      <help>1-10080 arası.</help>
+    </field>
+    <field>
+      <id>settings.valid_for</id>
+      <label>Şifre geçerlilik süresi</label>
+      <type>text</type>
+    </field>
+    <field>
+      <id>settings.valid_for_unit</id>
+      <label>Şifre süresi birimi</label>
+      <type>dropdown</type>
+    </field>
+    <field>
+      <id>settings.disallow_multiple_logins</id>
+      <label>Aynı MAC ile farklı kullanıcı girişini engelle</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>settings.disallow_multiple_logins_for</id>
+      <label>MAC bazlı engelleme süresi (gün)</label>
+      <type>text</type>
+    </field>
+    <field>
+      <id>settings.daily_limit</id>
+      <label>Günlük SMS limiti</label>
+      <type>text</type>
+    </field>
+    <field>
+      <id>settings.weekly_limit</id>
+      <label>Haftalık SMS limiti</label>
+      <type>text</type>
+    </field>
+    <field>
+      <id>settings.monthly_limit</id>
+      <label>Aylık SMS limiti</label>
+      <type>text</type>
+    </field>
+    <field>
+      <id>settings.yearly_limit</id>
+      <label>Yıllık SMS limiti</label>
+      <type>text</type>
+    </field>
+    <field>
+      <id>settings.min_interval</id>
+      <label>İki SMS arası en az süre (dakika)</label>
+      <type>text</type>
+    </field>
+  </tab>
+  <activetab>auth</activetab>
+</form>

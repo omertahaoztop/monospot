@@ -10,7 +10,10 @@
           <CaptivePortal order="40" VisibleName="Captive Portal" url="/ui/monospot/captive_portal"/>
           <Sessions order="45" VisibleName="Oturumlar" url="/ui/monospot/sessions"/>
           <Users order="50" VisibleName="Kullanıcılar" url="/ui/monospot/users"/>
-          <Groups order="60" VisibleName="Gruplar" url="/ui/monospot/groups"/>
+          <Groups order="60" VisibleName="Gruplar" url="/ui/monospot/groups">
+              <GroupsList order="10" VisibleName="Grup Listesi" url="/ui/monospot/groups"/>
+              <GroupsSettings order="20" VisibleName="Grup Portal Ayarları" url="/ui/monospot/group_settings"/>
+          </Groups>
           <Sms order="70" VisibleName="SMS Raporu" url="/ui/monospot/sms"/>
           <Permissions order="80" VisibleName="İzin Raporu" url="/ui/monospot/permissions"/>
           <Archive order="90" VisibleName="5651 Günlükleri" url="/ui/monospot/archive">

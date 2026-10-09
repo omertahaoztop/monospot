@@ -101,7 +101,8 @@ Eklenti OPNsense sol menüsünde **Services → Monospot** altında ayrı sayfal
 | 5651 Günlükleri → Ayarlar | `/ui/monospot/archive_settings` | arşivleme açık/kapalı, saklama süresi |
 | Durum | `/ui/monospot/status` | servis/portal/zone/istemci/veritabanı/5651 özeti |
 | Kullanıcılar | `/ui/monospot/users` | **native** liste/ekle/düzenle/sil (hotspot veritabanı) |
-| Gruplar | `/ui/monospot/groups` | **native** grup (ad + MAC listesi) CRUD |
+| Gruplar → Grup Listesi | `/ui/monospot/groups` | **native** grup (ad + MAC listesi) CRUD |
+| Gruplar → Grup Portal Ayarları | `/ui/monospot/group_settings[?group_id=N]` | grubun `settings_group<id>.inc` değerleri (global varsayılan) |
 | SMS Raporu | `/ui/monospot/sms` | **native** salt-okunur SMS kayıt listesi |
 | İzin Raporu | `/ui/monospot/permissions` | **native** salt-okunur KVKK izin kayıtları |
 | Yönetim Paneli | `/monospot.php` | grup ayarları, dil, tema (henüz panel-only kalanlar) |
@@ -110,6 +111,14 @@ Eklenti OPNsense sol menüsünde **Services → Monospot** altında ayrı sayfal
 - **Durum sayfası** (`/ui/monospot/status`) `api/monospot/service/info` → `status.php` çıktısını gösterir: portal adresi, zone ve
   arayüzleri, yetkili istemci sayısı (+ilk 10 kayıt), uygulama veritabanı sayaçları, 5651 arşiv özeti,
   SMS sağlayıcı dosyası.
+- **Çok sekmeli formlarda kaydetme:** `base_tabs_content` her sekmeyi ayrı form olarak çizer
+  (`frm_<tab_id>` + `save_<tab_id>`). `saveFormToEndpoint`/`mapDataToFormUI` **sekme başına** çağrılır
+  (Volt: `{% for tab in form['tabs'] %}`); tek bir `frm_<sayfa>` id'si yoktur, tek id ile çağrı sessizce
+  boş kaydeder. Tek sekmesi olan sayfalarda form id'si o sekmenin adıdır (`frm_monospot`, `frm_archive`,
+  `frm_captiveportal`).
+- **Grup Portal Ayarları** `settings_group<id>.inc` dosyasını yazar (global `settings.inc` temel alınır,
+  grup değerleri üzerine biner; `get` iki dosyayı birleştirir, `set` yalnız gönderilen anahtarları yazar).
+  Grup bazlı düzenlenebilen bölümler `hotspot.ini` → `mac_grup_ayarlari` ile belirlenir (lab: authentication, general).
 - **Portal Uygulama Ayarları** panelin `settings.inc`/`hotspot.ini` dosyalarını yazar
   (`portal_settings.php` köprüsü; yönetilmeyen anahtarlar korunur, yazma öncesi `.bak-<tarih>` alınır,
   dosya `www:www 0640` sahipliğinde kalır). Onay kutuları anahtarın **varlığı** ile çalışır

@@ -4,13 +4,18 @@
  #}
 <script>
 $(document).ready(function () {
-    mapDataToFormUI({'frm_portal': '/api/monospot/portal_settings/get'}).done(function () {
+    /* sekmeler ayrı formlardır: değerler her formun kendi alanlarına yazılır */
+    {% for tab in portalSettingsForm['tabs'] %}
+    mapDataToFormUI({'frm_{{ tab['tab_id'] }}': '/api/monospot/portal_settings/get'}).done(function () {
         formatTokenizersUI();
         $('.selectpicker').selectpicker('refresh');
     });
+    {% endfor %}
 
-    $("#save_portal").click(function () {
-        saveFormToEndpoint(url = "/api/monospot/portal_settings/set", formid = 'frm_portal', callback_ok = function () {
+    /* her sekme kendi formudur (frm_<tab_id>); Apply düğmesi save_<tab_id> */
+    {% for tab in portalSettingsForm['tabs'] %}
+    $("#save_{{ tab['tab_id'] }}").click(function () {
+        saveFormToEndpoint(url = "/api/monospot/portal_settings/set", formid = 'frm_{{ tab['tab_id'] }}', callback_ok = function () {
             BootstrapDialog.show({
                 type: BootstrapDialog.TYPE_INFO,
                 title: '{{ lang._("Portal ayarları") }}',
@@ -19,6 +24,7 @@ $(document).ready(function () {
             });
         });
     });
+    {% endfor %}
 });
 </script>
 <ul class="nav nav-tabs" role="tablist" id="maintabs">
