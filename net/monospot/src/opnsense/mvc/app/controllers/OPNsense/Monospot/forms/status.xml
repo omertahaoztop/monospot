@@ -1,0 +1,59 @@
+<form>
+  <tab id="status" description="Durum">
+    <field>
+      <id>status.portal_servisi</id>
+      <label>Portal servisi</label>
+      <type>info</type>
+      <help>Monospot lighttpd servisinin durumu (Portal servisi anahtarı).</help>
+    </field>
+    <field>
+      <id>status.portal_adresi</id>
+      <label>Portal adresi</label>
+      <type>info</type>
+      <help>İstemcinin gördüğü portal adresi.</help>
+    </field>
+    <field>
+      <id>status.zone</id>
+      <label>Captive Portal zone</label>
+      <type>info</type>
+      <help>Zone numarası, açıklaması ve arayüzleri.</help>
+    </field>
+    <field>
+      <id>status.zone_sablonu</id>
+      <label>Zone şablonu</label>
+      <type>info</type>
+      <help>Zone sayfasını bu portala yönlendiren şablon; kurulmamışsa istemci portalı görmez.</help>
+    </field>
+    <field>
+      <id>status.timeouts</id>
+      <label>Boşta kalma / azami oturum</label>
+      <type>info</type>
+      <help>Zone ayarları (dakika).</help>
+    </field>
+    <field>
+      <id>status.yetkili_istemci</id>
+      <label>Yetkili istemci</label>
+      <type>info</type>
+      <help>Zone içinde oturumu açık istemci sayısı (ayrıntı: Oturumlar sayfası).</help>
+    </field>
+    <field>
+      <id>status.veritabani</id>
+      <label>Veritabanı</label>
+      <type>info</type>
+      <help>Kullanıcı, SMS ve izin kaydı sayıları.</help>
+    </field>
+    <field>
+      <id>status.arsiv</id>
+      <label>5651 arşivi</label>
+      <type>info</type>
+      <help>Arşiv durumu, gün sayısı ve saklama süresi.</help>
+    </field>
+    <field>
+      <id>status.sms</id>
+      <label>SMS sağlayıcı</label>
+      <type>info</type>
+      <help>sms.php sağlayıcı dosyası yerleşik mi.</help>
+    </field>
+  </tab>
+  <activetab>status</activetab>
+</form>

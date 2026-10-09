@@ -12,6 +12,7 @@ class ArchiveController extends \OPNsense\Base\IndexController
 {
     public function indexAction()
     {
+        $this->view->archiveStatusForm = $this->getForm('archive_status');
         $this->view->pick('OPNsense/Monospot/archive');
     }
 }

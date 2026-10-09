@@ -1,0 +1,29 @@
+<form>
+  <tab id="portal_status" description="Portal durumu">
+    <field>
+      <id>portal_status.portal_servisi</id>
+      <label>Portal servisi</label>
+      <type>info</type>
+      <help>Monospot lighttpd servisinin durumu.</help>
+    </field>
+    <field>
+      <id>portal_status.portal_adresi</id>
+      <label>Portal adresi</label>
+      <type>info</type>
+      <help>İstemcinin gördüğü adres (port Servis Ayarları'nda).</help>
+    </field>
+    <field>
+      <id>portal_status.zone</id>
+      <label>Captive Portal zone</label>
+      <type>info</type>
+      <help>Zone numarası, açıklaması ve arayüzleri.</help>
+    </field>
+    <field>
+      <id>portal_status.zone_sablonu</id>
+      <label>Zone şablonu</label>
+      <type>info</type>
+      <help>Kurulmamışsa istemci portalı görmez; aşağıdaki düğmeyle kurulur.</help>
+    </field>
+  </tab>
+  <activetab>portal_status</activetab>
+</form>

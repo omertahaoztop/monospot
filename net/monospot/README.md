@@ -99,7 +99,7 @@ Eklenti OPNsense sol menüsünde **Services → Monospot** altında ayrı sayfal
 | Portal → Uygulama Ayarları | `/ui/monospot/portal_settings` | `settings.inc` (giriş yöntemi, genel, SMS, **iletişim izinleri**, ekran) + `hotspot.ini` (firma/marka) |
 | 5651 Günlükleri → Arşiv ve Toplama | `/ui/monospot/archive` | arşiv özeti, elle toplama, tarayıcı bağlantısı |
 | 5651 Günlükleri → Ayarlar | `/ui/monospot/archive_settings` | arşivleme açık/kapalı, saklama süresi |
-| Durum | `/ui/monospot/status` | servis/portal/zone/istemci/veritabanı/5651 özeti |
+| Durum | `/ui/monospot/status` | servis/portal/zone/istemci/veritabanı/5651 özeti (form satırları) |
 | Kullanıcılar | `/ui/monospot/users` | **native** liste/ekle/düzenle/sil (hotspot veritabanı) |
 | Gruplar → Grup Listesi | `/ui/monospot/groups` | **native** grup (ad + MAC listesi) CRUD |
 | Gruplar → Grup Portal Ayarları | `/ui/monospot/group_settings[?group_id=N]` | grubun `settings_group<id>.inc` değerleri (global varsayılan) |
@@ -111,6 +111,10 @@ Eklenti OPNsense sol menüsünde **Services → Monospot** altında ayrı sayfal
 - **Durum sayfası** (`/ui/monospot/status`) `api/monospot/service/info` → `status.php` çıktısını gösterir: portal adresi, zone ve
   arayüzleri, yetkili istemci sayısı (+ilk 10 kayıt), uygulama veritabanı sayaçları, 5651 arşiv özeti,
   SMS sağlayıcı dosyası.
+- **Salt-okunur sayfalar da form gibi çizilir:** Durum / Portal durumu / Arşiv durumu sayfaları
+  `type=info` alanlarından oluşan gerçek bir formdur (sekme + etiket/değer satırları), değerler JS ile
+  `span`'lara yazılır; alttaki **Apply düğmesi** o sayfanın eylemine dönüştürülür (Yenile / Zone şablonunu
+  kur / Arşivi şimdi topla). Böylece her sayfa aynı OPNsense çerçevesini kullanır.
 - **select alanları seçenek listesini API'den alır:** OPNsense form motoru (`setFormData`) bir select için
   `[{key, value, selected}, …]` bekler ve `<option>`'ları **bu veriden üretir** (tokensiz select'ler dahil).
   Düz değer dizisi (`['lan']`) verilirse select boşalır; tokenize alanlarda widget uydurma bir etiket

@@ -5,30 +5,28 @@
 <script>
 $(document).ready(function () {
     function renderPortalInfo(data) {
-        if (!data || data.error) {
-            $("#portal_info").html('<em>' + ((data && data.error) ? data.error : '—') + '</em>');
-            return;
-        }
         function badge(ok, text) {
             return '<span class="label label-opnsense label-opnsense-xs label-' + (ok ? 'success' : 'danger') + '">' + text + '</span>';
         }
-        var rows = [];
-        function row(k, v) { rows.push('<tr><th class="col-md-4">' + k + '</th><td>' + v + '</td></tr>'); }
+        function setInfo(id, value) {
+            var el = document.getElementById(id);
+            if (el) {
+                el.innerHTML = value;
+            }
+        }
+        if (!data || data.error) {
+            setInfo('portal_status.portal_servisi', (data && data.error) ? data.error : '—');
+            return;
+        }
         var url = 'http://' + window.location.hostname + ':' + data.portal_port + '/';
-        row('{{ lang._("Portal adresi") }}', '<a href="' + url + '" target="_blank">' + url + '</a>');
-        row('{{ lang._("Zone") }}', data.zoneid
+        setInfo('portal_status.portal_servisi', badge(data.enabled, data.enabled ? '{{ lang._("etkin") }}' : '{{ lang._("kapalı") }}'));
+        setInfo('portal_status.portal_adresi', '<a href="' + url + '" target="_blank">' + url + '</a>');
+        setInfo('portal_status.zone', data.zoneid
             + (data.zone.description ? ' — ' + data.zone.description : '')
             + (data.zone.interfaces.length ? ' (' + data.zone.interfaces.join(', ') + ')' : ''));
-        row('{{ lang._("Zone şablonu") }}', (data.zone.template_name === ''
+        setInfo('portal_status.zone_sablonu', data.zone.template_name === ''
             ? badge(false, '{{ lang._("kurulmamış — istemci portalı görmez") }}')
-            : badge(true, data.zone.template_name))
-            + ' <a href="#" id="install_zonetemplate">{{ lang._("Yeniden kur") }}</a>'
-            + ' <i id="install_zonetemplate_progress"></i>');
-        row('{{ lang._("Servis") }}', badge(data.enabled, data.enabled ? '{{ lang._("etkin") }}' : '{{ lang._("kapalı") }}'));
-        $("#portal_info").html(
-            '<table class="table table-condensed table-hover table-striped table-responsive">'
-            + '<thead><tr><th>{{ lang._("Öğe") }}</th><th>{{ lang._("Değer") }}</th></tr></thead>'
-            + '<tbody>' + rows.join('') + '</tbody></table>');
+            : badge(true, data.zone.template_name));
     }
 
     function loadPortalInfo() {
@@ -39,15 +37,14 @@ $(document).ready(function () {
 
     loadPortalInfo();
 
-    $(document).on('click', '#install_zonetemplate', function (event) {
+    /* Apply düğmesi bu sayfada zone şablonunu kurar */
+    $('#save_portal_status').text('{{ lang._("Zone şablonunu kur") }}').off('click').click(function (event) {
         event.preventDefault();
         stdDialogConfirm(
             '{{ lang._("Zone şablonu") }}',
             '{{ lang._("Seçili zone bu portalı gösterecek şekilde güncellenecek ve captive portal yeniden başlatılacak. Devam edilsin mi?") }}',
             '{{ lang._("Evet") }}', '{{ lang._("İptal") }}', function () {
-                $("#install_zonetemplate_progress").addClass("fa fa-spinner fa-pulse");
                 ajaxCall(url = "/api/monospot/service/installzonetemplate", sendData = {}, callback = function (data, status) {
-                    $("#install_zonetemplate_progress").removeClass("fa fa-spinner fa-pulse");
                     if (status != "success" || data['status'] != 'ok') {
                         BootstrapDialog.show({
                             type: BootstrapDialog.TYPE_WARNING,
@@ -64,14 +61,8 @@ $(document).ready(function () {
 });
 </script>
 <ul class="nav nav-tabs" role="tablist" id="maintabs">
-    <li class="active"><a data-toggle="tab" href="#portal">{{ lang._("Portal durumu") }}</a></li>
+    {{ partial("layout_partials/base_tabs_header",['formData':portalStatusForm]) }}
 </ul>
 <div class="content-box tab-content">
-    <div id="portal" class="tab-pane fade in active">
-        <div class="row">
-            <div class="col-md-12">
-                <div id="portal_info"><em>{{ lang._("Yükleniyor...") }}</em></div>
-            </div>
-        </div>
-    </div>
+    {{ partial("layout_partials/base_tabs_content",['formData':portalStatusForm]) }}
 </div>

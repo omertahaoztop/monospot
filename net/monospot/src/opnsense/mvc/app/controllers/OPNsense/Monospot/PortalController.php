@@ -12,6 +12,7 @@ class PortalController extends \OPNsense\Base\IndexController
 {
     public function indexAction()
     {
+        $this->view->portalStatusForm = $this->getForm('portal_status');
         $this->view->pick('OPNsense/Monospot/portal');
     }
 }

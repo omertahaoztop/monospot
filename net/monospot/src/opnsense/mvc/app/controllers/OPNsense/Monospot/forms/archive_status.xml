@@ -1,0 +1,35 @@
+<form>
+  <tab id="archive_status" description="Arşiv durumu">
+    <field>
+      <id>archive_status.durum</id>
+      <label>Durum</label>
+      <type>info</type>
+      <help>Günlük arşivleme açık mı (Ayarlar sekmesinden değiştirilir).</help>
+    </field>
+    <field>
+      <id>archive_status.saklama</id>
+      <label>Saklama süresi</label>
+      <type>info</type>
+      <help>Bu süreden eski gün dizinleri silinir.</help>
+    </field>
+    <field>
+      <id>archive_status.arsiv</id>
+      <label>Arşiv</label>
+      <type>info</type>
+      <help>Arşivlenen gün sayısı ve tarih aralığı.</help>
+    </field>
+    <field>
+      <id>archive_status.boyut</id>
+      <label>Arşiv boyutu</label>
+      <type>info</type>
+      <help>Disk üzerindeki toplam boyut.</help>
+    </field>
+    <field>
+      <id>archive_status.zamanlama</id>
+      <label>Toplama zamanı</label>
+      <type>info</type>
+      <help>root crontab girdisi.</help>
+    </field>
+  </tab>
+  <activetab>archive_status</activetab>
+</form>

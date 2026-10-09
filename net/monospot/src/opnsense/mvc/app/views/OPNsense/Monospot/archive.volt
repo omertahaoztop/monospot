@@ -5,28 +5,27 @@
 <script>
 $(document).ready(function () {
     function renderArchive(data) {
+        function badge(ok, text) {
+            return '<span class="label label-opnsense label-opnsense-xs label-' + (ok ? 'success' : 'danger') + '">' + text + '</span>';
+        }
+        function setInfo(id, value) {
+            var el = document.getElementById(id);
+            if (el) {
+                el.innerHTML = value;
+            }
+        }
         if (!data || data.error) {
-            $("#archive_info").html('<em>' + ((data && data.error) ? data.error : '—') + '</em>');
+            setInfo('archive_status.durum', (data && data.error) ? data.error : '—');
             return;
         }
-        var rows = [];
-        function row(k, v) { rows.push('<tr><th style="width:32%">' + k + '</th><td>' + v + '</td></tr>'); }
-        row('{{ lang._("Durum") }}', data.collect5651
+        setInfo('archive_status.durum', badge(data.collect5651, data.collect5651
             ? '{{ lang._("açık") }}'
-            : '<span class="text-danger">{{ lang._("kapalı — kayıt tutulmuyor") }}</span>');
-        row('{{ lang._("Saklama süresi") }}', data.retention_days + ' {{ lang._("gün") }}');
-        row('{{ lang._("Arşiv") }}', data.archive.days + ' {{ lang._("gün") }}'
+            : '{{ lang._("kapalı — kayıt tutulmuyor") }}'));
+        setInfo('archive_status.saklama', data.retention_days + ' {{ lang._("gün") }}');
+        setInfo('archive_status.arsiv', data.archive.days + ' {{ lang._("gün") }}'
             + (data.archive.oldest ? ' (' + data.archive.oldest + ' → ' + data.archive.newest + ')' : ''));
-        row('{{ lang._("Arşiv boyutu") }}', (data.archive.bytes / 1024).toFixed(1) + ' KB');
-        row('{{ lang._("Toplama zamanı") }}', '{{ lang._("her gün 23:59 (root crontab)") }}');
-        row('{{ lang._("İşlem") }}',
-            '<a href="#" id="collect5651">{{ lang._("Arşivi şimdi topla") }}</a> <i id="collect5651_progress"></i>'
-            + ' &nbsp;·&nbsp; <a href="/5651/" target="_blank">{{ lang._("Günlük tarayıcısını aç") }}</a>'
-            + ' &nbsp;·&nbsp; <a href="/ui/monospot/archive_settings">{{ lang._("5651 ayarları") }}</a>');
-        $("#archive_info").html(
-            '<table class="table table-condensed table-hover table-striped table-responsive">'
-            + '<thead><tr><th>{{ lang._("Öğe") }}</th><th>{{ lang._("Değer") }}</th></tr></thead>'
-            + '<tbody>' + rows.join('') + '</tbody></table>');
+        setInfo('archive_status.boyut', (data.archive.bytes / 1024).toFixed(1) + ' KB');
+        setInfo('archive_status.zamanlama', '{{ lang._("her gün 23:59 (root crontab)") }}');
     }
 
     function loadArchive() {
@@ -37,11 +36,10 @@ $(document).ready(function () {
 
     loadArchive();
 
-    $(document).on('click', '#collect5651', function (event) {
+    /* Apply düğmesi bu sayfada arşivi hemen toplar */
+    $('#save_archive_status').text('{{ lang._("Arşivi şimdi topla") }}').off('click').click(function (event) {
         event.preventDefault();
-        $("#collect5651_progress").addClass("fa fa-spinner fa-pulse");
         ajaxCall(url = "/api/monospot/service/collect5651", sendData = {}, callback = function (data, status) {
-            $("#collect5651_progress").removeClass("fa fa-spinner fa-pulse");
             BootstrapDialog.show({
                 type: (status == "success" && data['status'] == 'ok') ? BootstrapDialog.TYPE_INFO : BootstrapDialog.TYPE_WARNING,
                 title: '{{ lang._("5651 günlük arşivi") }}',
@@ -54,14 +52,8 @@ $(document).ready(function () {
 });
 </script>
 <ul class="nav nav-tabs" role="tablist" id="maintabs">
-    <li class="active"><a data-toggle="tab" href="#archive">{{ lang._("Arşiv durumu") }}</a></li>
+    {{ partial("layout_partials/base_tabs_header",['formData':archiveStatusForm]) }}
 </ul>
 <div class="content-box tab-content">
-    <div id="archive" class="tab-pane fade in active">
-        <div class="row">
-            <div class="col-md-12">
-                <div id="archive_info"><em>{{ lang._("Yükleniyor...") }}</em></div>
-            </div>
-        </div>
-    </div>
+    {{ partial("layout_partials/base_tabs_content",['formData':archiveStatusForm]) }}
 </div>

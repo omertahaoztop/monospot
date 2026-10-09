@@ -13,6 +13,7 @@ class StatusController extends \OPNsense\Base\IndexController
 {
     public function indexAction()
     {
+        $this->view->statusForm = $this->getForm('status');
         $this->view->pick('OPNsense/Monospot/status');
     }
 }
