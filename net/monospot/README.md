@@ -94,12 +94,17 @@ Eklenti OPNsense sol menüsünde **Services → Monospot** altında ayrı sayfal
 |---|---|---|
 | Servis Ayarları | `/ui/monospot` | servis/zone/port ayarları, **Durum paneli**, zone şablonu, 5651 düğmesi |
 | Captive Portal | `/ui/monospot/captiveportal` | core zone ayarları (arayüzler, timeout'lar, roaming, açıklama) |
-| Kullanıcılar / Gruplar / SMS Raporu / İzin Raporu | `/monospot.php?u=...` | uygulama paneli rotaları |
+| Durum | `/ui/monospot/status` | servis/portal/zone/istemci/veritabanı/5651 özeti |
+| Kullanıcılar | `/ui/monospot/users` | **native** liste/ekle/düzenle/sil (hotspot veritabanı) |
+| Gruplar / SMS Raporu / İzin Raporu | `/monospot.php?u=...` | henüz uygulama paneli rotaları |
 | 5651 Günlükleri | `/5651/` | günlük arşiv tarayıcısı |
 
 - **Durum paneli** `api/monospot/service/info` → `status.php` çıktısını gösterir: portal adresi, zone ve
   arayüzleri, yetkili istemci sayısı (+ilk 10 kayıt), uygulama veritabanı sayaçları, 5651 arşiv özeti,
   SMS sağlayıcı dosyası.
+- **Kullanıcılar sayfası** (native): UIBootgrid + dialog form (`forms/dialogUser.xml`); veri `api/monospot/users/search|get|add|set|del`
+  → `configctl monospot user_admin` → `user_admin.php` (root) SQLite CRUD. Yazma root'tan yapılır çünkü portal
+  veritabanına `www` olarak yazar ve sahiplik değiştirilmez. **Şifre hiçbir zaman geri dönmez** (formda boş = değişmez).
 - **Captive Portal sayfası** veriyi **core modelde** tutar (Services → Captive Portal ile aynı kayıt):
   okuma `api/monospot/captive_portal/get`, yazma `api/monospot/captive_portal/set` →
   `configctl monospot set_captiveportal` → `set_captiveportal.php` core zone'a yazar, şablonu yeniler
