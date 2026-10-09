@@ -26,6 +26,14 @@ yönetici --(https://fw/monospot.php)--> core WebGUI (guiconfig.inc + ACL page-M
 - **Veri** SQLite'ta tutulur (kullanıcı, SMS, izin kayıtları). OPNsense
   depolarında `pdo_sqlite` olmadığı için `app/lib/monospot_db.php` SQLite3
   uzantısı üzerinden PDO uyumlu bir katman sağlar.
+- **Giriş sonrası yönlendirme:** istemci bir siteye gitmeye çalıştıysa zone şimi `redirurl`
+  taşır ve giriş sonrası doğrudan o adrese dönülür. `redirurl` yoksa (portala doğrudan
+  gelindiyse) `settings.inc` içindeki `after_login_url` adresine yönlendirilir; bu ayar boşsa
+  portalda kalınır ve yalnız başarı mesajı gösterilir.
+- **Yetkili istemci:** açık oturumu olan istemci portala tekrar gelirse giriş formu
+  **gösterilmez**; "internet erişiminiz açık" ekranı çıkar (`configctl captiveportal
+  list_clients` ile tespit). Oturumu bitirmek için: `configctl captiveportal disconnect
+  "<sessionId>" "<sebep>"` (bkz. `list_clients`).
 - **Ayarlar** iki katmanlıdır: portal ayarları uygulama dosyalarında
   (`settings.inc`, `hotspot.ini`, `db/hotspot.db`, `lang/*.inc`), servis
   parametreleri (etkinlik/zone/port) config.xml içinde `OPNsense/Monospot`
