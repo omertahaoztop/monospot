@@ -35,5 +35,41 @@
                 <ValidationMessage>Saklama süresi 1-3650 gün arasında olmalı.</ValidationMessage>
             </retention_days>
         </collect5651>
+        <!--
+          Captive portal zone alanlarının form karşılığı. Verinin aslı core
+          modelde (OPNsense/CaptivePortal) durur; buradaki tanımlar yalnız
+          form widget'ı (arayüz seçenekleri, doğrulama) içindir ve yazılmaz.
+        -->
+        <captiveportal>
+            <enabled type="BooleanField">
+                <Default>1</Default>
+                <Required>N</Required>
+            </enabled>
+            <interfaces type="InterfaceField">
+                <Multiple>Y</Multiple>
+                <Required>N</Required>
+            </interfaces>
+            <idletimeout type="IntegerField">
+                <Default>0</Default>
+                <MinimumValue>0</MinimumValue>
+                <MaximumValue>10080</MaximumValue>
+                <Required>N</Required>
+            </idletimeout>
+            <hardtimeout type="IntegerField">
+                <Default>0</Default>
+                <MinimumValue>0</MinimumValue>
+                <MaximumValue>10080</MaximumValue>
+                <Required>N</Required>
+            </hardtimeout>
+            <concurrentlogins type="BooleanField">
+                <Default>1</Default>
+                <Required>N</Required>
+            </concurrentlogins>
+            <roaming type="BooleanField">
+                <Default>1</Default>
+                <Required>N</Required>
+            </roaming>
+            <description type="TextField"/>
+        </captiveportal>
     </items>
 </model>

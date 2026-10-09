@@ -1,6 +1,13 @@
 <menu>
     <Services>
-        <Monospot cssClass="fa fa-wifi fa-fw" url="/ui/monospot" />
-        <MonospotPanel cssClass="fa fa-users fa-fw" url="/monospot.php" fixedname="Monospot Management" />
+      <Monospot VisibleName="Monospot" cssClass="fa fa-wifi fa-fw">
+          <Settings order="10" VisibleName="Servis Ayarları" url="/ui/monospot"/>
+          <CaptivePortal order="20" VisibleName="Captive Portal" url="/ui/monospot/captiveportal"/>
+          <Users order="30" VisibleName="Kullanıcılar" url="/monospot.php?u=users"/>
+          <Groups order="40" VisibleName="Gruplar" url="/monospot.php?u=groups"/>
+          <Sms order="50" VisibleName="SMS Raporu" url="/monospot.php?u=sms"/>
+          <Permissions order="60" VisibleName="İzin Raporu" url="/monospot.php?u=permissions"/>
+          <Archive order="70" VisibleName="5651 Günlükleri" url="/5651/"/>
+      </Monospot>
     </Services>
 </menu>

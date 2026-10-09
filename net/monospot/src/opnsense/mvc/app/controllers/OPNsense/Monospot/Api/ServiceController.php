@@ -45,6 +45,16 @@ class ServiceController extends ApiMutableServiceControllerBase
     }
 
     /**
+     * Durum özeti (Services > Monospot sayfasındaki Durum paneli).
+     */
+    public function infoAction()
+    {
+        $response = trim((string)(new Backend())->configdpRun('monospot info'));
+        $decoded = json_decode($response, true);
+        return is_array($decoded) ? $decoded : ['error' => $response];
+    }
+
+    /**
      * 5651 arşivini şimdi toplar (ayarlar sayfasındaki düğme).
      */
     public function collect5651Action()

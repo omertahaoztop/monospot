@@ -1,0 +1,47 @@
+<form>
+  <tab id="captiveportal" description="Captive Portal zone">
+    <field>
+      <id>captiveportal.enabled</id>
+      <label>Zone etkin</label>
+      <type>checkbox</type>
+      <help>Kapatılırsa captive portal zone devre dışı kalır; istemciler portalı görmez ve Monospot çalışmaz. Bu ayar core OPNsense captive portal zone kaydına yazılır (Services &gt; Captive Portal ile aynı veri).</help>
+    </field>
+    <field>
+      <id>captiveportal.interfaces</id>
+      <label>Arayüzler</label>
+      <type>select_multiple</type>
+      <help>Portalın hizmet vereceği arayüzler (lab: <code>lan</code>). Değişiklikten sonra zone kuralları ve zone lighttpd yapılandırması yeniden üretilir, captive portal yeniden başlar.</help>
+    </field>
+    <field>
+      <id>captiveportal.idletimeout</id>
+      <label>Boşta kalma zaman aşımı (dakika)</label>
+      <type>text</type>
+      <help>0 = kapalı. Bu süre boyunca trafik olmayan istemcinin oturumu kapatılır (hemen yeniden giriş yapabilir).</help>
+    </field>
+    <field>
+      <id>captiveportal.hardtimeout</id>
+      <label>Azami oturum süresi (dakika)</label>
+      <type>text</type>
+      <help>0 = kapalı. Etkinlikten bağımsız olarak oturumun kapatılacağı süre. 0-10080 (bir hafta) arasında olmalı.</help>
+    </field>
+    <field>
+      <id>captiveportal.concurrentlogins</id>
+      <label>Aynı kullanıcı ile birden fazla oturum</label>
+      <type>checkbox</type>
+      <help>Kapalıysa bir kullanıcı adı aynı anda yalnız bir istemcide oturum açabilir.</help>
+    </field>
+    <field>
+      <id>captiveportal.roaming</id>
+      <label>İstemci dolaşımı (roaming)</label>
+      <type>checkbox</type>
+      <help>İstemcinin oturum boyunca MAC'ine bağlı birden fazla IP kullanmasına izin verir (IPv6 uyumu için önerilir).</help>
+    </field>
+    <field>
+      <id>captiveportal.description</id>
+      <label>Açıklama</label>
+      <type>text</type>
+      <help>Zone için operatör notu (ör. tesis/hotspot adı).</help>
+    </field>
+  </tab>
+  <activetab>captiveportal</activetab>
+</form>
