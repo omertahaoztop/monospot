@@ -147,7 +147,7 @@ Yapılanlar:
    `curl http://127.0.0.1:8100/` → **200**, 10922 bayt, `sms_register` formu var; `onestop` sonrası kapalı.
 5. `pfctl -sr | grep monospot` → **0 kural** (`enabled=0` → fail-closed davranış doğrulandı).
 
-Açık kalan: fw'nin web GUI'si haproxy arkasında (`<guest-net>30:443`) — `/monospot.php` sayfası
+Açık kalan: fw'nin web GUI'si haproxy arkasında (`<guest-net>:443`) — `/monospot.php` sayfası
 bu oturumdan doğrulanamadı (aynı yol yerel VM'de GUI oturumuyla doğrulandı). Üretimde GUI'den
 bir kez açılıp `page-Monospot` izninin verildiği kullanıcı görülmelidir.
 
