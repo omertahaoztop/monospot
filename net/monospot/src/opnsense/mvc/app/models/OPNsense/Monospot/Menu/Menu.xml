@@ -1,5 +1,6 @@
 <menu>
     <Services>
         <Monospot cssClass="fa fa-wifi fa-fw" url="/ui/monospot" />
+        <MonospotPanel cssClass="fa fa-users fa-fw" url="/monospot.php" fixedname="Monospot Management" />
     </Services>
 </menu>

@@ -56,10 +56,9 @@ $(document).ready(function () {
     {{ partial("layout_partials/base_tabs_content",['formData':generalForm]) }}
     <div class="row">
         <div class="col-md-12">
-            <button class="btn btn-primary" id="save_monospot">{{ lang._("Kaydet") }}</button>
-            <i id="frm_monospot_progress"></i>
             <button class="btn btn-default" id="install_zonetemplate">{{ lang._("Zone şablonunu kur") }}</button>
             <i id="install_zonetemplate_progress"></i>
+            <a class="btn btn-default" href="/monospot.php">{{ lang._("Monospot yönetim paneli") }}</a>
         </div>
     </div>
     <div class="row">
