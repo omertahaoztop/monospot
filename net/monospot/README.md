@@ -95,7 +95,8 @@ Eklenti OPNsense sol menüsünde **Services → Monospot** altında ayrı sayfal
 | Servis Ayarları | `/ui/monospot` | servis/zone/port ayarları |
 | Captive Portal | `/ui/monospot/captive_portal` | core zone ayarları (arayüzler, timeout'lar, roaming, açıklama) |
 | Oturumlar | `/ui/monospot/sessions` | yetkili istemciler (kullanıcı/IP/MAC/trafik) + satır aksiyonuyla oturum kesme |
-| Portal ve Zone Şablonu | `/ui/monospot/portal` | portal adresi, zone şablonu durumu ve kurulumu |
+| Portal → Durum ve Zone Şablonu | `/ui/monospot/portal` | portal adresi, zone şablonu durumu ve kurulumu |
+| Portal → Uygulama Ayarları | `/ui/monospot/portal_settings` | `settings.inc` (giriş yöntemi, genel, SMS, ekran) + `hotspot.ini` (firma/marka) |
 | 5651 Günlükleri → Arşiv ve Toplama | `/ui/monospot/archive` | arşiv özeti, elle toplama, tarayıcı bağlantısı |
 | 5651 Günlükleri → Ayarlar | `/ui/monospot/archive_settings` | arşivleme açık/kapalı, saklama süresi |
 | Durum | `/ui/monospot/status` | servis/portal/zone/istemci/veritabanı/5651 özeti |
@@ -109,6 +110,11 @@ Eklenti OPNsense sol menüsünde **Services → Monospot** altında ayrı sayfal
 - **Durum sayfası** (`/ui/monospot/status`) `api/monospot/service/info` → `status.php` çıktısını gösterir: portal adresi, zone ve
   arayüzleri, yetkili istemci sayısı (+ilk 10 kayıt), uygulama veritabanı sayaçları, 5651 arşiv özeti,
   SMS sağlayıcı dosyası.
+- **Portal Uygulama Ayarları** panelin `settings.inc`/`hotspot.ini` dosyalarını yazar
+  (`portal_settings.php` köprüsü; yönetilmeyen anahtarlar korunur, yazma öncesi `.bak-<tarih>` alınır,
+  dosya `www:www 0640` sahipliğinde kalır). Onay kutuları anahtarın **varlığı** ile çalışır
+  (uygulama `isset()` test ediyor): kapalıysa anahtar kaldırılır. Sayısal alanlar aralık doğrulaması yapar.
+  Logo yükleme, KVKK izin metinleri ve grup ayarları panelde kalır.
 - **Oturumlar sayfası** core `configctl captiveportal list_clients <zone>` üzerinden okur ve satır
   aksiyonuyla `captiveportal disconnect <sessionId> <sebep>` çağırır (core `service.volt` kalıbı:
   `options.formatters.commands` + `loaded.rs.jquery.bootgrid` içinde dinamik buton bağlama).

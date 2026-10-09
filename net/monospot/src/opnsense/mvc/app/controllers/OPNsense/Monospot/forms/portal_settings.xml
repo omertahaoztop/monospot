@@ -1,0 +1,167 @@
+<form>
+  <tab id="auth" description="Giriş yöntemi">
+    <field>
+      <id>portal.auth_sms</id>
+      <label>SMS ile şifre gönderimi</label>
+      <type>checkbox</type>
+      <help>Misafir numarasını girer, tek kullanımlık şifre SMS ile gelir. Kapalıysa yalnız aşağıdaki yöntemler kullanılır.</help>
+    </field>
+    <field>
+      <id>portal.sms_simple_screen</id>
+      <label>Basitleştirilmiş ekran</label>
+      <type>checkbox</type>
+      <help>Portalda yalnız numara alanı gösterilir; diğer sekmeler gizlenir.</help>
+    </field>
+    <field>
+      <id>portal.sms_international</id>
+      <label>Uluslararası numara girişi</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>portal.sms_always_send_password</id>
+      <label>Geçerli şifresi olsa bile yeni şifre gönder</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>portal.sms_id_number</id>
+      <label>SMS kaydında TC Kimlik No doğrulaması</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>portal.auth_id_number</id>
+      <label>TC Kimlik No ile giriş</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>portal.id_number_open_extended</id>
+      <label>TC Kimlik No alanı açık gelsin</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>portal.auth_manual_user</id>
+      <label>Elle kullanıcı açma (kullanıcı adı + şifre)</label>
+      <type>checkbox</type>
+      <help>Kullanıcılar sayfasında tanımlı kullanıcı adı/şifre ile giriş.</help>
+    </field>
+    <field>
+      <id>portal.terms</id>
+      <label>Sözleşme onayı iste</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>portal.terms_checked</id>
+      <label>Sözleşme onayı işaretli gelsin</label>
+      <type>checkbox</type>
+    </field>
+  </tab>
+  <tab id="general" description="Genel">
+    <field>
+      <id>portal.session_timeout</id>
+      <label>Oturum geçerlilik süresi (dakika)</label>
+      <type>text</type>
+      <help>Bu süre sonunda istemcinin oturumu düşer ve portal yeniden görünür (1-10080).</help>
+    </field>
+    <field>
+      <id>portal.valid_for</id>
+      <label>Şifre geçerlilik süresi</label>
+      <type>text</type>
+      <help>Gönderilen tek kullanımlık şifrenin geçerlilik süresi (birim aşağıda).</help>
+    </field>
+    <field>
+      <id>portal.valid_for_unit</id>
+      <label>Şifre süresi birimi</label>
+      <type>dropdown</type>
+      <help>gün: birim gün, dakika: birim dakika.</help>
+    </field>
+    <field>
+      <id>portal.disallow_multiple_logins</id>
+      <label>Aynı MAC ile farklı kullanıcı girişini engelle</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>portal.disallow_multiple_logins_for</id>
+      <label>MAC bazlı engelleme süresi (gün)</label>
+      <type>text</type>
+    </field>
+    <field>
+      <id>portal.after_login_url</id>
+      <label>Giriş sonrası yönlendirme adresi</label>
+      <type>text</type>
+      <help>İstemci portala doğrudan geldiyse giriş sonrası bu adrese gider. Boş bırakılırsa portalda kalır ve başarı mesajı gösterilir.</help>
+    </field>
+  </tab>
+  <tab id="sms" description="SMS">
+    <field>
+      <id>portal.daily_global_limit</id>
+      <label>Günlük toplam SMS limiti</label>
+      <type>text</type>
+      <help>Tüm kullanıcılar için günlük toplam gönderim sınırı (0 = sınırsız).</help>
+    </field>
+    <field>
+      <id>portal.daily_limit</id>
+      <label>Günlük SMS limiti (kullanıcı başına)</label>
+      <type>text</type>
+    </field>
+    <field>
+      <id>portal.weekly_limit</id>
+      <label>Haftalık SMS limiti</label>
+      <type>text</type>
+    </field>
+    <field>
+      <id>portal.monthly_limit</id>
+      <label>Aylık SMS limiti</label>
+      <type>text</type>
+    </field>
+    <field>
+      <id>portal.yearly_limit</id>
+      <label>Yıllık SMS limiti</label>
+      <type>text</type>
+    </field>
+    <field>
+      <id>portal.min_interval</id>
+      <label>İki SMS arası en az süre (dakika)</label>
+      <type>text</type>
+    </field>
+  </tab>
+  <tab id="screen" description="Erişim ekranı">
+    <field>
+      <id>portal.firma</id>
+      <label>Kurum adı</label>
+      <type>text</type>
+      <help>hotspot.ini → firma. Portal altbilgisinde görünür.</help>
+    </field>
+    <field>
+      <id>portal.marka</id>
+      <label>Marka / ürün adı</label>
+      <type>text</type>
+      <help>hotspot.ini → marka. Portal başlığı ve panel başlığı.</help>
+    </field>
+    <field>
+      <id>portal.name</id>
+      <label>Portal başlığı (mekân adı)</label>
+      <type>text</type>
+      <help>settings.inc → name. Marka satırında görünen mekân adı.</help>
+    </field>
+    <field>
+      <id>portal.color</id>
+      <label>Vurgu rengi</label>
+      <type>text</type>
+      <help>#RRGGBB biçiminde. Varsayılan mürekkep: #111417.</help>
+    </field>
+  </tab>
+  <tab id="admin" description="Yönetim ekranı">
+    <field>
+      <id>portal.items_per_page</id>
+      <label>Sayfa başına kayıt</label>
+      <type>text</type>
+      <help>Yönetim panelindeki listelerin sayfa boyutu.</help>
+    </field>
+    <field>
+      <id>portal.custom_fields</id>
+      <label>Özel alanlar</label>
+      <type>text</type>
+      <help>Virgülle ayrılmış ek kullanıcı alanları (ileri düzey).</help>
+    </field>
+  </tab>
+  <activetab>auth</activetab>
+</form>
