@@ -4,8 +4,10 @@
  */
 export default class Monospot extends BaseWidget {
     getGridOptions() {
+        /* özet tablo için makul başlangıç boyutu */
         return {
-            sizeToContent: 400,
+            w: 3,
+            h: 3,
         };
     }
 
@@ -28,6 +30,7 @@ export default class Monospot extends BaseWidget {
                 <table class="table table-condensed table-hover table-striped">
                     <tbody>${rows}</tbody>
                 </table>
+                <div id="mp-error" class="text-danger" style="display:none"></div>
                 <div class="text-center">
                     <a href="/ui/monospot" class="btn btn-xs btn-default">${this.translations.settings ?? 'Ayarlar'}</a>
                     <a href="/ui/monospot/sessions" class="btn btn-xs btn-default">${this.translations.sessions ?? 'Oturumlar'}</a>
@@ -41,27 +44,36 @@ export default class Monospot extends BaseWidget {
         return `<span class="label label-opnsense label-opnsense-xs label-${ok ? 'success' : 'danger'}">${text}</span>`;
     }
 
-    async onMarkupRendered() {
-        const data = await this.ajaxCall('/api/monospot/service/info');
-        if (!data || data.error) {
-            this.displayError((data && data.error) ? data.error : this.translations.unavailable);
-            return;
-        }
+    fail(message) {
+        $('#mp-error').text(`${this.translations.unavailable ?? 'Durum okunamadı'}: ${message}`).show();
+    }
 
-        const port = `http://${window.location.hostname}:${data.portal_port}/`;
-        $('#mp-service').html(this.badge(data.enabled,
-            data.enabled ? (this.translations.enabled ?? 'etkin') : (this.translations.disabled ?? 'kapalı')));
-        $('#mp-address').html(`<a href="${port}" target="_blank">${port}</a>`);
-        $('#mp-zone').text(`${data.zoneid}${data.zone.description ? ' — ' + data.zone.description : ''}`
-            + (data.zone.interfaces.length ? ` (${data.zone.interfaces.join(', ')})` : ''));
-        $('#mp-template').html(data.zone.template_name === ''
-            ? this.badge(false, this.translations.not_installed ?? 'kurulmamış')
-            : this.badge(true, data.zone.template_name));
-        $('#mp-clients').html(`${data.clients.authorized} `
-            + `<a href="/ui/monospot/sessions">→</a>`);
-        $('#mp-archive').html(this.badge(data.collect5651,
-            data.collect5651 ? (this.translations.enabled ?? 'etkin') : (this.translations.disabled ?? 'kapalı'))
-            + ` — ${data.archive.days} ${this.translations.days ?? 'gün'}`
-            + (data.archive.oldest ? ` (${data.archive.oldest} → ${data.archive.newest})` : ''));
+    async onMarkupRendered() {
+        try {
+            const data = await this.ajaxCall('/api/monospot/service/info');
+            if (!data || data.error) {
+                this.fail((data && data.error) ? data.error : 'boş yanıt');
+                return;
+            }
+
+            const port = `http://${window.location.hostname}:${data.portal_port}/`;
+            $('#mp-service').html(this.badge(data.enabled,
+                data.enabled ? (this.translations.enabled ?? 'etkin') : (this.translations.disabled ?? 'kapalı')));
+            $('#mp-address').html(`<a href="${port}" target="_blank">${port}</a>`);
+            $('#mp-zone').text(`${data.zoneid}${data.zone.description ? ' — ' + data.zone.description : ''}`
+                + (data.zone.interfaces.length ? ` (${data.zone.interfaces.join(', ')})` : ''));
+
+            const template = data.zone.template_name ?? '';
+            $('#mp-template').html(template === ''
+                ? this.badge(false, this.translations.not_installed ?? 'kurulmamış')
+                : `${this.badge(true, template)} <a href="/ui/monospot/portal">→</a>`);
+
+            $('#mp-clients').html(`${data.clients.authorized} <a href="/ui/monospot/sessions">→</a>`);
+            $('#mp-archive').html(this.badge(data.collect5651,
+                data.collect5651 ? (this.translations.enabled ?? 'etkin') : (this.translations.disabled ?? 'kapalı'))
+                + ` — ${data.archive.days} ${this.translations.days ?? 'gün'}`);
+        } catch (error) {
+            this.fail((error && error.message) ? error.message : String(error));
+        }
     }
 }
