@@ -44,9 +44,12 @@ Kurulumdan sonra:
 1. **Servis ayarları:** `Services > Monospot` sayfasında portalı etkinleştirin,
    captive portal zone numarasını ve portal portunu doğrulayın, kaydedin.
 2. **Zone şablonu:** aynı sayfadaki *Zone şablonunu kur* düğmesi (veya
-   `configctl monospot install_zonetemplate --zoneid=0 --port=8100 --name=monospot-portal`)
+   `configctl monospot install_zonetemplate 0 8100 "Monospot Portal"`)
    zone'un statik sayfasını istemciyi portala yönlendiren şimle değiştirir.
    Bu adım core captive portal servisini yeniden başlatır.
+   (configd action'ı yer tutucuları sırayla doldurur: argümanlar sade değer
+   olarak verilir, `--zoneid=` biçimi kullanılmaz. Zone devre dışıysa captive
+   portal yeniden başlamaz; zone htdocs'u ancak zone etkinken yenilenir.)
 3. **SMS sağlayıcı:** `sms/sms.<sağlayıcı>.php` dosyalarından birini
    `/usr/local/opnsense/scripts/monospot/app/sms.php` olarak kopyalayıp API
    bilgilerini doldurun ve dosyayı `chmod 600` yapın (paket bu dosyayı
@@ -75,7 +78,7 @@ tail -f /var/log/monospot-error.log
 ## Bilinen sınırlar
 
 - **Portal portu değişirse** zone şablonu yeniden kurulmalıdır (şim, portu
-  içerir): `configctl monospot install_zonetemplate --zoneid=<id> --port=<yeni> --name=monospot-portal`.
+  içerir): `configctl monospot install_zonetemplate <id> <yeni> "Monospot Portal"`.
 - **5651/logsigner** paketi bu sürümde yok; portal giriş/çıkış kayıtları
   syslog'a yazılır.
 - `settings.inc`, `hotspot.ini`, `db/`, `lang/`, `media/` dosyaları `www`

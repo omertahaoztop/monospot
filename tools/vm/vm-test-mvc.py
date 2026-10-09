@@ -80,6 +80,21 @@ try:
     time.sleep(3)
     print('status API:', js('return window.__st;'))
 
+    # Zone şablonu kur: onay diyaloğunu onayla, sonra hata diyaloğu çıkıyor mu bak
+    js("window.__dlgs=[]; $(document).on('shown.bs.modal', function(){ "
+       "window.__dlgs.push($('.modal-body').text().replace(/\\s+/g,' ').trim()); });")
+    js("document.getElementById('install_zonetemplate').click();")
+    time.sleep(3)
+    print('onay diyaloğu:', (js('return window.__dlgs[0] || "";') or '(yok)')[:90])
+    js("Array.from(document.querySelectorAll('.modal-footer button, .modal button'))"
+       ".filter(function(b){ return /^(Evet|Yes|OK)$/.test((b.textContent||'').trim()); })"
+       ".forEach(function(b){ b.click(); });")
+    time.sleep(9)
+    last = js('return window.__dlgs[window.__dlgs.length - 1] || "";')
+    tail = js('return window.__dlgs.length;')
+    print('diyalog sayısı:', tail)
+    print('zone şablonu sonucu:', ('HATA: ' + last) if ('fail' in last or 'error' in last) else 'hata yok')
+
     # Kaydet: POST + reconfigure; BootstrapDialog açılırsa içeriğini yakala
     js("window.__dlg=''; $(document).on('shown.bs.modal', function(){ window.__dlg = "
        "$('.modal-body').text(); });")
