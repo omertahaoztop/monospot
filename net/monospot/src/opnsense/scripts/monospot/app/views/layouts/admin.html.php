@@ -14,24 +14,35 @@
 <body>
 	<div id="container">
 
-	<h1><?=$hotspot['marka']?> Yönetim Paneli</h1>
-
-	<a id="back-to-gui" href="/">&#8629; OPNsense</a>
+	<header class="page-head">
+		<h1><?=$hotspot['marka']?> Yönetim Paneli</h1>
+		<a id="back-to-gui" href="/">&#8629; OPNsense</a>
+	</header>
 
 	<?php
 	if (date('Y', strtotime($hotspot['demo_bitis'])) != '2010')
-		echo '<div style="color:#e00;font-weight:bold">Hotspot demo süresi ' . $hotspot['demo_bitis'] . ' tarihinde dolacaktır.</div>';
+		echo '<p class="notice">Hotspot demo süresi ' . htmlspecialchars($hotspot['demo_bitis']) . ' tarihinde dolacaktır.</p>';
 	?>
 
+	<?php
+// aktif menü: ilk yol parçası (user/5 gibi detay sayfaları da listeye bağlanır)
+$current_route = 'users';
+if (!empty($_GET['u'])) {
+    $current_route = strtok($_GET['u'], '/');
+    if ($current_route === 'user') {
+        $current_route = 'users';
+    }
+}
+?>
 	<nav id="nav">
-		<a href="<?=url_for('users')?>">Kullanıcı Listesi</a> |
-        <a href="<?=url_for('groups')?>">Grup Listesi</a> |
+		<a href="<?=url_for('users')?>"<?= $current_route == 'users' ? ' aria-current="page"' : '' ?>>Kullanıcı Listesi</a>
+		<a href="<?=url_for('groups')?>"<?= $current_route == 'groups' ? ' aria-current="page"' : '' ?>>Grup Listesi</a>
 	<? if (isset($settings['authentication']['sms'])): ?>
-		<a href="<?=url_for('sms')?>">SMS Raporu</a> |
+		<a href="<?=url_for('sms')?>"<?= $current_route == 'sms' ? ' aria-current="page"' : '' ?>>SMS Raporu</a>
 	<? endif; ?>
-		<a href="<?=url_for('permissions')?>">İzin Raporu</a> |
-		<a href="<?=url_for('settings')?>">Ayarlar</a> |
-		<a href="<?=url_for('lang/tr')?>">Dil</a> |
+		<a href="<?=url_for('permissions')?>"<?= $current_route == 'permissions' ? ' aria-current="page"' : '' ?>>İzin Raporu</a>
+		<a href="<?=url_for('settings')?>"<?= $current_route == 'settings' ? ' aria-current="page"' : '' ?>>Ayarlar</a>
+		<a href="<?=url_for('lang/tr')?>"<?= $current_route == 'lang' ? ' aria-current="page"' : '' ?>>Dil</a>
 		<a href="<?=url_for('logout')?>">Çıkış</a>
 	</nav>
 

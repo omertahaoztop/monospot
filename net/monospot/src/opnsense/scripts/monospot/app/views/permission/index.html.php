@@ -25,6 +25,7 @@ $(function() {
 <h2>İzin Raporu</h2>
 <div>
 
+	<div class="wrapper">
 	<table>
 		<tr>
 			<th><?=order_link('permissions', 'user_id', 'Kullanıcı ID')?></th>
@@ -44,7 +45,8 @@ $(function() {
 			<td><?=format_date($permission->timestamp)?></td>
 		</tr>
 	<? endforeach; ?>
-	</table>
+		</table>
+</div>
 
 	<div id="filter">
 		<div class="item">

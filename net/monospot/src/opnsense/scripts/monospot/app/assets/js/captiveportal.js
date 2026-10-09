@@ -20,10 +20,14 @@ $(document).ready(function() {
 
 	$(".form.active").slideDown();
 
-	$("button").click(function() {
-		$("button.active").removeClass("active");
+	$("#form-selection > button").click(function() {
+		$("#form-selection > button.active").removeClass("active");
 		$(this).addClass("active");
 		var currentId = $(this).attr("id");
+		// adım göstergesi de yöntemle birlikte güncellenir
+		if ($("#steps .step").length) {
+			$("#steps .step").removeClass("on").eq(currentId === "sms_login" ? 1 : 0).addClass("on");
+		}
 		if ($(".form.active").length === 0) {
 			$("#form_" + currentId).addClass("active").slideDown();
 		}

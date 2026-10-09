@@ -17,7 +17,7 @@ return array(
     'yearly_limit' => '500',
     'min_interval' => '2',
     'name' => '',
-    'color' => '#333',
+    'color' => '#111417',
     'logo' => '',
     'items_per_page' => '100',
     'custom_fields' => '',

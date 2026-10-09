@@ -26,28 +26,16 @@
     </script>
     <style>
         :root {
+            /* vurgu rengi ayarlardan; marka kırmızısı varsayılan */
             --brand: <?=$color?>;
-            --brand-contrast: <?=htmlspecialchars(isset($settings['color_contrast']) ? $settings['color_contrast'] : '#fff')?>;
-        }
-
-        #title {
-            background-color: <?=$color?>
-        }
-
-        #form-selection .active {
-            background-color: <?=$color?>
+            --brand-ink: <?=htmlspecialchars(isset($settings['color_contrast']) ? $settings['color_contrast'] : '#fff')?>;
         }
 
         <? if (isset($settings['authentication']['sms']) && isset($settings['sms']['simple_screen'])): ?>
-        button#sms_register, button#sms_login {
-            display: none
-        }
-
-        .form .content {
-            border-width: 1px
-        }
-
-        .form .description {
+        /* basitleştirilmiş ekran: yöntem seçimini ve açıklamaları gizle */
+        #form-selection,
+        .form .description,
+        .form .item-description {
             display: none
         }
 
@@ -57,12 +45,31 @@
 
 <body>
 
-<div id="title"><?= $title ?></div>
+<header id="brand">
+    <div id="logo">
+        <img src="<?= !empty($settings['logo']) ? htmlspecialchars($settings['logo']) : $hotspot['_assets'] . '/img/monospot-logo.png' ?>" alt="<?= htmlspecialchars($settings['name'] !== '' ? $settings['name'] : $hotspot['marka']) ?>">
+    </div>
+    <div id="title"><?= $title ?></div>
+    <div id="wifi-logo">
+        <img src="<?= $hotspot['_assets'] ?>/img/captiveportal-wifi.png" alt="">
+    </div>
+</header>
 
 <div id="container">
-    <div id='logo'>
-        <img src="<?= !empty($settings['logo']) ? htmlspecialchars($settings['logo']) : $hotspot['_assets'] . '/img/captiveportal-logo.png' ?>" alt="<?= htmlspecialchars($settings['name']) ?>">
-    </div>
+<?
+/*
+ * Soğuk açılışta (POST yok) sunucu $form'u boş bırakıyor; o durumda ilk yöntem
+ * görünür olmalı, aksi hâlde misafir boş bir sayfa görür.
+ */
+$active_form = !empty($form) ? $form : (isset($settings['authentication']['sms']) ? 'sms_register' : '');
+?>
+<? if (!empty($active_form)): ?>
+    <nav id="steps" aria-hidden="true">
+        <span class="step<?= $active_form == 'sms_register' ? ' on' : '' ?>"><?= t('gsm') ?></span>
+        <span class="sep" aria-hidden="true"></span>
+        <span class="step<?= $active_form == 'sms_login' ? ' on' : '' ?>"><?= t('password') ?></span>
+    </nav>
+<? endif; ?>
 
     <div id="js-errors" class="message error" role="alert" aria-live="assertive" tabindex="-1" hidden></div>
 
@@ -73,8 +80,8 @@
     <nav id="form-selection" aria-label="<?= t('sms_login') ?>">
 
     <? if (isset($settings['authentication']['sms'])): ?>
-        <button id="sms_register"<?= $form == 'sms_register' ? ' class="active"' : '' ?>><?= t('sms_register') ?></button>
-        <div class="form<?= $form == 'sms_register' ? ' active' : '' ?>" id="form_sms_register">
+        <button id="sms_register"<?= $active_form == 'sms_register' ? ' class="active"' : '' ?>><?= t('sms_register') ?></button>
+        <div class="form<?= $active_form == 'sms_register' ? ' active' : '' ?>" id="form_sms_register">
             <div class="content">
                 <form method="post" onSubmit="return validateForm(this)" action="">
                     <p class="description"><?= t('sms_register_desc') ?></p>
@@ -122,26 +129,31 @@
             </div>
         </div>
 
-        <button id="sms_login"<?= $form == 'sms_login' ? ' class="active"' : '' ?>><?= t('sms_login') ?></button>
-        <div class="form<?= $form == 'sms_login' ? ' active' : '' ?>" id="form_sms_login">
+        <button id="sms_login"<?= $active_form == 'sms_login' ? ' class="active"' : '' ?>><?= t('sms_login') ?></button>
+        <div class="form<?= $active_form == 'sms_login' ? ' active' : '' ?>" id="form_sms_login">
             <div class="content">
                 <form method="post" onSubmit="return validateForm(this)" action="">
                     <p class="description"><?= t('login_desc_sms') ?></p>
                     <div class="item">
-                        <label><?= t('gsm') ?>:</label>
+                        <label for="phoneLogin"><?= t('gsm') ?>:</label>
                         <? if (isset($settings['sms']['international'])): ?>
-                            <input id="phoneLogin" name="user[gsm]" class="text intlPhone" type="tel" value="<?= $user->gsm ?>">
+                            <input id="phoneLogin" name="user[gsm]" class="text intlPhone" type="tel" value="<?= $user->gsm ?>" autocomplete="tel">
                             <div class="item-description"><?= t('gsm_int_desc') ?></div>
                         <? else: ?>
-                            <input name="user[gsm]" class="text" type="tel" maxlength="10" value="<?= $user->gsm ?>" onkeypress="checkphone(this, event)">
+                            <input id="phoneLogin" name="user[gsm]" class="text" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="10" value="<?= $user->gsm ?>" onkeypress="checkphone(this, event)">
                             <div class="item-description"><?= t('gsm_desc') ?></div>
                         <? endif; ?>
                         <input type="hidden" name="gsm_required">
                     </div>
                     <div class="item">
-                        <label><?= t('password') ?>:</label>
-                        <input name="password" class="text" type="password">
-                        <div class="item-description"><?= t('password_desc_gsm') ?></div>
+                        <label for="passwordLogin"><?= t('password') ?>:</label>
+                        <div class="code-field">
+                            <input id="passwordLogin" name="password" class="text code" type="password"
+                                   inputmode="numeric" autocomplete="one-time-code"
+                                   aria-describedby="passwordLoginHint">
+                            <div class="code-ticks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                        </div>
+                        <div class="item-description" id="passwordLoginHint"><?= t('password_desc_gsm') ?></div>
                     </div>
                     <?php if (isset($settings['terms'])) require 'captiveportal_terms.html.php'; ?>
                     <input name="form_id" type="hidden" value="sms_login">
@@ -153,8 +165,10 @@
     <? endif; ?>
 
     <? if (isset($settings['authentication']['id_number']) && $lang == 'tr'): ?>
-        <button id="id_number_login"<?= $form == 'id_number_login' || isset($settings['id_number']['open_extended']) ? ' class="active"' : '' ?>><?= t('id_number_login') ?></button>
-        <div class="form<?= $form == 'id_number_login' || isset($settings['id_number']['open_extended']) ? ' active' : '' ?>"
+        <? $id_number_active = $active_form == 'id_number_login'
+            || (!isset($settings['authentication']['sms']) && isset($settings['id_number']['open_extended'])); ?>
+        <button id="id_number_login"<?= $id_number_active ? ' class="active"' : '' ?>><?= t('id_number_login') ?></button>
+        <div class="form<?= $id_number_active ? ' active' : '' ?>"
              id="form_id_number_login">
             <div class="content">
                 <form method="post" onSubmit="return validateForm(this)" action="">
@@ -200,13 +214,14 @@
                 <form method="post" onSubmit="return validateForm(this)" action="">
                     <div class="description"><?= t('login_desc') ?></div>
                     <div class="item">
-                        <label><?= t('manual_user_name') ?>:</label>
-                        <input name="user[username]" class="text" type="text" maxlength="11"
-                               value="<?= $user->username ?>">
+                        <label for="manualUser"><?= t('manual_user_name') ?>:</label>
+                        <input id="manualUser" name="user[username]" class="text" type="text" maxlength="11"
+                               autocomplete="username" value="<?= $user->username ?>">
                     </div>
                     <div class="item">
-                        <label><?= t('password') ?>:</label>
-                        <input name="password" class="text" type="password">
+                        <label for="manualPassword"><?= t('password') ?>:</label>
+                        <input id="manualPassword" name="password" class="text" type="password"
+                               autocomplete="current-password">
                     </div>
 
                     <?php $method = 'manual_user';
@@ -235,10 +250,6 @@
         </form>
     </div>
 
-</div>
-
-<div id="wifi-logo">
-    <img src="<?= $hotspot['_assets'] ?>/img/captiveportal-wifi.png">
 </div>
 
 <div id="terms-text" style="display:none"><p><?= nl2br(t('terms_text')) ?></p></div>

@@ -1,0 +1,278 @@
+{
+  "schemaVersion": 2,
+  "name": "Monospot Hotspot Portal",
+  "generatedFrom": {
+    "design": "DESIGN.md",
+    "sources": [
+      "net/monospot/src/opnsense/scripts/monospot/app/assets/css/captiveportal-style.css",
+      "net/monospot/src/opnsense/scripts/monospot/app/assets/css/style.css"
+    ]
+  },
+  "narrative": {
+    "northStar": "Sakin Araç (The Quiet Instrument)",
+    "rules": [
+      "Renk iş yapmadığında görünmez; varsayılan vurgu mürekkeptir ve panelden değiştirilebilir.",
+      "Kutular yerine kurallar: bölümü bir üst kural açar, alt öğeler tek girinti rayında durur.",
+      "Tek sol çizgi: bant, kart, sekmeler ve alanlar aynı hizada başlar.",
+      "Durum asla yalnız renkle anlatılmaz; metin sorunu ve çıkış yolunu söyler.",
+      "Logo marka rengini taşır, arayüz taşımaz."
+    ],
+    "dos": [
+      "Form alanlarını 46px ve hedefleri 44px üzerinde tut.",
+      "Odak halkasını aksan renginden bağımsız `focus` tokenıyla ver.",
+      "Tabloları kendi kaydırma kabında tut; sayfayı taşırma."
+    ],
+    "donts": [
+      "Kırmızı/ağırlıklı renkli başlık bandı kurma.",
+      "İç içe kutu veya 2px üzeri renkli sol kenar kullanma.",
+      "Kritik durumlarda color-mix() gibi yeni tarayıcı fonksiyonlarına yaslanma.",
+      "Uydurma ölçüm/iddia veya süs amaçlı gradyan/blur ekleme."
+    ]
+  },
+  "colorMeta": {
+    "ink": {
+      "displayName": "ink",
+      "hex": "#111417",
+      "tonalRamp": [
+        "#22262b",
+        "#3b434c",
+        "#54616d",
+        "#6c7e90",
+        "#8c9ba9",
+        "#aeb8c1",
+        "#d0d5da",
+        "#f1f2f4"
+      ]
+    },
+    "ink-2": {
+      "displayName": "ink 2",
+      "hex": "#59616e",
+      "tonalRamp": [
+        "#232629",
+        "#3e4249",
+        "#575e6a",
+        "#717b8a",
+        "#9198a5",
+        "#b1b6bf",
+        "#d1d4d9",
+        "#f1f2f3"
+      ]
+    },
+    "paper": {
+      "displayName": "paper",
+      "hex": "#ffffff",
+      "tonalRamp": [
+        "#262626",
+        "#434343",
+        "#616161",
+        "#7e7e7e",
+        "#9b9b9b",
+        "#b8b8b8",
+        "#d5d5d5",
+        "#f2f2f2"
+      ]
+    },
+    "shell": {
+      "displayName": "shell",
+      "hex": "#eff1f4",
+      "tonalRamp": [
+        "#21252c",
+        "#39414e",
+        "#515d70",
+        "#677994",
+        "#8997ad",
+        "#acb6c4",
+        "#cfd4db",
+        "#f0f2f4"
+      ]
+    },
+    "rule": {
+      "displayName": "rule",
+      "hex": "#dfe3e8",
+      "tonalRamp": [
+        "#22262b",
+        "#3a424c",
+        "#525f6f",
+        "#6a7b92",
+        "#8b99ab",
+        "#aeb7c2",
+        "#cfd4db",
+        "#f1f2f4"
+      ]
+    },
+    "rule-strong": {
+      "displayName": "rule strong",
+      "hex": "#c3cad2",
+      "tonalRamp": [
+        "#22262a",
+        "#3b434b",
+        "#54606d",
+        "#6c7d8f",
+        "#8d9aa9",
+        "#afb7c1",
+        "#d0d5da",
+        "#f1f2f4"
+      ]
+    },
+    "brand": {
+      "displayName": "brand",
+      "hex": "#111417",
+      "tonalRamp": [
+        "#22262b",
+        "#3b434c",
+        "#54616d",
+        "#6c7e90",
+        "#8c9ba9",
+        "#aeb8c1",
+        "#d0d5da",
+        "#f1f2f4"
+      ]
+    },
+    "focus": {
+      "displayName": "focus",
+      "hex": "#2f6feb",
+      "tonalRamp": [
+        "#0f1f3e",
+        "#163571",
+        "#194aa8",
+        "#1a5ee2",
+        "#4b81ea",
+        "#84a7ec",
+        "#b9ccf1",
+        "#eaf0fa"
+      ]
+    },
+    "success": {
+      "displayName": "success",
+      "hex": "#14532d",
+      "tonalRamp": [
+        "#153823",
+        "#22653c",
+        "#2c9556",
+        "#34c86e",
+        "#60d68f",
+        "#91dfb0",
+        "#c0ead1",
+        "#ecf8f1"
+      ]
+    },
+    "success-surface": {
+      "displayName": "success surface",
+      "hex": "#eef7f1",
+      "tonalRamp": [
+        "#1c3123",
+        "#2f573d",
+        "#428056",
+        "#52a96f",
+        "#78be8f",
+        "#a1cfb0",
+        "#c9e1d1",
+        "#eff6f1"
+      ]
+    },
+    "danger": {
+      "displayName": "danger",
+      "hex": "#7f1d1d",
+      "tonalRamp": [
+        "#381414",
+        "#662121",
+        "#972a2a",
+        "#ca3232",
+        "#d85e5e",
+        "#e09090",
+        "#ebbfbf",
+        "#f8ecec"
+      ]
+    },
+    "danger-surface": {
+      "displayName": "danger surface",
+      "hex": "#fdeceb",
+      "tonalRamp": [
+        "#3e110f",
+        "#711b16",
+        "#a7221a",
+        "#e1261b",
+        "#ea554c",
+        "#ec8a84",
+        "#f1bcb9",
+        "#faebea"
+      ]
+    },
+    "logo-red": {
+      "displayName": "logo red",
+      "hex": "#fa002a",
+      "tonalRamp": [
+        "#430a13",
+        "#7b0c1f",
+        "#b70a27",
+        "#f7042d",
+        "#fb3a5b",
+        "#f7798e",
+        "#f8b3be",
+        "#fce9ec"
+      ]
+    }
+  },
+  "shadows": {
+    "card": "0 1px 2px rgba(17, 20, 23, 0.05), 0 12px 28px -18px rgba(17, 20, 23, 0.25)",
+    "flat": "none"
+  },
+  "motion": {
+    "ease": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+    "durations": {
+      "state": "160ms",
+      "card-in": "300ms",
+      "code-focus": "220ms"
+    }
+  },
+  "breakpoints": {
+    "portal-density": "560px",
+    "panel-header": "700px"
+  },
+  "focusRing": {
+    "outline": "2px solid #2f6feb",
+    "offset": "2px"
+  },
+  "components": [
+    {
+      "name": "button-primary",
+      "html": "<button class=\"submit\">Kayıt Ol »</button>",
+      "css": ".submit{display:block;width:100%;min-height:48px;padding:12px 18px;border:1px solid transparent;border-radius:10px;background:#111417;color:#fff;font-family:system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:16px;font-weight:600;cursor:pointer}\n.submit:hover{background:#2b3138}"
+    },
+    {
+      "name": "input-text",
+      "html": "<input class=\"text\" type=\"tel\" inputmode=\"numeric\" placeholder=\"5xx xxx xx xx\" aria-label=\"Cep Telefonu\">",
+      "css": ".text{width:100%;min-height:46px;padding:11px 13px;border:1px solid #c3cad2;border-radius:10px;background:#fff;color:#111417;font-family:system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:16px}\n.text:focus-visible{outline:2px solid #2f6feb;outline-offset:2px}"
+    },
+    {
+      "name": "input-code",
+      "html": "<input class=\"text code\" type=\"text\" inputmode=\"numeric\" autocomplete=\"one-time-code\" value=\"482913\" aria-label=\"Şifre\">",
+      "css": ".code{width:100%;min-height:46px;padding:11px 13px;border:1px solid #c3cad2;border-radius:10px;background:#fff;color:#111417;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:21px;font-weight:600;letter-spacing:.32em;text-indent:.32em;text-align:center}"
+    },
+    {
+      "name": "tab-active",
+      "html": "<button class=\"active\">SMS ile Kayıt</button>",
+      "css": "button{background:none;border:0;border-bottom:2px solid transparent;padding:6px 2px;color:#59616e;font-family:system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:15px;font-weight:600;text-align:left;cursor:pointer}\nbutton.active{color:#111417;border-bottom-color:#111417}"
+    },
+    {
+      "name": "nav-item-current",
+      "html": "<a href=\"#\" aria-current=\"page\">Kullanıcı Listesi</a>",
+      "css": "a{display:inline-block;padding:7px 12px;border-radius:10px;background:#eff1f4;color:#111417;font-family:system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:15px;font-weight:600;text-decoration:none;box-shadow:inset 0 -2px 0 #111417}"
+    },
+    {
+      "name": "message-success",
+      "html": "<div class=\"message success\" role=\"status\">Şifreniz cep telefonunuza gönderilmiştir.</div>",
+      "css": ".message{padding:12px 14px;border:1px solid #c6e4d1;border-radius:10px;background:#eef7f1;color:#14532d;font-family:system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:15px;font-weight:500;white-space:pre-line}"
+    },
+    {
+      "name": "message-error",
+      "html": "<div class=\"message error\" role=\"alert\">• Geçersiz bir telefon numarası girdiniz.</div>",
+      "css": ".message{padding:12px 14px;border:1px solid #f0ccc7;border-radius:10px;background:#fdeceb;color:#7f1d1d;font-family:system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:15px;font-weight:500;white-space:pre-line}"
+    },
+    {
+      "name": "section-rule",
+      "html": "<section><h3>Giriş Yöntemi</h3><p>Ayar satırları</p></section>",
+      "css": "section{margin:0 0 22px;padding:0 0 6px;border-top:1px solid #dfe3e8}\nh3{margin:0;padding:0 12px 0 0;background:#eff1f4;color:#111417;font-family:system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}"
+    }
+  ]
+}

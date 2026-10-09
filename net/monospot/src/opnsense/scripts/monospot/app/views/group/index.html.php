@@ -2,7 +2,8 @@
 <p><a href="<?=url_for('group/add')?>">Grup Ekle</a></p>
 
 <div>
-    <table>
+    <div class="wrapper">
+	<table>
         <tr>
             <th>ID</th>
             <th>İsim</th>
@@ -16,5 +17,6 @@
                 <td><a href="<?=url_for('group', $group->id)?>/delete">Sil</a></td>
             </tr>
         <? endforeach; ?>
-    </table>
+    	</table>
+</div>
 </div>

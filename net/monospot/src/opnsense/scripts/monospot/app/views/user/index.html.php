@@ -12,6 +12,7 @@
 
 <div>
 
+	<div class="wrapper">
 	<table>
 		<tr>
 		<?php if ($settings['custom_fields']): ?>
@@ -89,7 +90,8 @@
 			</td>
 		</tr>
 	<?php endforeach?>
-	</table>
+		</table>
+</div>
 
 	<div id="filter">
 		<form action="" method="GET">

@@ -1,349 +1,531 @@
 /*
- * Monospot portal teması (OPNsense sürümü).
+ * Monospot portal — sakin nötr arayüz, tek ince aksan.
  *
- * Tasarım: marka rengi `--brand` değişkeninden gelir (yönetim panelinden
- * ayarlanabilir; layout dosyası bu değişkeni üretir). Mobil öncelikli, tek
- * sütunlu kart düzeni; form kontrolleri en az 46px dokunma hedefi ve 16px yazı
- * boyutu kullanır (iOS'un otomatik yakınlaştırmasını engeller).
+ * Dünya: kâğıt beyazı yüzey, koyu grafit mürekkep, ince gri kurallar. Renk iş
+ * yaptığında ortaya çıkar: odak halkası, aktif sekme, birincil eylem, hata ve
+ * başarı. Vurgu rengi ayarlardan gelir (`--brand`); varsayılanı nötr mürekkeptir,
+ * böylece marka rengi kullanıcıya kalmış olur.
+ *
+ * Hizalama tek bir ızgaraya bağlıdır: bant, kart ve tüm metin aynı sol çizgiden
+ * başlar. Eski tarayıcılarda color-mix() sessizce düşmesin diye kritik durumlar
+ * (hover, odak, devre dışı, hata) sabit tokenlarla yazılır.
  */
 
 :root {
-	--brand: #333333;
-	--brand-contrast: #ffffff;
-	--bg: #eef1f5;
-	--bg-accent: rgba(0, 0, 0, 0.04);
-	--surface: #ffffff;
-	--text: #1f2937;
-	--muted: #6b7280;
-	--border: #dbe0e6;
-	--danger: #b3261e;
-	--danger-bg: #fdecea;
-	--ok: #1b7f3b;
-	--ok-bg: #e9f7ee;
-	--radius: 14px;
-	--shadow: 0 12px 32px rgba(15, 23, 42, 0.12);
+	--paper: #ffffff;
+	--ink: #111417;
+	--ink-2: #59616e;
+	--rule: #dfe3e8;
+	--rule-strong: #c3cad2;
+	--rule-hover: #a9b2bc;
+	--disabled-surface: #b9bfc6;
+	--disabled-ink: #6b7280;
+	--danger-field: #fffafa;
+	--scrim: rgba(0, 0, 0, 0.5);
+	--shell: #eff1f4;
+	--brand: #111417;
+	--brand-ink: #ffffff;
+	--brand-hover: #2b3138;
+	--focus: #2f6feb;
+	--ok: #14532d;
+	--ok-bg: #eef7f1;
+	--ok-rule: #c6e4d1;
+	--err: #7f1d1d;
+	--err-bg: #fdeceb;
+	--err-rule: #f0ccc7;
+	--r: 14px;
+	--r-sm: 10px;
+	--r-xs: 6px;
+	--pad: 20px;
+	--shadow: 0 1px 2px rgba(17, 20, 23, 0.05), 0 12px 28px -18px rgba(17, 20, 23, 0.25);
+	--ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+	--mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 }
 
 * {
 	box-sizing: border-box;
 }
 
+html {
+	-webkit-text-size-adjust: 100%;
+}
+
 body {
 	margin: 0;
-	padding: 28px 16px 44px;
+	padding: 0 0 44px;
+	background: var(--shell);
+	color: var(--ink);
 	font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-	font-size: 16px;
+	font-size: 1rem;
 	line-height: 1.5;
-	color: var(--text);
-	background: var(--bg);
-	display: flex;
-	flex-direction: column;
-	align-items: center;
 }
 
 a,
 a:visited {
-	color: var(--brand);
+	color: var(--ink);
+	text-decoration: underline;
+	text-underline-offset: 2px;
+	text-decoration-color: var(--rule-strong);
 }
 
-#title {
-	width: min(100%, 440px);
-	padding: 18px 20px;
-	background-color: var(--brand);
-	color: var(--brand-contrast);
-	border-radius: var(--radius) var(--radius) 0 0;
-	font-size: 1.2rem;
-	font-weight: 600;
-	text-align: center;
-	overflow-wrap: anywhere;
+a:hover {
+	text-decoration-color: currentColor;
 }
 
-#container {
-	width: min(100%, 440px);
-	padding: 20px;
-	background-color: var(--surface);
-	border-radius: 0 0 var(--radius) var(--radius);
-	box-shadow: var(--shadow);
-	text-align: center;
+::selection {
+	background: #d8e3f8;
+	color: var(--ink);
+}
+
+input,
+button {
+	accent-color: var(--brand);
+	caret-color: var(--brand);
+}
+
+/* ---------- üst şerit ---------------------------------------------------- */
+
+#brand {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	width: min(100%, 640px);
+	margin: 0 auto;
+	padding: 26px var(--pad) 0;
 }
 
 #logo {
-	margin-bottom: 18px;
+	flex: 0 0 auto;
+	display: flex;
+	align-items: center;
 }
 
 #logo img {
-	max-width: 72%;
-	max-height: 76px;
-	height: auto;
+	display: block;
+	height: 26px;
+	width: auto;
+	max-width: 190px;
 }
 
-/* durum mesajları (sunucu ve JS kaynaklı) */
-.message {
-	margin-bottom: 16px;
-	padding: 12px 14px;
-	border-left: 4px solid transparent;
-	border-radius: 10px;
-	background: var(--bg-accent);
-	font-size: 0.95rem;
-	font-weight: 500;
+#title {
+	flex: 1 1 auto;
+	min-width: 0;
+	font-size: 1rem;
+	font-weight: 600;
+	letter-spacing: -0.01em;
+	overflow-wrap: anywhere;
+}
+
+#wifi-logo {
+	flex: 0 0 auto;
+	display: flex;
+	align-items: center;
+}
+
+#wifi-logo img {
+	display: block;
+	height: 18px;
+	width: auto;
+	opacity: 0.55;
+}
+
+/* ---------- kart -------------------------------------------------------- */
+
+#container {
+	width: min(100%, 640px);
+	margin: 18px auto 0;
+	padding: var(--pad);
+	background: var(--paper);
+	border: 1px solid var(--rule);
+	border-radius: var(--r);
+	box-shadow: var(--shadow);
+	animation: card-in 0.3s var(--ease) both;
+}
+
+@keyframes card-in {
+	from {
+		opacity: 0;
+		transform: translateY(6px);
+	}
+}
+
+/* adım göstergesi: aynı sol çizgi, ince kurallar */
+#steps {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin: 0 0 18px;
+	padding-bottom: 14px;
+	border-bottom: 1px solid var(--rule);
+	color: var(--ink-2);
+	font-size: 0.8125rem;
+	font-weight: 600;
+	letter-spacing: 0.01em;
+}
+
+#steps .step {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+}
+
+#steps .step::before {
+	content: "";
+	width: 6px;
+	height: 6px;
+	border: 1.5px solid var(--rule-strong);
+	border-radius: 50%;
+}
+
+#steps .step.on {
+	color: var(--ink);
+}
+
+#steps .step.on::before {
+	border-color: var(--brand);
+	background: var(--brand);
+}
+
+#steps .sep {
+	width: 12px;
+	height: 1px;
+	background: var(--rule);
+}
+
+/* ---------- yöntem sekmeleri -------------------------------------------- */
+
+/*
+ * Düğmeler ve formlar aynı <nav> içinde sıralı; ızgara ile sekmeler 1. satırda
+ * yan yana durur, formlar altında tam genişlik. Izgara esnektir: 2'den fazla
+ * yöntemde sekmeler sığdığı kadar kolona yayılır.
+ */
+#form-selection {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+	gap: 14px 8px;
+	margin: 0;
+}
+
+#form-selection > button {
+	grid-row: 1;
+	min-height: 38px;
+	padding: 6px 2px;
+	border: 0;
+	border-bottom: 2px solid transparent;
+	border-radius: 0;
+	background: none;
+	color: var(--ink-2);
+	font: inherit;
+	font-size: 0.9375rem;
+	font-weight: 600;
 	text-align: left;
+	cursor: pointer;
+	transition: color 0.16s var(--ease), border-color 0.16s var(--ease);
+}
+
+#form-selection > button:hover {
+	color: var(--ink);
+}
+
+#form-selection > button.active {
+	color: var(--ink);
+	border-bottom-color: var(--brand);
+}
+
+#form-selection > :not(button) {
+	grid-row: 2;
+	grid-column: 1 / -1;
+}
+
+/* ---------- mesajlar ----------------------------------------------------- */
+
+.message {
+	margin: 0 0 16px;
+	padding: 12px 14px;
+	border: 1px solid var(--rule);
+	border-radius: var(--r-sm);
+	background: var(--shell);
+	font-size: 0.9375rem;
+	font-weight: 500;
+	white-space: pre-line;
 }
 
 .message.error {
-	background: var(--danger-bg);
-	border-left-color: var(--danger);
-	color: #7f1d1d;
+	border-color: var(--err-rule);
+	background: var(--err-bg);
+	color: var(--err);
 }
 
 .message.success {
+	border-color: var(--ok-rule);
 	background: var(--ok-bg);
-	border-left-color: var(--ok);
-	color: #14532d;
+	color: var(--ok);
 }
 
-/* yöntem sekmeleri */
-#form-selection {
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-	margin-bottom: 16px;
-}
-
-#form-selection:empty {
-	display: none;
-}
-
-button {
-	display: block;
-	width: 100%;
-	min-height: 48px;
-	padding: 12px 16px;
-	border: 1px solid var(--border);
-	border-radius: 10px;
-	background-color: #f8fafc;
-	color: var(--text);
-	font-family: inherit;
-	font-size: 1rem;
-	font-weight: 600;
-	cursor: pointer;
-	transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
-}
-
-button:hover {
-	background-color: #eef2f7;
-}
-
-button.active {
-	background-color: var(--brand);
-	border-color: var(--brand);
-	color: var(--brand-contrast);
-}
+/* ---------- formlar ------------------------------------------------------ */
 
 .form {
 	display: none;
-	text-align: left;
 }
 
 .form.active {
 	display: block;
 }
 
-.form .title {
-	padding: 8px 0;
-	font-size: 1.05rem;
-	font-weight: 600;
-}
-
 .form .content {
-	padding: 18px;
-	border: 1px solid var(--border);
-	border-radius: 10px;
-	background-color: var(--surface);
+	display: grid;
+	gap: 16px;
 }
 
 .form .description {
-	margin: 0 0 14px;
-	color: var(--muted);
-	font-size: 0.92rem;
+	margin: 0;
+	color: var(--ink-2);
+	font-size: 0.9375rem;
 }
 
 .form .item {
-	margin-bottom: 14px;
+	display: grid;
+	gap: 7px;
 }
 
 .form label {
-	display: block;
-	margin-bottom: 6px;
-	font-size: 0.9rem;
+	font-size: 0.8125rem;
 	font-weight: 600;
+	letter-spacing: 0.01em;
+	color: var(--ink-2);
 }
 
 .form .item-description {
-	margin-top: 6px;
-	color: var(--muted);
-	font-size: 0.78rem;
+	color: var(--ink-2);
+	font-size: 0.8125rem;
+	line-height: 1.45;
 }
 
-.form input.text {
+input.text {
 	width: 100%;
 	min-height: 46px;
-	padding: 10px 12px;
-	border: 1px solid var(--border);
-	border-radius: 10px;
-	background-color: var(--surface);
-	color: var(--text);
-	font-family: inherit;
+	padding: 11px 13px;
+	border: 1px solid var(--rule-strong);
+	border-radius: var(--r-sm);
+	background: var(--paper);
+	color: var(--ink);
+	font: inherit;
 	font-size: 1rem;
+	transition: border-color 0.16s var(--ease), box-shadow 0.16s var(--ease);
 }
 
-.form input.error {
-	border-color: var(--danger);
-	background-color: #fff5f5;
+input.text:hover {
+	border-color: var(--rule-hover);
 }
 
-button:focus-visible,
-input:focus-visible,
-a:focus-visible {
-	outline: 3px solid #7aa7ff;
-	outline-offset: 2px;
+input.text:disabled {
+	background: var(--shell);
+	color: var(--ink-2);
 }
 
-.form .checkbox {
-	display: flex;
-	align-items: flex-start;
-	gap: 8px;
+input.error {
+	border-color: var(--err-rule);
+	background: var(--danger-field);
 }
 
-.form .checkbox input {
-	margin-top: 3px;
+.form .checkbox,
+label.checkbox {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	gap: 4px 9px;
+	align-items: start;
 }
 
-.form .checkbox label {
-	margin-bottom: 0;
-	font-size: 0.8rem;
+.form .checkbox input,
+label.checkbox input {
+	width: 18px;
+	height: 18px;
+	margin: 2px 0 0;
+}
+
+.form .checkbox label,
+label.checkbox span {
+	font-size: 0.8125rem;
 	font-weight: 400;
-	line-height: 1.4;
-}
-
-.form .submit {
-	width: 100%;
-	min-height: 48px;
-	margin-top: 6px;
-	padding: 12px 16px;
-	border: 0;
-	border-radius: 10px;
-	background-color: var(--brand);
-	color: var(--brand-contrast);
-	font-family: inherit;
-	font-size: 1rem;
-	font-weight: 600;
+	line-height: 1.45;
+	color: var(--ink);
 	cursor: pointer;
 }
 
-.form .submit[disabled],
-.form .submit.busy {
-	opacity: 0.65;
-	cursor: default;
+/* ---------- kod şeridi (imza) ------------------------------------------- */
+
+.code-field {
+	position: relative;
+	padding-bottom: 10px;
 }
 
-.terms-link {
-	display: inline-block;
-	font-size: 0.8rem;
+.code-field::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 2px;
+	background: var(--brand);
+	transform: scaleX(0);
+	transform-origin: left center;
+	transition: transform 0.22s var(--ease);
 }
+
+.code-field:focus-within::after {
+	transform: scaleX(1);
+}
+
+input.code {
+	font-family: var(--mono);
+	font-size: 1.3125rem;
+	font-weight: 600;
+	letter-spacing: 0.32em;
+	text-indent: 0.32em;
+	text-align: center;
+	font-variant-numeric: tabular-nums;
+}
+
+.code-ticks {
+	display: grid;
+	grid-template-columns: repeat(6, 1fr);
+	gap: 6px;
+	margin-top: 6px;
+}
+
+.code-ticks i {
+	display: block;
+	height: 4px;
+	border-top: 1px solid var(--rule);
+}
+
+.code-field:focus-within .code-ticks i {
+	border-top-color: var(--rule-strong);
+}
+
+/* ---------- birincil eylem ---------------------------------------------- */
+
+input.submit,
+button.submit {
+	width: 100%;
+	min-height: 48px;
+	margin-top: 4px;
+	padding: 12px 18px;
+	border: 1px solid transparent;
+	border-radius: var(--r-sm);
+	background: var(--brand);
+	color: var(--brand-ink);
+	font: inherit;
+	font-size: 1rem;
+	font-weight: 600;
+	cursor: pointer;
+	transition: background-color 0.16s var(--ease), transform 0.08s var(--ease);
+}
+
+input.submit:hover,
+button.submit:hover {
+	background: var(--brand-hover);
+}
+
+input.submit:active,
+button.submit:active {
+	transform: translateY(1px);
+}
+
+input.submit[disabled],
+input.submit.busy {
+	background: var(--disabled-surface);
+	color: var(--disabled-ink);
+	cursor: default;
+	transform: none;
+}
+
+/* ---------- odak -------------------------------------------------------- */
+
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+	outline: 2px solid var(--focus);
+	outline-offset: 2px;
+	border-radius: var(--r-xs);
+}
+
+/* ---------- alt satır: dil ---------------------------------------------- */
 
 #lang {
 	display: flex;
 	gap: 6px;
-	align-items: center;
-	justify-content: center;
 	margin-top: 18px;
-	font-size: 0.85rem;
-	color: var(--muted);
 }
 
 #lang input[type="submit"] {
+	min-width: 54px;
+	min-height: 34px;
 	padding: 6px 12px;
-	border: 1px solid transparent;
-	border-radius: 8px;
-	background: none;
-	color: var(--muted);
-	font-family: inherit;
-	font-size: 0.85rem;
+	border: 1px solid var(--rule);
+	border-radius: var(--r-sm);
+	background: var(--paper);
+	color: var(--ink-2);
+	font: inherit;
+	font-size: 0.8125rem;
 	font-weight: 600;
+	letter-spacing: 0.04em;
 	cursor: pointer;
 }
 
+#lang input[type="submit"]:hover {
+	color: var(--ink);
+	border-color: var(--rule-strong);
+}
+
 #lang input[type="submit"][aria-current="true"] {
-	border-color: var(--border);
-	background-color: var(--bg-accent);
-	color: var(--text);
+	color: var(--ink);
+	border-color: var(--rule-strong);
+	background: var(--shell);
 }
 
-#wifi-logo {
-	margin-top: 20px;
-	text-align: center;
-}
-
-#wifi-logo img {
-	max-width: 132px;
-	height: auto;
-	opacity: 0.75;
-}
-
-/* sözleşme metni açılır penceresi */
 .popup_cont {
-	width: 65%;
-	max-width: 640px;
+	width: min(92%, 620px);
 }
 
-/* intl-tel-input ülke seçici, portal temasına uysun */
-.intl-tel-input {
-	width: 100%;
-}
-
-@media all and (max-width: 520px) {
-	body {
-		padding: 16px 12px 32px;
+@media all and (max-width: 560px) {
+	:root {
+		--pad: 16px;
 	}
 
-	#title {
-		padding: 14px 16px;
-		font-size: 1.05rem;
-	}
-
-	#container {
-		padding: 16px;
+	#brand {
+		padding-top: 20px;
+		gap: 10px;
 	}
 
 	#logo img {
-		max-width: 80%;
-		max-height: 64px;
+		height: 22px;
 	}
 
-	button,
-	.form .submit,
-	.form input.text {
-		min-height: 48px;
+	#container {
+		margin-top: 14px;
 	}
 
-	.popup_cont {
-		width: 88%;
+	input.code {
+		font-size: 1.1875rem;
+		letter-spacing: 0.26em;
+		text-indent: 0.26em;
 	}
 
 	.iti-mobile .intl-tel-input.iti-container {
+		position: fixed;
 		top: 24px;
 		bottom: 24px;
 		left: 16px;
 		right: 16px;
-		position: fixed;
 		width: calc(100% - 32px);
-		box-shadow: 0 0 80px 80px rgba(0, 0, 0, 0.5);
-		-webkit-appearance: none;
+		box-shadow: 0 0 80px 80px var(--scrim);
 	}
 }
 
 @media (prefers-reduced-motion: reduce) {
-	* {
-		transition: none !important;
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.001ms !important;
+		transition-duration: 0.001ms !important;
 	}
 }

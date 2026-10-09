@@ -25,6 +25,7 @@ $(function() {
 <h2>SMS Raporu</h2>
 <div>
 
+	<div class="wrapper">
 	<table>
 		<tr>
 			<th><?=order_link('sms', 'gsm', 'GSM')?></th>
@@ -38,7 +39,8 @@ $(function() {
 			<td><?=format_date($sms->timestamp)?></td>
 		</tr>
 	<? endforeach; ?>
-	</table>
+		</table>
+</div>
 
 	<div id="filter">
 		<div class="item">
