@@ -4,7 +4,7 @@
           <Status order="10" VisibleName="Durum" url="/ui/monospot/status"/>
           <Settings order="20" VisibleName="Servis Ayarları" url="/ui/monospot"/>
           <CaptivePortal order="30" VisibleName="Captive Portal" url="/ui/monospot/captive_portal"/>
-          <Users order="40" VisibleName="Kullanıcılar" url="/monospot.php?u=users"/>
+          <Users order="40" VisibleName="Kullanıcılar" url="/ui/monospot/users"/>
           <Groups order="50" VisibleName="Gruplar" url="/monospot.php?u=groups"/>
           <Sms order="60" VisibleName="SMS Raporu" url="/monospot.php?u=sms"/>
           <Permissions order="70" VisibleName="İzin Raporu" url="/monospot.php?u=permissions"/>

@@ -1,0 +1,144 @@
+<form>
+    <field>
+        <id>user.username</id>
+        <label>Kullanıcı adı</label>
+        <type>text</type>
+        <help>Portalda "kullanıcı adı ve şifre" girişinde kullanılır. Zorunlu ve benzersiz olmalı.</help>
+        <grid_view>
+            <sequence>10</sequence>
+        </grid_view>
+    </field>
+    <field>
+        <id>user.gsm</id>
+        <label>GSM</label>
+        <type>text</type>
+        <help>SMS gönderilecek numara; 10 hane, başında 0 olmadan (ör. 5551112233).</help>
+        <grid_view>
+            <sequence>20</sequence>
+        </grid_view>
+    </field>
+    <field>
+        <id>user.name</id>
+        <label>Ad</label>
+        <type>text</type>
+        <grid_view>
+            <sequence>30</sequence>
+        </grid_view>
+    </field>
+    <field>
+        <id>user.surname</id>
+        <label>Soyad</label>
+        <type>text</type>
+        <grid_view>
+            <sequence>40</sequence>
+        </grid_view>
+    </field>
+    <field>
+        <id>user.email</id>
+        <label>E-posta</label>
+        <type>text</type>
+        <grid_view>
+            <visible>false</visible>
+        </grid_view>
+    </field>
+    <field>
+        <id>user.id_number</id>
+        <label>TC Kimlik No</label>
+        <type>text</type>
+        <help>İsteğe bağlı; TCKN ile giriş yöntemi kullanılıyorsa zorunlu.</help>
+        <grid_view>
+            <visible>false</visible>
+        </grid_view>
+    </field>
+    <field>
+        <id>user.password</id>
+        <label>Şifre</label>
+        <type>text</type>
+        <help>Portal girişinde kullanılan tek kullanımlık/atanmış şifre. Boş bırakılırsa kayıt şifresiz kalır (SMS ile yeni şifre alınabilir).</help>
+        <grid_view>
+            <visible>false</visible>
+        </grid_view>
+    </field>
+    <field>
+        <id>user.group_id</id>
+        <label>Grup</label>
+        <type>text</type>
+        <help>Monospot grup numarası (boş = grup yok). Gruplar kendi sayfasından yönetilir.</help>
+        <grid_view>
+            <visible>false</visible>
+        </grid_view>
+    </field>
+    <field>
+        <id>user.daily_limit</id>
+        <label>Günlük SMS limiti</label>
+        <type>text</type>
+        <grid_view>
+            <sequence>50</sequence>
+        </grid_view>
+    </field>
+    <field>
+        <id>user.weekly_limit</id>
+        <label>Haftalık SMS limiti</label>
+        <type>text</type>
+        <grid_view>
+            <visible>false</visible>
+        </grid_view>
+    </field>
+    <field>
+        <id>user.monthly_limit</id>
+        <label>Aylık SMS limiti</label>
+        <type>text</type>
+        <grid_view>
+            <sequence>60</sequence>
+        </grid_view>
+    </field>
+    <field>
+        <id>user.yearly_limit</id>
+        <label>Yıllık SMS limiti</label>
+        <type>text</type>
+        <grid_view>
+            <visible>false</visible>
+        </grid_view>
+    </field>
+    <field>
+        <id>user.expires</id>
+        <label>Şifre geçerlilik tarihi</label>
+        <type>text</type>
+        <help>Boş bırakılırsa uygulamanın varsayılan süresi kullanılır. Biçim: YYYY-AA-GG.</help>
+        <grid_view>
+            <sequence>70</sequence>
+        </grid_view>
+    </field>
+    <field>
+        <id>user.gsm_permission</id>
+        <label>GSM izni (KVKK)</label>
+        <type>checkbox</type>
+        <grid_view>
+            <sequence>100</sequence>
+        </grid_view>
+    </field>
+    <field>
+        <id>user.email_permission</id>
+        <label>E-posta izni (KVKK)</label>
+        <type>checkbox</type>
+        <grid_view>
+            <sequence>110</sequence>
+        </grid_view>
+    </field>
+    <field>
+        <id>user.last_login</id>
+        <label>Son giriş</label>
+        <type>info</type>
+        <grid_view>
+            <sequence>80</sequence>
+        </grid_view>
+    </field>
+    <field>
+        <id>user.last_mac</id>
+        <label>Son MAC</label>
+        <type>info</type>
+        <grid_view>
+            <sequence>90</sequence>
+        </grid_view>
+    </field>
+</form>
