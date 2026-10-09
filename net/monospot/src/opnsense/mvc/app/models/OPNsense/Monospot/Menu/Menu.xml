@@ -9,8 +9,11 @@
           <Groups order="60" VisibleName="Gruplar" url="/ui/monospot/groups"/>
           <Sms order="70" VisibleName="SMS Raporu" url="/ui/monospot/sms"/>
           <Permissions order="80" VisibleName="İzin Raporu" url="/ui/monospot/permissions"/>
-          <Archive order="90" VisibleName="5651 Günlükleri" url="/ui/monospot/archive"/>
-          <Panel order="99" VisibleName="Yönetim Paneli (grup ayarları, dil, tema)" url="/monospot.php"/>
+          <Archive order="90" VisibleName="5651 Günlükleri" url="/ui/monospot/archive">
+              <ArchiveStatus order="10" VisibleName="Arşiv ve Toplama" url="/ui/monospot/archive"/>
+              <ArchiveSettings order="20" VisibleName="Ayarlar" url="/ui/monospot/archive_settings"/>
+          </Archive>
+          <Panel order="99" VisibleName="Yönetim Paneli" url="/monospot.php"/>
       </Monospot>
     </Services>
 </menu>

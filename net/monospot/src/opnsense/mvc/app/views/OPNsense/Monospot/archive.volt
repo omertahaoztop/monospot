@@ -19,7 +19,14 @@ $(document).ready(function () {
             + (data.archive.oldest ? ' (' + data.archive.oldest + ' → ' + data.archive.newest + ')' : ''));
         row('{{ lang._("Arşiv boyutu") }}', (data.archive.bytes / 1024).toFixed(1) + ' KB');
         row('{{ lang._("Toplama zamanı") }}', '{{ lang._("her gün 23:59 (root crontab)") }}');
-        $("#archive_info").html('<table class="table table-condensed table-striped">' + rows.join('') + '</table>');
+        row('{{ lang._("İşlem") }}',
+            '<a href="#" id="collect5651">{{ lang._("Arşivi şimdi topla") }}</a> <i id="collect5651_progress"></i>'
+            + ' &nbsp;·&nbsp; <a href="/5651/" target="_blank">{{ lang._("Günlük tarayıcısını aç") }}</a>'
+            + ' &nbsp;·&nbsp; <a href="/ui/monospot/archive_settings">{{ lang._("5651 ayarları") }}</a>');
+        $("#archive_info").html(
+            '<table class="table table-condensed table-hover table-striped table-responsive">'
+            + '<thead><tr><th>{{ lang._("Öğe") }}</th><th>{{ lang._("Değer") }}</th></tr></thead>'
+            + '<tbody>' + rows.join('') + '</tbody></table>');
     }
 
     function loadArchive() {
@@ -30,7 +37,8 @@ $(document).ready(function () {
 
     loadArchive();
 
-    $("#collect5651").click(function () {
+    $(document).on('click', '#collect5651', function (event) {
+        event.preventDefault();
         $("#collect5651_progress").addClass("fa fa-spinner fa-pulse");
         ajaxCall(url = "/api/monospot/service/collect5651", sendData = {}, callback = function (data, status) {
             $("#collect5651_progress").removeClass("fa fa-spinner fa-pulse");
@@ -48,12 +56,8 @@ $(document).ready(function () {
 <div class="content-box">
     <div class="row">
         <div class="col-md-12">
-            <h2>5651</h2>
+            <h2 style="margin-top: 0;">5651</h2>
             <div id="archive_info"><em>{{ lang._("Yükleniyor...") }}</em></div>
-            <hr/>
-            <button class="btn btn-default" id="collect5651">{{ lang._("Arşivi şimdi topla") }}</button>
-            <i id="collect5651_progress"></i>
-            <a href="/5651/" target="_blank">{{ lang._("Günlük tarayıcısını aç") }}</a>
         </div>
     </div>
 </div>

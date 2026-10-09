@@ -1,0 +1,17 @@
+<form>
+  <tab id="archive" description="5651 günlükleri">
+    <field>
+      <id>monospot.collect5651.enabled</id>
+      <label>Günlük arşivi topla</label>
+      <type>checkbox</type>
+      <help>Her gün 23:59'da portal kimlik kayıtları, DHCP kira tablosu ve captive portal oturum listesi arşivlenir. Zamanlama root crontab'ına yazılır (Arşiv sayfasından elle de toplanabilir).</help>
+    </field>
+    <field>
+      <id>monospot.collect5651.retention_days</id>
+      <label>Saklama süresi (gün)</label>
+      <type>text</type>
+      <help>Bu süreden eski arşiv gün dizinleri silinir (varsayılan 365 gün).</help>
+    </field>
+  </tab>
+  <activetab>archive</activetab>
+</form>

@@ -92,10 +92,11 @@ Eklenti OPNsense sol menüsünde **Services → Monospot** altında ayrı sayfal
 
 | Menü | Sayfa | İş |
 |---|---|---|
-| Servis Ayarları | `/ui/monospot` | servis/zone/port ayarları, zone şablonu, 5651 düğmesi |
+| Servis Ayarları | `/ui/monospot` | servis/zone/port ayarları |
 | Captive Portal | `/ui/monospot/captive_portal` | core zone ayarları (arayüzler, timeout'lar, roaming, açıklama) |
 | Portal ve Zone Şablonu | `/ui/monospot/portal` | portal adresi, zone şablonu durumu ve kurulumu |
-| 5651 Günlükleri | `/ui/monospot/archive` | arşiv özeti, elle toplama, günlük tarayıcısı bağlantısı |
+| 5651 Günlükleri → Arşiv ve Toplama | `/ui/monospot/archive` | arşiv özeti, elle toplama, tarayıcı bağlantısı |
+| 5651 Günlükleri → Ayarlar | `/ui/monospot/archive_settings` | arşivleme açık/kapalı, saklama süresi |
 | Durum | `/ui/monospot/status` | servis/portal/zone/istemci/veritabanı/5651 özeti |
 | Kullanıcılar | `/ui/monospot/users` | **native** liste/ekle/düzenle/sil (hotspot veritabanı) |
 | Gruplar | `/ui/monospot/groups` | **native** grup (ad + MAC listesi) CRUD |
@@ -110,6 +111,9 @@ Eklenti OPNsense sol menüsünde **Services → Monospot** altında ayrı sayfal
 - **Zone seçimi açılır listedir:** seçenekler core modelden (`zonesAction`) gelir; kullanıcı zone numarasını
   elle yazmaz. `interfaces` alanı aynı nedenle tokenize (yaz-Enter) modundadır — form motoru select
   seçeneklerini JS ile doldurur, model verisi olmadan boş kalır.
+- **Eylemler tablo satırında:** "Zone şablonunu kur"/"Arşivi şimdi topla" gibi tek seferlik işler
+  ilgili tablonun *İşlem* satırında bağlantı olarak durur (dinamik bağlama: `$(document).on('click', ...)`);
+  bağımsız düğme satırı yok.
 - **Tablo/badge dili OPNsense:** `table table-condensed table-hover table-striped table-responsive` + `<thead>`,
   durum için `label label-opnsense label-success|danger`. Ad-hoc `btn-default` satırları kaldırıldı.
 - **Sayfa yüzeyi OPNsense'in kendi diliyle çizilir:** sekme + *Apply* düzeni (`base_tabs_content`),
@@ -135,7 +139,7 @@ Eklenti OPNsense sol menüsünde **Services → Monospot** altında ayrı sayfal
 
 Portal giriş kayıtları, DHCP kira tablosu ve captive portal oturum listesi gün bazında arşivlenir
 (5651 kimlik kaydı için kanıt defteri). Varsayılan olarak **açıktır**; `Services > Monospot`
-sayfasındaki *5651 günlükleri* sekmesinden kapatılır ve saklama süresi değiştirilir.
+menüsündeki **5651 Günlükleri → Ayarlar** sayfasından kapatılır ve saklama süresi değiştirilir.
 
 ```
 /var/db/monospot/5651/

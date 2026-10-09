@@ -19,9 +19,11 @@ $(document).ready(function () {
         row('{{ lang._("Zone") }}', data.zoneid
             + (data.zone.description ? ' — ' + data.zone.description : '')
             + (data.zone.interfaces.length ? ' (' + data.zone.interfaces.join(', ') + ')' : ''));
-        row('{{ lang._("Zone şablonu") }}', data.zone.template_name === ''
+        row('{{ lang._("Zone şablonu") }}', (data.zone.template_name === ''
             ? badge(false, '{{ lang._("kurulmamış — istemci portalı görmez") }}')
-            : badge(true, data.zone.template_name));
+            : badge(true, data.zone.template_name))
+            + ' <a href="#" id="install_zonetemplate">{{ lang._("Yeniden kur") }}</a>'
+            + ' <i id="install_zonetemplate_progress"></i>');
         row('{{ lang._("Servis") }}', badge(data.enabled, data.enabled ? '{{ lang._("etkin") }}' : '{{ lang._("kapalı") }}'));
         $("#portal_info").html(
             '<table class="table table-condensed table-hover table-striped table-responsive">'
@@ -37,7 +39,8 @@ $(document).ready(function () {
 
     loadPortalInfo();
 
-    $("#install_zonetemplate").click(function () {
+    $(document).on('click', '#install_zonetemplate', function (event) {
+        event.preventDefault();
         stdDialogConfirm(
             '{{ lang._("Zone şablonu") }}',
             '{{ lang._("Seçili zone bu portalı gösterecek şekilde güncellenecek ve captive portal yeniden başlatılacak. Devam edilsin mi?") }}',
@@ -65,9 +68,6 @@ $(document).ready(function () {
         <div class="col-md-12">
             <h2>{{ lang._("Portal") }}</h2>
             <div id="portal_info"><em>{{ lang._("Yükleniyor...") }}</em></div>
-            <hr/>
-            <button class="btn btn-default" id="install_zonetemplate">{{ lang._("Zone şablonunu kur") }}</button>
-            <i id="install_zonetemplate_progress"></i>
         </div>
     </div>
 </div>

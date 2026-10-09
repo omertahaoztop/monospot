@@ -65,12 +65,21 @@ $(document).ready(function () {
 <div class="content-box">
     <div class="row">
         <div class="col-md-12">
-            <h2>
-                {{ lang._("Durum") }}
-                <button class="btn btn-default btn-xs" id="monospot_info_refresh">{{ lang._("Yenile") }}</button>
+            <h2 style="margin-top: 0;">
+                {{ lang._("Servis ve portal") }}
+                <button class="btn btn-default btn-xs pull-right" id="monospot_info_refresh">
+                    <i class="fa fa-refresh"></i> {{ lang._("Yenile") }}
+                </button>
             </h2>
             <div id="monospot_info"><em>{{ lang._("Yükleniyor...") }}</em></div>
-            <h3>{{ lang._("Yetkili istemciler (ilk 10)") }}</h3>
+        </div>
+    </div>
+</div>
+
+<div class="content-box">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 style="margin-top: 0;">{{ lang._("Yetkili istemciler") }}</h2>
             <div id="monospot_clients"><em>{{ lang._("Yükleniyor...") }}</em></div>
         </div>
     </div>
