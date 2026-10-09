@@ -27,13 +27,45 @@ class CaptivePortalController extends ApiControllerBase
         }
         return ['captiveportal' => [
             'enabled' => (string)$zone->enabled,
-            'interfaces' => $zone->interfaces->getValues(),
+            'interfaces' => $this->interfaceOptions($zone),
             'idletimeout' => (string)$zone->idletimeout,
             'hardtimeout' => (string)$zone->hardtimeout,
             'concurrentlogins' => (string)$zone->concurrentlogins,
             'roaming' => (string)$zone->roaming,
             'description' => (string)$zone->description,
         ]];
+    }
+
+    /**
+     * select alanları için OPNsense form motorunun beklediği seçenek listesi:
+     * [{key, value, selected}, ...] — options bu nesneden üretilir.
+     */
+    private function interfaceOptions($zone)
+    {
+        $selected = $zone->interfaces->getValues();
+        $options = [];
+        foreach ($zone->interfaces->getNodeData() as $key => $option) {
+            $label = is_array($option) ? (string)($option['value'] ?? $key) : (string)$option;
+            $options[] = [
+                'key' => (string)$key,
+                'value' => $label,
+                'selected' => in_array((string)$key, $selected, true) ? 1 : 0,
+            ];
+        }
+        /* kayıtlı ama listede olmayan arayüz adları da görünsün */
+        foreach ($selected as $name) {
+            $known = false;
+            foreach ($options as $option) {
+                if ($option['key'] === $name) {
+                    $known = true;
+                    break;
+                }
+            }
+            if (!$known) {
+                $options[] = ['key' => $name, 'value' => $name, 'selected' => 1];
+            }
+        }
+        return $options;
     }
 
     /**

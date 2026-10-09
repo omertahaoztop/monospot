@@ -48,6 +48,36 @@ const FLAT_MAP = [
     'color' => ['color'],
     'items_per_page' => ['items_per_page'],
     'custom_fields' => ['custom_fields'],
+    'contact_sms_gsm' => ['contact', 'sms', 'gsm'],
+    'contact_sms_gsm_required' => ['contact', 'sms', 'gsm_required'],
+    'contact_sms_gsm_permission' => ['contact', 'sms', 'gsm_permission'],
+    'contact_sms_gsm_permission_checked' => ['contact', 'sms', 'gsm_permission_checked'],
+    'contact_sms_gsm_permission_required' => ['contact', 'sms', 'gsm_permission_required'],
+    'contact_sms_email' => ['contact', 'sms', 'email'],
+    'contact_sms_email_required' => ['contact', 'sms', 'email_required'],
+    'contact_sms_email_permission' => ['contact', 'sms', 'email_permission'],
+    'contact_sms_email_permission_checked' => ['contact', 'sms', 'email_permission_checked'],
+    'contact_sms_email_permission_required' => ['contact', 'sms', 'email_permission_required'],
+    'contact_id_number_gsm' => ['contact', 'id_number', 'gsm'],
+    'contact_id_number_gsm_required' => ['contact', 'id_number', 'gsm_required'],
+    'contact_id_number_gsm_permission' => ['contact', 'id_number', 'gsm_permission'],
+    'contact_id_number_gsm_permission_checked' => ['contact', 'id_number', 'gsm_permission_checked'],
+    'contact_id_number_gsm_permission_required' => ['contact', 'id_number', 'gsm_permission_required'],
+    'contact_id_number_email' => ['contact', 'id_number', 'email'],
+    'contact_id_number_email_required' => ['contact', 'id_number', 'email_required'],
+    'contact_id_number_email_permission' => ['contact', 'id_number', 'email_permission'],
+    'contact_id_number_email_permission_checked' => ['contact', 'id_number', 'email_permission_checked'],
+    'contact_id_number_email_permission_required' => ['contact', 'id_number', 'email_permission_required'],
+    'contact_manual_user_gsm' => ['contact', 'manual_user', 'gsm'],
+    'contact_manual_user_gsm_required' => ['contact', 'manual_user', 'gsm_required'],
+    'contact_manual_user_gsm_permission' => ['contact', 'manual_user', 'gsm_permission'],
+    'contact_manual_user_gsm_permission_checked' => ['contact', 'manual_user', 'gsm_permission_checked'],
+    'contact_manual_user_gsm_permission_required' => ['contact', 'manual_user', 'gsm_permission_required'],
+    'contact_manual_user_email' => ['contact', 'manual_user', 'email'],
+    'contact_manual_user_email_required' => ['contact', 'manual_user', 'email_required'],
+    'contact_manual_user_email_permission' => ['contact', 'manual_user', 'email_permission'],
+    'contact_manual_user_email_permission_checked' => ['contact', 'manual_user', 'email_permission_checked'],
+    'contact_manual_user_email_permission_required' => ['contact', 'manual_user', 'email_permission_required'],
 ];
 
 /* onay kutusu (değer '1' ise anahtar eklenir, değilse kaldırılır) */
@@ -55,6 +85,36 @@ const BOOL_KEYS = [
     'auth_sms', 'auth_id_number', 'auth_manual_user',
     'sms_simple_screen', 'sms_international', 'sms_always_send_password', 'sms_id_number',
     'id_number_open_extended', 'terms', 'terms_checked', 'disallow_multiple_logins',
+    'contact_sms_gsm',
+    'contact_sms_gsm_required',
+    'contact_sms_gsm_permission',
+    'contact_sms_gsm_permission_checked',
+    'contact_sms_gsm_permission_required',
+    'contact_sms_email',
+    'contact_sms_email_required',
+    'contact_sms_email_permission',
+    'contact_sms_email_permission_checked',
+    'contact_sms_email_permission_required',
+    'contact_id_number_gsm',
+    'contact_id_number_gsm_required',
+    'contact_id_number_gsm_permission',
+    'contact_id_number_gsm_permission_checked',
+    'contact_id_number_gsm_permission_required',
+    'contact_id_number_email',
+    'contact_id_number_email_required',
+    'contact_id_number_email_permission',
+    'contact_id_number_email_permission_checked',
+    'contact_id_number_email_permission_required',
+    'contact_manual_user_gsm',
+    'contact_manual_user_gsm_required',
+    'contact_manual_user_gsm_permission',
+    'contact_manual_user_gsm_permission_checked',
+    'contact_manual_user_gsm_permission_required',
+    'contact_manual_user_email',
+    'contact_manual_user_email_required',
+    'contact_manual_user_email_permission',
+    'contact_manual_user_email_permission_checked',
+    'contact_manual_user_email_permission_required',
 ];
 
 /* sayısal alanlar (üst sınırlar dahil) */
@@ -197,6 +257,12 @@ switch ($command) {
         foreach (FLAT_MAP as $flat => $path) {
             $value = get_path($settings, $path);
             if (in_array($flat, BOOL_KEYS, true)) {
+                /* panel görünümüyle aynı varsayılan: SMS yönteminde telefon alanı zorunlu gelir */
+                if ($value === null && get_path($settings, ['authentication', 'sms']) !== null
+                        && in_array($flat, ['contact_sms_gsm', 'contact_sms_gsm_required'], true)) {
+                    $portal[$flat] = '1';
+                    continue;
+                }
                 $portal[$flat] = $value === null ? '' : '1';
             } elseif (isset(NUM_RANGE[$flat])) {
                 $portal[$flat] = (string)(int)$value;

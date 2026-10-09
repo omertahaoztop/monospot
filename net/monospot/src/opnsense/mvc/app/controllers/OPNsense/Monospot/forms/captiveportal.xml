@@ -10,9 +10,7 @@
       <id>captiveportal.interfaces</id>
       <label>Arayüzler</label>
       <type>select_multiple</type>
-      <style>tokenize</style>
-      <allownew>true</allownew>
-      <help>Arayüz adını yazıp Enter'a basın (lab: <code>lan</code>). Değişiklikten sonra zone kuralları ve zone lighttpd yapılandırması yeniden üretilir, captive portal yeniden başlar.</help>
+      <help><![CDATA[Portalın hizmet vereceği arayüzler (lab: <code>lan</code>). Liste OPNsense arayüzlerinden gelir. Değişiklikten sonra zone kuralları ve zone lighttpd yapılandırması yeniden üretilir, captive portal yeniden başlar.]]></help>
     </field>
     <field>
       <id>captiveportal.idletimeout</id>

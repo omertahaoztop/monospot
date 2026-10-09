@@ -53,11 +53,15 @@ $(document).ready(function () {
     });
 });
 </script>
-<div class="content-box">
-    <div class="row">
-        <div class="col-md-12">
-            <h2 style="margin-top: 0;">5651</h2>
-            <div id="archive_info"><em>{{ lang._("Yükleniyor...") }}</em></div>
+<ul class="nav nav-tabs" role="tablist" id="maintabs">
+    <li class="active"><a data-toggle="tab" href="#archive">{{ lang._("Arşiv durumu") }}</a></li>
+</ul>
+<div class="content-box tab-content">
+    <div id="archive" class="tab-pane fade in active">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="archive_info"><em>{{ lang._("Yükleniyor...") }}</em></div>
+            </div>
         </div>
     </div>
 </div>

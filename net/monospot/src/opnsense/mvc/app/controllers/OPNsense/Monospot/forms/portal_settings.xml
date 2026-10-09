@@ -54,6 +54,170 @@
       <type>checkbox</type>
     </field>
   </tab>
+  <tab id="contact" description="İletişim izinleri">
+    <field>
+      <type>subheader</type>
+      <label>SMS ile şifre gönderimi</label>
+    </field>
+    <field>
+      <id>portal.contact_sms_gsm</id>
+      <label>Cep telefonu giriş alanı ekle</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>portal.contact_sms_gsm_required</id>
+      <label>Cep telefonu girişi zorunlu olsun</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>portal.contact_sms_gsm_permission</id>
+      <label>Cep telefonu için iletişim izni iste</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>portal.contact_sms_gsm_permission_checked</id>
+      <label>Cep telefonu izin seçeneği işaretli gelsin</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>portal.contact_sms_gsm_permission_required</id>
+      <label>Cep telefonu izin almadan girişe izin verme</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>portal.contact_sms_email</id>
+      <label>E-posta giriş alanı ekle</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>portal.contact_sms_email_required</id>
+      <label>E-posta girişi zorunlu olsun</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>portal.contact_sms_email_permission</id>
+      <label>E-posta için iletişim izni iste</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>portal.contact_sms_email_permission_checked</id>
+      <label>E-posta izin seçeneği işaretli gelsin</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>portal.contact_sms_email_permission_required</id>
+      <label>E-posta izin almadan girişe izin verme</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <type>subheader</type>
+      <label>TC Kimlik No</label>
+    </field>
+    <field>
+      <id>portal.contact_id_number_gsm</id>
+      <label>Cep telefonu giriş alanı ekle</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>portal.contact_id_number_gsm_required</id>
+      <label>Cep telefonu girişi zorunlu olsun</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>portal.contact_id_number_gsm_permission</id>
+      <label>Cep telefonu için iletişim izni iste</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>portal.contact_id_number_gsm_permission_checked</id>
+      <label>Cep telefonu izin seçeneği işaretli gelsin</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>portal.contact_id_number_gsm_permission_required</id>
+      <label>Cep telefonu izin almadan girişe izin verme</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>portal.contact_id_number_email</id>
+      <label>E-posta giriş alanı ekle</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>portal.contact_id_number_email_required</id>
+      <label>E-posta girişi zorunlu olsun</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>portal.contact_id_number_email_permission</id>
+      <label>E-posta için iletişim izni iste</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>portal.contact_id_number_email_permission_checked</id>
+      <label>E-posta izin seçeneği işaretli gelsin</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>portal.contact_id_number_email_permission_required</id>
+      <label>E-posta izin almadan girişe izin verme</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <type>subheader</type>
+      <label>Elle kullanıcı açma</label>
+    </field>
+    <field>
+      <id>portal.contact_manual_user_gsm</id>
+      <label>Cep telefonu giriş alanı ekle</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>portal.contact_manual_user_gsm_required</id>
+      <label>Cep telefonu girişi zorunlu olsun</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>portal.contact_manual_user_gsm_permission</id>
+      <label>Cep telefonu için iletişim izni iste</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>portal.contact_manual_user_gsm_permission_checked</id>
+      <label>Cep telefonu izin seçeneği işaretli gelsin</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>portal.contact_manual_user_gsm_permission_required</id>
+      <label>Cep telefonu izin almadan girişe izin verme</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>portal.contact_manual_user_email</id>
+      <label>E-posta giriş alanı ekle</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>portal.contact_manual_user_email_required</id>
+      <label>E-posta girişi zorunlu olsun</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>portal.contact_manual_user_email_permission</id>
+      <label>E-posta için iletişim izni iste</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>portal.contact_manual_user_email_permission_checked</id>
+      <label>E-posta izin seçeneği işaretli gelsin</label>
+      <type>checkbox</type>
+    </field>
+    <field>
+      <id>portal.contact_manual_user_email_permission_required</id>
+      <label>E-posta izin almadan girişe izin verme</label>
+      <type>checkbox</type>
+    </field>
+  </tab>
   <tab id="general" description="Genel">
     <field>
       <id>portal.session_timeout</id>

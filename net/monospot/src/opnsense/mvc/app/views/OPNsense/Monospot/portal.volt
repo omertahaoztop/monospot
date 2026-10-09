@@ -63,11 +63,15 @@ $(document).ready(function () {
     });
 });
 </script>
-<div class="content-box">
-    <div class="row">
-        <div class="col-md-12">
-            <h2>{{ lang._("Portal") }}</h2>
-            <div id="portal_info"><em>{{ lang._("Yükleniyor...") }}</em></div>
+<ul class="nav nav-tabs" role="tablist" id="maintabs">
+    <li class="active"><a data-toggle="tab" href="#portal">{{ lang._("Portal durumu") }}</a></li>
+</ul>
+<div class="content-box tab-content">
+    <div id="portal" class="tab-pane fade in active">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="portal_info"><em>{{ lang._("Yükleniyor...") }}</em></div>
+            </div>
         </div>
     </div>
 </div>

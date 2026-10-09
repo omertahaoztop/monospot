@@ -62,25 +62,24 @@ $(document).ready(function () {
     $("#monospot_info_refresh").trigger('click');
 });
 </script>
-<div class="content-box">
-    <div class="row">
-        <div class="col-md-12">
-            <h2 style="margin-top: 0;">
-                {{ lang._("Servis ve portal") }}
-                <button class="btn btn-default btn-xs pull-right" id="monospot_info_refresh">
+<ul class="nav nav-tabs" role="tablist" id="maintabs">
+    <li class="active"><a data-toggle="tab" href="#status">{{ lang._("Durum") }}</a></li>
+</ul>
+<div class="content-box tab-content">
+    <div id="status" class="tab-pane fade in active">
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button class="btn btn-default btn-xs" id="monospot_info_refresh">
                     <i class="fa fa-refresh"></i> {{ lang._("Yenile") }}
                 </button>
-            </h2>
-            <div id="monospot_info"><em>{{ lang._("Yükleniyor...") }}</em></div>
+            </div>
         </div>
-    </div>
-</div>
-
-<div class="content-box">
-    <div class="row">
-        <div class="col-md-12">
-            <h2 style="margin-top: 0;">{{ lang._("Yetkili istemciler") }}</h2>
-            <div id="monospot_clients"><em>{{ lang._("Yükleniyor...") }}</em></div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="monospot_info"><em>{{ lang._("Yükleniyor...") }}</em></div>
+                <h4>{{ lang._("Yetkili istemciler") }}</h4>
+                <div id="monospot_clients"><em>{{ lang._("Yükleniyor...") }}</em></div>
+            </div>
         </div>
     </div>
 </div>

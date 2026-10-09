@@ -96,7 +96,7 @@ Eklenti OPNsense sol menüsünde **Services → Monospot** altında ayrı sayfal
 | Captive Portal | `/ui/monospot/captive_portal` | core zone ayarları (arayüzler, timeout'lar, roaming, açıklama) |
 | Oturumlar | `/ui/monospot/sessions` | yetkili istemciler (kullanıcı/IP/MAC/trafik) + satır aksiyonuyla oturum kesme |
 | Portal → Durum ve Zone Şablonu | `/ui/monospot/portal` | portal adresi, zone şablonu durumu ve kurulumu |
-| Portal → Uygulama Ayarları | `/ui/monospot/portal_settings` | `settings.inc` (giriş yöntemi, genel, SMS, ekran) + `hotspot.ini` (firma/marka) |
+| Portal → Uygulama Ayarları | `/ui/monospot/portal_settings` | `settings.inc` (giriş yöntemi, genel, SMS, **iletişim izinleri**, ekran) + `hotspot.ini` (firma/marka) |
 | 5651 Günlükleri → Arşiv ve Toplama | `/ui/monospot/archive` | arşiv özeti, elle toplama, tarayıcı bağlantısı |
 | 5651 Günlükleri → Ayarlar | `/ui/monospot/archive_settings` | arşivleme açık/kapalı, saklama süresi |
 | Durum | `/ui/monospot/status` | servis/portal/zone/istemci/veritabanı/5651 özeti |
@@ -111,6 +111,10 @@ Eklenti OPNsense sol menüsünde **Services → Monospot** altında ayrı sayfal
 - **Durum sayfası** (`/ui/monospot/status`) `api/monospot/service/info` → `status.php` çıktısını gösterir: portal adresi, zone ve
   arayüzleri, yetkili istemci sayısı (+ilk 10 kayıt), uygulama veritabanı sayaçları, 5651 arşiv özeti,
   SMS sağlayıcı dosyası.
+- **select alanları seçenek listesini API'den alır:** OPNsense form motoru (`setFormData`) bir select için
+  `[{key, value, selected}, …]` bekler ve `<option>`'ları **bu veriden üretir** (tokensiz select'ler dahil).
+  Düz değer dizisi (`['lan']`) verilirse select boşalır; tokenize alanlarda widget uydurma bir etiket
+  gösterir (`0`). Örnek: `captive_portal/interfaces` → `getNodeData()` üzerinden key/value/selected listesi.
 - **Çok sekmeli formlarda kaydetme:** `base_tabs_content` her sekmeyi ayrı form olarak çizer
   (`frm_<tab_id>` + `save_<tab_id>`). `saveFormToEndpoint`/`mapDataToFormUI` **sekme başına** çağrılır
   (Volt: `{% for tab in form['tabs'] %}`); tek bir `frm_<sayfa>` id'si yoktur, tek id ile çağrı sessizce
@@ -123,7 +127,9 @@ Eklenti OPNsense sol menüsünde **Services → Monospot** altında ayrı sayfal
   (`portal_settings.php` köprüsü; yönetilmeyen anahtarlar korunur, yazma öncesi `.bak-<tarih>` alınır,
   dosya `www:www 0640` sahipliğinde kalır). Onay kutuları anahtarın **varlığı** ile çalışır
   (uygulama `isset()` test ediyor): kapalıysa anahtar kaldırılır. Sayısal alanlar aralık doğrulaması yapar.
-  Logo yükleme, KVKK izin metinleri ve grup ayarları panelde kalır.
+  **İletişim izinleri** sekmesi KVKK alanlarını (yöntem × telefon/e-posta × 5 bayrak = 30 anahtar) taşır;
+  SMS yöntemi açıkken telefon alanları panel görünümüyle aynı varsayılanı ('1') raporlar.
+  Logo yükleme ve dil/tema panelde kalır.
 - **Oturumlar sayfası** core `configctl captiveportal list_clients <zone>` üzerinden okur ve satır
   aksiyonuyla `captiveportal disconnect <sessionId> <sebep>` çağırır (core `service.volt` kalıbı:
   `options.formatters.commands` + `loaded.rs.jquery.bootgrid` içinde dinamik buton bağlama).
