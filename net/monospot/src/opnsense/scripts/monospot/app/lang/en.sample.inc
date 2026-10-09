@@ -26,6 +26,8 @@ return array(
   'password_not_sent' => 'An error occurred while sending your password, please try again',
   'login_failed' => 'Your login could not be completed, please try again or contact your administrator.',
   'logged_in' => 'Signed in successfully, your internet access is enabled.',
+  'online_desc' => 'Your internet access is active; no new sign-in is required.',
+  'online_continue' => 'Continue to the internet',
   'user_already_registered' => 'A user with this number already exists, if your password is expired you can request a new one by leaving the password field blank',
   'user_not_found' => 'No user found for the specified credentials, please register first',
   'password_expired' => 'Your password is expired',

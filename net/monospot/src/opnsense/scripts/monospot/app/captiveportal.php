@@ -99,6 +99,20 @@ function welcome()
     }
 
     global $settings;
+    global $clientip;
+
+    /* İstemci zaten yetkiliyse giriş formu gösterilmez: hedef URL varsa doğrudan
+     * oraya gidilir, yoksa "erişiminiz açık" ekranı çizilir. */
+    $online = monospot_session_for_ip($clientip);
+    if ($online) {
+        $redir = isset($_REQUEST['redirurl']) ? trim((string)$_REQUEST['redirurl']) : '';
+        if ($redir !== '' && preg_match('#^https?://#i', $redir)) {
+            header('Location: ' . $redir, true, 302);
+            exit();
+        }
+        $online['continue_url'] = monospot_after_login_url();
+        set('online', $online);
+    }
 
     $user = Model::factory('User')->create();
     $user->fillDefaults();
@@ -681,10 +695,42 @@ function monospot_client_mac($ip)
 function monospot_redirurl()
 {
     $url = isset($_REQUEST['redirurl']) ? trim((string)$_REQUEST['redirurl']) : '';
-    if ($url === '' || !preg_match('#^https?://#i', $url)) {
-        return '/';
+    if ($url !== '' && preg_match('#^https?://#i', $url)) {
+        return $url;
     }
-    return $url;
+    /* redirurl yoksa (istemci portala doğrudan geldi): varsayılan hedef */
+    return monospot_after_login_url() !== '' ? monospot_after_login_url() : '/';
+}
+
+/**
+ * Giriş sonrası varsayılan hedef (settings.inc: 'after_login_url').
+ * Boş/geçersizse '' döner ve portalda başarı mesajı gösterilir.
+ */
+function monospot_after_login_url()
+{
+    global $settings;
+    $url = isset($settings['after_login_url']) ? trim((string)$settings['after_login_url']) : '';
+    return preg_match('#^https?://#i', $url) ? $url : '';
+}
+
+/**
+ * Bu istemci için zone'da açık oturum var mı? (varsa giriş formu gösterilmez)
+ */
+function monospot_session_for_ip($ip)
+{
+    if ($ip === '') {
+        return null;
+    }
+    $clients = monospot_configdp('captiveportal list_clients', array(MONOSPOT_ZONEID));
+    if (!is_array($clients)) {
+        return null;
+    }
+    foreach ($clients as $client) {
+        if (isset($client['ipAddress']) && $client['ipAddress'] === $ip) {
+            return $client;
+        }
+    }
+    return null;
 }
 
 /**

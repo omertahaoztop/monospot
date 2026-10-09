@@ -5,6 +5,9 @@ return array(
         array(
             'sms' => '1',
         ),
+    /* Giriş sonrası dönülecek varsayılan adres (redirurl yoksa). Boş bırakılırsa
+       portalda kalınır ve yalnız başarı mesajı gösterilir. */
+    'after_login_url' => 'http://www.msftconnecttest.com/redirect',
     'session_timeout' => '180',
     'valid_for' => '1',
     'valid_for_unit' => 'days',

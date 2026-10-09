@@ -34,6 +34,8 @@ return array(
   'password_not_sent' => 'Şifrenizin cep telefonunuza gönderimi sırasında bir hata oluştu, lütfen tekrar deneyin.',
   'login_failed' => 'Girişiniz tamamlanamadı, lütfen tekrar deneyin veya yöneticiye başvurun.',
   'logged_in' => 'Girişiniz başarılı, internet erişiminiz açıldı.',
+  'online_desc' => 'İnternet erişiminiz açık, yeniden giriş yapmanız gerekmez.',
+  'online_continue' => 'İnternete devam et',
   'user_already_registered' => 'Bu telefon numarasına ait bir kullanıcı kaydı zaten var, şifrenizin geçerlilik süresi dolduysa yeni şifre almak için şifre alanını boş bırakın.',
   'user_not_found' => 'Girdiğiniz bilgilere ait bir kullanıcı kaydı bulunamadı, lütfen önce kayıt olun.',
   'password_expired' => 'Şifrenizin geçerlilik süresi dolmuştur.',

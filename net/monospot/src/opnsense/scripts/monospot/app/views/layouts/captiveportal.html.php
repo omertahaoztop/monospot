@@ -63,7 +63,7 @@
  */
 $active_form = !empty($form) ? $form : (isset($settings['authentication']['sms']) ? 'sms_register' : '');
 ?>
-<? if (!empty($active_form)): ?>
+<? if (!empty($active_form) && empty($online)): ?>
     <nav id="steps" aria-hidden="true">
         <span class="step<?= $active_form == 'sms_register' ? ' on' : '' ?>"><?= t('gsm') ?></span>
         <span class="sep" aria-hidden="true"></span>
@@ -77,6 +77,18 @@ $active_form = !empty($form) ? $form : (isset($settings['authentication']['sms']
         <div class="message <?= in_array($message, array('password_sent', 'logged_in')) ? 'success' : 'error' ?>" role="alert"><?= t($message, $message_arg) ?></div>
     <? endif; ?>
 
+<? if (!empty($online)): ?>
+    <div class="form active" id="form_online">
+        <div class="content">
+            <div class="description"><?= t('online_desc') ?></div>
+            <? if (!empty($online['continue_url'])): ?>
+            <div class="item">
+                <a class="submit" href="<?= htmlspecialchars($online['continue_url']) ?>"><?= t('online_continue') ?> &#187;</a>
+            </div>
+            <? endif; ?>
+        </div>
+    </div>
+<? else: ?>
     <nav id="form-selection" aria-label="<?= t('sms_login') ?>">
         <? $id_number_active = $active_form == 'id_number_login'
             || (!isset($settings['authentication']['sms']) && isset($settings['id_number']['open_extended'])); ?>
@@ -248,6 +260,7 @@ $active_form = !empty($form) ? $form : (isset($settings['authentication']['sms']
     <? endif; ?>
 
     </nav>
+<? endif; ?>
 
     <? include dirname(__FILE__) . '/captiveportal_custom.html.php'; ?>
 
