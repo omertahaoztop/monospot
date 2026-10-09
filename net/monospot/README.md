@@ -98,12 +98,20 @@ Eklenti OPNsense sol menüsünde **Services → Monospot** altında ayrı sayfal
 | 5651 Günlükleri | `/ui/monospot/archive` | arşiv özeti, elle toplama, günlük tarayıcısı bağlantısı |
 | Durum | `/ui/monospot/status` | servis/portal/zone/istemci/veritabanı/5651 özeti |
 | Kullanıcılar | `/ui/monospot/users` | **native** liste/ekle/düzenle/sil (hotspot veritabanı) |
-| Gruplar / SMS Raporu / İzin Raporu | `/monospot.php?u=...` | henüz uygulama paneli rotaları |
+| Gruplar | `/ui/monospot/groups` | **native** grup (ad + MAC listesi) CRUD |
+| SMS Raporu | `/ui/monospot/sms` | **native** salt-okunur SMS kayıt listesi |
+| İzin Raporu | `/ui/monospot/permissions` | **native** salt-okunur KVKK izin kayıtları |
+| Yönetim Paneli | `/monospot.php` | grup ayarları, dil, tema (henüz panel-only kalanlar) |
 
 
 - **Durum sayfası** (`/ui/monospot/status`) `api/monospot/service/info` → `status.php` çıktısını gösterir: portal adresi, zone ve
   arayüzleri, yetkili istemci sayısı (+ilk 10 kayıt), uygulama veritabanı sayaçları, 5651 arşiv özeti,
   SMS sağlayıcı dosyası.
+- **Zone seçimi açılır listedir:** seçenekler core modelden (`zonesAction`) gelir; kullanıcı zone numarasını
+  elle yazmaz. `interfaces` alanı aynı nedenle tokenize (yaz-Enter) modundadır — form motoru select
+  seçeneklerini JS ile doldurur, model verisi olmadan boş kalır.
+- **Tablo/badge dili OPNsense:** `table table-condensed table-hover table-striped table-responsive` + `<thead>`,
+  durum için `label label-opnsense label-success|danger`. Ad-hoc `btn-default` satırları kaldırıldı.
 - **Sayfa yüzeyi OPNsense'in kendi diliyle çizilir:** sekme + *Apply* düzeni (`base_tabs_content`),
   durum/özet tabloları (`table table-condensed`), eylemler kendi sayfasında tek düğme. Ad-hoc `btn-default`
   satırları kaldırıldı; gezinti menüden yapılır.
