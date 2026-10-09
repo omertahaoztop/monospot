@@ -48,6 +48,9 @@ const FLAT_MAP = [
     'color' => ['color'],
     'items_per_page' => ['items_per_page'],
     'custom_fields' => ['custom_fields'],
+    /* logo dosya yolu (settings.inc) — formda hem 'Yüklü logo' hem dosya alanı gösterir */
+    'logo' => ['logo'],
+    'logo_current' => ['logo'],
     'contact_sms_gsm' => ['contact', 'sms', 'gsm'],
     'contact_sms_gsm_required' => ['contact', 'sms', 'gsm_required'],
     'contact_sms_gsm_permission' => ['contact', 'sms', 'gsm_permission'],
@@ -215,6 +218,38 @@ function write_settings(array $settings)
     return $backup;
 }
 
+/**
+ * Base64 logo yükler: boyut/tür doğrular, media/ altına yazar, yolu döner.
+ * Panel ile aynı kural: PNG veya JPEG, en fazla 500 KB.
+ */
+function write_logo($base64)
+{
+    $data = base64_decode($base64, true);
+    if ($data === false || $data === '') {
+        fail('logo verisi okunamadı');
+    }
+    if (strlen($data) > 500 * 1024) {
+        fail('logo 500 KB sınırını aşıyor');
+    }
+    $info = @getimagesizefromstring($data);
+    $types = [IMAGETYPE_PNG => 'png', IMAGETYPE_JPEG => 'jpg'];
+    if ($info === false || !isset($types[$info[2]])) {
+        fail('logo PNG veya JPEG olmalı');
+    }
+    $dir = APP_DIR . '/media';
+    if (!is_dir($dir) && !mkdir($dir, 0755, true)) {
+        fail('media dizini oluşturulamadı');
+    }
+    $path = $dir . '/logo.' . $types[$info[2]];
+    if (file_put_contents($path, $data) === false) {
+        fail('logo yazılamadı: ' . $path);
+    }
+    @chown($path, 'www');
+    @chgrp($path, 'www');
+    @chmod($path, 0644);
+    return 'media/logo.' . $types[$info[2]];
+}
+
 function write_brand(array $brand)
 {
     if (!is_file(HOTSPOT_FILE)) {
@@ -281,6 +316,23 @@ switch ($command) {
         }
         $settings = read_settings();
         $changed = [];
+
+        /* logo: form motoru dosyayı base64 gönderir (frm_file_type);
+           boş değer "değişiklik yok" demektir, kaldırmak için açık işaret gerekir. */
+        $logo = array_key_exists('logo', $params) ? (string)$params['logo'] : '';
+        $logo_remove = (string)($params['logo_remove'] ?? '');
+        unset($params['logo'], $params['logo_current'], $params['logo_remove']);
+        if ($logo_remove === '1' || $logo_remove === 1) {
+            $existing = (string)get_path($settings, ['logo']);
+            if ($existing !== '' && preg_match('#^media/[A-Za-z0-9._-]+$#', $existing)) {
+                @unlink(APP_DIR . '/' . $existing);
+            }
+            set_path($settings, ['logo'], null);
+            $changed[] = 'logo_remove';
+        } elseif ($logo !== '') {
+            set_path($settings, ['logo'], write_logo($logo));
+            $changed[] = 'logo';
+        }
         foreach (FLAT_MAP as $flat => $path) {
             if (!array_key_exists($flat, $params)) {
                 continue;

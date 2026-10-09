@@ -289,8 +289,40 @@
   </tab>
   <tab id="screen" description="Erişim ekranı">
     <field>
-      <id>portal.firma</id>
+      <id>portal.name</id>
       <label>Kurum adı</label>
+      <type>text</type>
+      <help>settings.inc → name. Portalın başlık satırında görünen mekân/kurum adı.</help>
+    </field>
+    <field>
+      <id>portal.logo_current</id>
+      <label>Yüklü logo</label>
+      <type>info</type>
+      <help>media/ altındaki yürürlükteki logo dosyası.</help>
+    </field>
+    <field>
+      <id>portal.logo_remove</id>
+      <label>Yüklü logoyu kaldır</label>
+      <type>checkbox</type>
+      <help>İşaretlenirse yürürlükteki logo dosyası silinir; portal logosuz görünür.</help>
+    </field>
+    <field>
+      <id>portal.logo</id>
+      <label>Logo</label>
+      <type>file</type>
+      <help><![CDATA[PNG veya JPEG, en fazla 500 KB. Boş bırakılırsa mevcut logo korunur.]]></help>
+    </field>
+    <field>
+      <id>portal.color</id>
+      <label>Vurgu rengi</label>
+      <type>text</type>
+      <help>#RRGGBB biçiminde. Varsayılan mürekkep: #111417.</help>
+    </field>
+  </tab>
+  <tab id="brand" description="Marka (hotspot.ini)">
+    <field>
+      <id>portal.firma</id>
+      <label>Firma adı</label>
       <type>text</type>
       <help>hotspot.ini → firma. Portal altbilgisinde görünür.</help>
     </field>
@@ -298,19 +330,7 @@
       <id>portal.marka</id>
       <label>Marka / ürün adı</label>
       <type>text</type>
-      <help>hotspot.ini → marka. Portal başlığı ve panel başlığı.</help>
-    </field>
-    <field>
-      <id>portal.name</id>
-      <label>Portal başlığı (mekân adı)</label>
-      <type>text</type>
-      <help>settings.inc → name. Marka satırında görünen mekân adı.</help>
-    </field>
-    <field>
-      <id>portal.color</id>
-      <label>Vurgu rengi</label>
-      <type>text</type>
-      <help>#RRGGBB biçiminde. Varsayılan mürekkep: #111417.</help>
+      <help>hotspot.ini → marka. Portal başlığı ve yönetim paneli başlığı.</help>
     </field>
   </tab>
   <tab id="admin" description="Yönetim ekranı">

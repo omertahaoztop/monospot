@@ -20,7 +20,7 @@
               <ArchiveStatus order="10" VisibleName="Arşiv ve Toplama" url="/ui/monospot/archive"/>
               <ArchiveSettings order="20" VisibleName="Ayarlar" url="/ui/monospot/archive_settings"/>
           </Archive>
-          <Panel order="99" VisibleName="Yönetim Paneli" url="/monospot.php"/>
+          <Language order="95" VisibleName="Dil" url="/ui/monospot/language"/>
       </Monospot>
     </Services>
 </menu>

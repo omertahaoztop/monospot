@@ -105,7 +105,7 @@ Eklenti OPNsense sol menüsünde **Services → Monospot** altında ayrı sayfal
 | Gruplar → Grup Portal Ayarları | `/ui/monospot/group_settings[?group_id=N]` | grubun `settings_group<id>.inc` değerleri (global varsayılan) |
 | SMS Raporu | `/ui/monospot/sms` | **native** salt-okunur SMS kayıt listesi |
 | İzin Raporu | `/ui/monospot/permissions` | **native** salt-okunur KVKK izin kayıtları |
-| Yönetim Paneli | `/monospot.php` | grup ayarları, dil, tema (henüz panel-only kalanlar) |
+| Dil | `/ui/monospot/language` | portal metinleri (`lang/<kod>.inc`): dil seç, satır satır düzenle |
 
 
 - **Durum sayfası** (`/ui/monospot/status`) `api/monospot/service/info` → `status.php` çıktısını gösterir: portal adresi, zone ve
@@ -133,7 +133,10 @@ Eklenti OPNsense sol menüsünde **Services → Monospot** altında ayrı sayfal
   (uygulama `isset()` test ediyor): kapalıysa anahtar kaldırılır. Sayısal alanlar aralık doğrulaması yapar.
   **İletişim izinleri** sekmesi KVKK alanlarını (yöntem × telefon/e-posta × 5 bayrak = 30 anahtar) taşır;
   SMS yöntemi açıkken telefon alanları panel görünümüyle aynı varsayılanı ('1') raporlar.
-  Logo yükleme ve dil/tema panelde kalır.
+  **Logo** alanı (`type=file`) form motorunun base64 akışıyla yüklenir (PNG/JPEG ≤ 500 KB → `media/logo.<ext>`,
+  `www:www 0644`); 'Yüklü logoyu kaldır' açık işareti dosyayı siler. **Marka** sekmesi `hotspot.ini`
+  (firma/marka) satırlarını düzenler. Eski `/monospot.php` paneli artık menüde değil; tüm işlevleri
+  native sayfalara taşındı (menü birebir: Kullanıcılar, Gruplar, İzin Raporu, Ayarlar, Dil).
 - **Oturumlar sayfası** core `configctl captiveportal list_clients <zone>` üzerinden okur ve satır
   aksiyonuyla `captiveportal disconnect <sessionId> <sebep>` çağırır (core `service.volt` kalıbı:
   `options.formatters.commands` + `loaded.rs.jquery.bootgrid` içinde dinamik buton bağlama).
