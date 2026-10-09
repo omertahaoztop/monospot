@@ -20,20 +20,24 @@ INDEX_TEMPLATE = """<!DOCTYPE html>
          background: #f5f6f8; color: #222; margin: 0; padding: 2rem; text-align: center; }
   a { color: #0b5ed7; }
 </style>
-<script>
-(function () {
-  var params = new URLSearchParams(window.location.search);
-  var redir = params.get('redirurl') || '';
-  var target = window.location.protocol + '//' + window.location.hostname + ':{PORT}/' +
-               (redir ? '?redirurl=' + encodeURIComponent(redir) : '');
-  document.getElementById('manual').setAttribute('href', target);
-  window.location.replace(target);
-})();
-</script>
 </head>
 <body>
   <p>Wi-Fi erisim sayfasina yonlendiriliyorsunuz...</p>
   <p><a id="manual" href="/">Devam etmek icin dokunun</a></p>
+<script>
+(function () {
+  /* yönlendirme hedefi: zone sayfasının sunulduğu host (fw), monospot portu */
+  var params = new URLSearchParams(window.location.search);
+  var redir = params.get('redirurl') || params.get('redirect') || '';
+  var target = window.location.protocol + '//' + window.location.hostname + ':{PORT}/' +
+               (redir ? '?redirurl=' + encodeURIComponent(redir) : '');
+  var manual = document.getElementById('manual');
+  if (manual) {
+    manual.setAttribute('href', target);
+  }
+  window.location.replace(target);
+})();
+</script>
 </body>
 </html>
 """
