@@ -5,6 +5,7 @@
       <pattern>monospot.php*</pattern>
       <pattern>ui/monospot/*</pattern>
       <pattern>api/monospot/*</pattern>
+      <pattern>5651/*</pattern>
     </patterns>
   </page-Monospot>
 </acl>

@@ -111,7 +111,12 @@ sayfasındaki *5651 günlükleri* sekmesinden kapatılır ve saklama süresi de�
   Toplayıcı bu zinciri her çalışmada düzeltir.
 - **Neden dosyaya yazılıyor:** bu sistemde portalın `syslog(LOG_AUTH)` kayıtları kalıcı bir dosyaya
   düşmüyor (syslog-ng yönlendirmesi); kimlik kaydının güvenilir yeri 5651 dosyasıdır.
-- İmzalama (RFC3161 TSA) ve tarayıcı arayüzü sonraki turlardadır; `manifest.sha256` bunun temelidir.
+- İmzalama (RFC3161 TSA / `logsigner` karşılığı) sonraki turdadır; `manifest.sha256` bunun temelidir.
+- **Tarayıcı:** `https://<fw>/5651/` (Services → Monospot sayfasındaki *5651 günlük arşivi* bağlantısı).
+  Gün listesi, dosya görüntüleme/satır arama, indirme ve `manifest.sha256` ile bütünlük kontrolü.
+  OPNsense WebGUI oturumu + `page-Monospot` ACL'i arkasındadır (`5651/*` deseni). Veri katmanı
+  `www/5651/archive.php`; HTTP'den bağımsız olduğu için CLI ile de doğrulanabilir:
+  `php -r 'require "/usr/local/www/5651/archive.php"; print_r(archive_days());'`.
 
 ## Bilinen sınırlar
 

@@ -73,6 +73,7 @@ $(document).ready(function () {
             <i id="install_zonetemplate_progress"></i>
             <button class="btn btn-default" id="collect5651">{{ lang._("5651 arşivini şimdi topla") }}</button>
             <i id="collect5651_progress"></i>
+            <a class="btn btn-default" href="/5651/" target="_blank">{{ lang._("5651 günlük arşivi") }}</a>
             <a class="btn btn-default" href="/monospot.php">{{ lang._("Monospot yönetim paneli") }}</a>
         </div>
     </div>
