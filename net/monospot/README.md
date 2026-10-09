@@ -92,11 +92,11 @@ Eklenti OPNsense sol menüsünde **Services → Monospot** altında ayrı sayfal
 
 | Menü | Sayfa | İş |
 |---|---|---|
-| Servis Ayarları | `/ui/monospot` | servis/zone/port ayarları |
+| Ayarlar | `/ui/monospot` | **tek sayfa**: servis (zone/port) + giriş yöntemi + iletişim izinleri + genel + SMS + erişim ekranı (logo/renk) + marka + yönetim ekranı |
 | Captive Portal | `/ui/monospot/captive_portal` | core zone ayarları (arayüzler, timeout'lar, roaming, açıklama) |
 | Oturumlar | `/ui/monospot/sessions` | yetkili istemciler (kullanıcı/IP/MAC/trafik) + satır aksiyonuyla oturum kesme |
-| Portal → Durum ve Zone Şablonu | `/ui/monospot/portal` | portal adresi, zone şablonu durumu ve kurulumu |
-| Portal → Uygulama Ayarları | `/ui/monospot/portal_settings` | `settings.inc` (giriş yöntemi, genel, SMS, **iletişim izinleri**, ekran) + `hotspot.ini` (firma/marka) |
+
+| Portal ve Zone Şablonu | `/ui/monospot/portal` | portal adresi, zone ve şablon durumu, şablon kurulumu |
 | 5651 Günlükleri → Arşiv ve Toplama | `/ui/monospot/archive` | arşiv özeti, elle toplama, tarayıcı bağlantısı |
 | 5651 Günlükleri → Ayarlar | `/ui/monospot/archive_settings` | arşivleme açık/kapalı, saklama süresi |
 | Durum | `/ui/monospot/status` | servis/portal/zone/istemci/veritabanı/5651 özeti (form satırları) |
@@ -119,6 +119,9 @@ Eklenti OPNsense sol menüsünde **Services → Monospot** altında ayrı sayfal
   `[{key, value, selected}, …]` bekler ve `<option>`'ları **bu veriden üretir** (tokensiz select'ler dahil).
   Düz değer dizisi (`['lan']`) verilirse select boşalır; tokenize alanlarda widget uydurma bir etiket
   gösterir (`0`). Örnek: `captive_portal/interfaces` → `getNodeData()` üzerinden key/value/selected listesi.
+- **Tek Ayarlar sayfası, iki veri kaynağı:** sekmeler ayrı form olduğu için her sekmenin ucu ayrı
+  bağlanır (`loadTab`): servis sekmesi `api/monospot/settings/{get,set}` + `service/reconfigure`,
+  kalan sekmeler `api/monospot/portal_settings/{get,set}`. Böylece config.xml ve settings.inc tek sayfada yönetilir.
 - **Çok sekmeli formlarda kaydetme:** `base_tabs_content` her sekmeyi ayrı form olarak çizer
   (`frm_<tab_id>` + `save_<tab_id>`). `saveFormToEndpoint`/`mapDataToFormUI` **sekme başına** çağrılır
   (Volt: `{% for tab in form['tabs'] %}`); tek bir `frm_<sayfa>` id'si yoktur, tek id ile çağrı sessizce

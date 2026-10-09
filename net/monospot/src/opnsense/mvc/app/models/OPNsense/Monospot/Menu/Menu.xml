@@ -2,11 +2,8 @@
     <Services>
       <Monospot VisibleName="Monospot" cssClass="fa fa-wifi fa-fw">
           <Status order="10" VisibleName="Durum" url="/ui/monospot/status"/>
-          <Settings order="20" VisibleName="Servis Ayarları" url="/ui/monospot"/>
-          <Portal order="30" VisibleName="Portal" url="/ui/monospot/portal">
-              <PortalStatus order="10" VisibleName="Durum ve Zone Şablonu" url="/ui/monospot/portal"/>
-              <PortalSettings order="20" VisibleName="Uygulama Ayarları" url="/ui/monospot/portal_settings"/>
-          </Portal>
+          <Settings order="20" VisibleName="Ayarlar" url="/ui/monospot"/>
+          <PortalStatus order="30" VisibleName="Portal ve Zone Şablonu" url="/ui/monospot/portal"/>
           <CaptivePortal order="40" VisibleName="Captive Portal" url="/ui/monospot/captive_portal"/>
           <Sessions order="45" VisibleName="Oturumlar" url="/ui/monospot/sessions"/>
           <Users order="50" VisibleName="Kullanıcılar" url="/ui/monospot/users"/>
