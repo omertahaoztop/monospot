@@ -94,6 +94,7 @@ Eklenti OPNsense sol menüsünde **Services → Monospot** altında ayrı sayfal
 |---|---|---|
 | Servis Ayarları | `/ui/monospot` | servis/zone/port ayarları |
 | Captive Portal | `/ui/monospot/captive_portal` | core zone ayarları (arayüzler, timeout'lar, roaming, açıklama) |
+| Oturumlar | `/ui/monospot/sessions` | yetkili istemciler (kullanıcı/IP/MAC/trafik) + satır aksiyonuyla oturum kesme |
 | Portal ve Zone Şablonu | `/ui/monospot/portal` | portal adresi, zone şablonu durumu ve kurulumu |
 | 5651 Günlükleri → Arşiv ve Toplama | `/ui/monospot/archive` | arşiv özeti, elle toplama, tarayıcı bağlantısı |
 | 5651 Günlükleri → Ayarlar | `/ui/monospot/archive_settings` | arşivleme açık/kapalı, saklama süresi |
@@ -108,6 +109,9 @@ Eklenti OPNsense sol menüsünde **Services → Monospot** altında ayrı sayfal
 - **Durum sayfası** (`/ui/monospot/status`) `api/monospot/service/info` → `status.php` çıktısını gösterir: portal adresi, zone ve
   arayüzleri, yetkili istemci sayısı (+ilk 10 kayıt), uygulama veritabanı sayaçları, 5651 arşiv özeti,
   SMS sağlayıcı dosyası.
+- **Oturumlar sayfası** core `configctl captiveportal list_clients <zone>` üzerinden okur ve satır
+  aksiyonuyla `captiveportal disconnect <sessionId> <sebep>` çağırır (core `service.volt` kalıbı:
+  `options.formatters.commands` + `loaded.rs.jquery.bootgrid` içinde dinamik buton bağlama).
 - **Zone seçimi açılır listedir:** seçenekler core modelden (`zonesAction`) gelir; kullanıcı zone numarasını
   elle yazmaz. `interfaces` alanı aynı nedenle tokenize (yaz-Enter) modundadır — form motoru select
   seçeneklerini JS ile doldurur, model verisi olmadan boş kalır.

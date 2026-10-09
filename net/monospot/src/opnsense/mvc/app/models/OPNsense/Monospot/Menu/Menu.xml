@@ -5,6 +5,7 @@
           <Settings order="20" VisibleName="Servis Ayarları" url="/ui/monospot"/>
           <Portal order="30" VisibleName="Portal ve Zone Şablonu" url="/ui/monospot/portal"/>
           <CaptivePortal order="40" VisibleName="Captive Portal" url="/ui/monospot/captive_portal"/>
+          <Sessions order="45" VisibleName="Oturumlar" url="/ui/monospot/sessions"/>
           <Users order="50" VisibleName="Kullanıcılar" url="/ui/monospot/users"/>
           <Groups order="60" VisibleName="Gruplar" url="/ui/monospot/groups"/>
           <Sms order="70" VisibleName="SMS Raporu" url="/ui/monospot/sms"/>
