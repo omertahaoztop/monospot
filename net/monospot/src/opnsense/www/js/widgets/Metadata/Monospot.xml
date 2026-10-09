@@ -1,0 +1,25 @@
+<metadata>
+    <monospot>
+        <filename>Monospot.js</filename>
+        <link>/ui/monospot</link>
+        <endpoints>
+            <endpoint>/api/monospot/service/info</endpoint>
+        </endpoints>
+        <translations>
+            <title>Monospot</title>
+            <portal_service>Portal servisi</portal_service>
+            <portal_address>Portal adresi</portal_address>
+            <zone>Zone</zone>
+            <zone_template>Zone şablonu</zone_template>
+            <clients>Yetkili istemci</clients>
+            <archive>5651 arşivi</archive>
+            <enabled>etkin</enabled>
+            <disabled>kapalı</disabled>
+            <not_installed>kurulmamış</not_installed>
+            <days>gün</days>
+            <settings>Ayarlar</settings>
+            <sessions>Oturumlar</sessions>
+            <unavailable>Durum okunamadı</unavailable>
+        </translations>
+    </monospot>
+</metadata>

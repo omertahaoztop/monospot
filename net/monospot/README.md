@@ -119,6 +119,12 @@ Eklenti OPNsense sol menüsünde **Services → Monospot** altında ayrı sayfal
   `[{key, value, selected}, …]` bekler ve `<option>`'ları **bu veriden üretir** (tokensiz select'ler dahil).
   Düz değer dizisi (`['lan']`) verilirse select boşalır; tokenize alanlarda widget uydurma bir etiket
   gösterir (`0`). Örnek: `captive_portal/interfaces` → `getNodeData()` üzerinden key/value/selected listesi.
+- **Servis durumu pidfile ile:** `monospot_services()` içinde `pidfile => /var/run/monospot-lighttpd.pid`
+  bildirilir. Bildirilmezse OPNsense `is_process_running('monospot')` ile arar; süreç adı `lighttpd`
+  olduğu için servis "not running" görünür (dashboard servis listesi bu yüzden kırmızıydı).
+- **Dashboard widget:** `src/opnsense/www/js/widgets/Monospot.js` + `widgets/Metadata/Monospot.xml`
+  (portal/zone/şablon/yetkili istemci/5651 özeti + Ayarlar/Oturumlar/5651 düğmeleri; veri
+  `/api/monospot/service/info`). Dashboard'daki widget seçicisinden eklenir.
 - **Tek Ayarlar sayfası, iki veri kaynağı:** sekmeler ayrı form olduğu için her sekmenin ucu ayrı
   bağlanır (`loadTab`): servis sekmesi `api/monospot/settings/{get,set}` + `service/reconfigure`,
   kalan sekmeler `api/monospot/portal_settings/{get,set}`. Böylece config.xml ve settings.inc tek sayfada yönetilir.

@@ -63,6 +63,8 @@ function monospot_services()
     if (!empty($general['enabled']) && (string)$general['enabled'] === '1') {
         $services[] = [
             'description' => gettext('Monospot Hotspot'),
+            /* durum tespiti pidfile üzerinden: süreç adı lighttpd, servis adı monospot */
+            'pidfile' => '/var/run/monospot-lighttpd.pid',
             'configd' => [
                 'restart' => ['monospot restart'],
                 'start' => ['monospot start'],
