@@ -17,7 +17,7 @@ OWN-WORLD: Kâğıt beyazı yüzey, koyu grafit mürekkep, ince gri kurallar; re
 
 STORY: Misafir iki adımı bir bakışta görür, kodun nereye gireceğini bilir, hata olduğunda ne olduğunu ve ne yapacağını okur.
 
-FIRST VIEWPORT: Üstte tek satır marka (güncel logo 26px + mekân adı + soluk wifi işareti), altında kart: adım rayı, sola hizalı sekmeler, etiketli alan, kod alanı (odakta soldan büyüyen 2px kural + altı çentik) ve tam genişlik birincil eylem; alt satırda dil anahtarı.
+FIRST VIEWPORT: Üstte tek satır marka (güncel logo 26px + mekân adı + Wi-Fi Hotspot rozeti (resmi işaret, olduğu gibi)), altında kart: adım rayı, sola hizalı sekmeler, etiketli alan, kod alanı (odakta soldan büyüyen 2px kural + altı çentik) ve tam genişlik birincil eylem; alt satırda dil anahtarı.
 
 FORM: Yerleşik dünyanın portal gerçeklemesi (yön kullanıcı tarafından sabitlendi: nötr + tek ince aksan); kompozisyon: marka satırı → kart → tek kolon form.
 

@@ -63,7 +63,9 @@ defteri tek cihazda (OPNsense eklentisi) tutulur; bulut ya da ek portal cihazı 
 
 - Logo: `net/monospot/src/opnsense/scripts/monospot/app/assets/img/captiveportal-logo.png`
   (267×124; kırmızı #E00E19, griler #9C9A9A/#C0BFBF, zemin #FAFAFA).
-- Wi-Fi işareti: `assets/img/captiveportal-wifi.png` (1838 B).
+- Wi-Fi işareti: kullanıcının verdiği **Wi-Fi Alliance "Wi-Fi Hotspot" rozeti**
+  (`assets/img/wifi-hotspot.png` renkli · `wifi-hotspot-bw.png` siyah-beyaz · 166×201 · şeffaf).
+  Resmi işaret olduğu gibi kullanılır: yeniden renklendirilmez, soluklaştırılmaz, yalnız ölçeklenir.
 - Portalın kendi metinleri (`lang/tr.sample.inc`, `lang/en.sample.inc`) ve KVKK/izin başlıkları
   `views/layouts/captiveportal.html.php` içinde; metinler gerçek ürün dilidir, değiştirilmeden korunur.
 - Müşteri referansı, basın, benchmark, fiyat bilgisi **yok**; uydurulmaz.
