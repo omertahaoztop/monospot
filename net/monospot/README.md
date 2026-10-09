@@ -122,6 +122,8 @@ Eklenti OPNsense sol menüsünde **Services → Monospot** altında ayrı sayfal
 - **Servis durumu pidfile ile:** `monospot_services()` içinde `pidfile => /var/run/monospot-lighttpd.pid`
   bildirilir. Bildirilmezse OPNsense `is_process_running('monospot')` ile arar; süreç adı `lighttpd`
   olduğu için servis "not running" görünür (dashboard servis listesi bu yüzden kırmızıydı).
+- **Geliştirme notları:** `docs/plugin-handoff.md` (derleme/kurulum, form motoru kuralları, configd köprüsü,
+  servis görünürlüğü, zone şimi, 5651 arşivi, widget yapısı ve denetim komutları).
 - **Dashboard widget:** `src/opnsense/www/js/widgets/Monospot.js` + `widgets/Metadata/Monospot.xml`
   (portal/zone/şablon/yetkili istemci/5651 özeti + Ayarlar/Oturumlar/5651 düğmeleri; veri
   `/api/monospot/service/info`). Dashboard'daki widget seçicisinden eklenir.
