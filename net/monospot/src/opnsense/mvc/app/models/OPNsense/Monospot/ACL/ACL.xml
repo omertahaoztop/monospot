@@ -1,0 +1,10 @@
+<acl>
+  <page-Monospot>
+    <name>Monospot</name>
+    <patterns>
+      <pattern>monospot.php*</pattern>
+      <pattern>ui/monospot/*</pattern>
+      <pattern>api/monospot/*</pattern>
+    </patterns>
+  </page-Monospot>
+</acl>

@@ -1,0 +1,3 @@
+monospot.conf:/var/etc/monospot.conf
+lighttpd.conf:/var/etc/lighttpd-monospot.conf
+rc.conf.d:/etc/rc.conf.d/monospot

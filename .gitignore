@@ -234,9 +234,17 @@ Session.vim
 # Auto-generated tag files
 tags
 
-db/hotspot.db
-hotspot.ini
-lang/en.inc
-lang/tr.inc
-settings.inc
-settings_group*.inc
+net/monospot/src/opnsense/scripts/monospot/app/db/hotspot.db
+net/monospot/src/opnsense/scripts/monospot/app/hotspot.ini
+net/monospot/src/opnsense/scripts/monospot/app/lang/en.inc
+net/monospot/src/opnsense/scripts/monospot/app/lang/tr.inc
+net/monospot/src/opnsense/scripts/monospot/app/settings.inc
+net/monospot/src/opnsense/scripts/monospot/app/settings_group*.inc
+net/monospot/src/opnsense/scripts/monospot/app/sms.php
+net/monospot/src/opnsense/scripts/monospot/app/custom_functions.php
+net/monospot/src/opnsense/scripts/monospot/app/captiveportal_custom.php
+net/monospot/src/opnsense/scripts/monospot/app/media/
+
+# Python
+__pycache__/
+*.pyc

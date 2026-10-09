@@ -1,0 +1,365 @@
+/*
+ * Monospot yönetim paneli teması (OPNsense sürümü).
+ *
+ * Panel OPNsense web arayüzü oturumu altında /monospot.php üzerinden çalışır.
+ * Düzen: üst başlık + sekme çubuğu + içerik; tablolar mobilde yatay kaydırılır.
+ */
+
+:root {
+	--brand: #333333;
+	--bg: #eef1f5;
+	--surface: #ffffff;
+	--text: #1f2937;
+	--muted: #6b7280;
+	--border: #dbe0e6;
+	--danger: #b3261e;
+	--ok: #1b7f3b;
+	--radius: 12px;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	padding: 24px 20px 40px;
+	font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	font-size: 14px;
+	line-height: 1.5;
+	color: var(--text);
+	background-color: var(--bg);
+}
+
+a,
+a:visited {
+	color: #0b5ed7;
+}
+
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+button:focus-visible {
+	outline: 3px solid #7aa7ff;
+	outline-offset: 2px;
+}
+
+#container {
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+h1 {
+	margin: 0 0 16px;
+	font-size: 1.5rem;
+	font-weight: 600;
+}
+
+#back-to-gui {
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	padding: 6px 12px;
+	border: 1px solid var(--border);
+	border-radius: 8px;
+	background-color: var(--surface);
+	font-size: 0.9rem;
+	text-decoration: none;
+}
+
+#nav {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-bottom: 18px;
+	padding: 10px;
+	border-radius: var(--radius);
+	background-color: var(--surface);
+	box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+}
+
+#nav a {
+	padding: 6px 12px;
+	border-radius: 8px;
+	font-weight: 500;
+	text-decoration: none;
+	color: var(--text);
+}
+
+#nav a:hover {
+	background-color: var(--bg);
+}
+
+/* içerik: tablolar ve formlar bu kartın içinde */
+.content {
+	padding: 18px;
+	border-radius: var(--radius);
+	background-color: var(--surface);
+	box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+	overflow-x: auto;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	background-color: var(--surface);
+}
+
+table th {
+	position: sticky;
+	top: 0;
+	background-color: var(--brand);
+	color: #fff;
+	font-weight: 600;
+	text-align: left;
+}
+
+table th a,
+table th a:visited {
+	color: #fff;
+	text-decoration: none;
+}
+
+table th,
+table td {
+	border-bottom: 1px solid var(--border);
+	padding: 8px 10px;
+	text-align: center;
+	white-space: nowrap;
+}
+
+table tr:nth-child(even) {
+	background-color: #fafbfc;
+}
+
+table tr:hover {
+	background-color: #f1f5f9;
+}
+
+table td.left,
+th.left {
+	text-align: left;
+}
+
+#filter {
+	margin: 0 0 14px;
+}
+
+#filter .item {
+	margin-bottom: 10px;
+}
+
+#pager {
+	padding: 10px 0;
+	clear: both;
+}
+
+#pager a {
+	display: inline-block;
+	border: 1px solid var(--border);
+	border-radius: 6px;
+	text-decoration: none;
+	padding: 4px 10px;
+	margin-right: 4px;
+}
+
+#pager a:hover {
+	background-color: var(--bg);
+}
+
+#pager a.disabled {
+	color: var(--muted);
+}
+
+#pager a.disabled:hover {
+	background: none;
+	cursor: default;
+}
+
+#user {
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	background-color: var(--surface);
+	max-width: 560px;
+	padding: 0 14px;
+}
+
+.item {
+	margin: 10px 0;
+}
+
+.label {
+	display: inline-block;
+	width: 180px;
+	padding-right: 10px;
+	margin-top: 5px;
+	font-weight: 600;
+	text-align: right;
+	vertical-align: top;
+}
+
+.value {
+	display: inline-block;
+	margin-top: 5px;
+}
+
+input,
+select,
+textarea {
+	padding: 6px 8px;
+	border: 1px solid var(--border);
+	border-radius: 8px;
+	background-color: var(--surface);
+	font-family: inherit;
+	font-size: 0.95rem;
+	color: var(--text);
+}
+
+input[type="submit"],
+button {
+	padding: 8px 14px;
+	border: 1px solid var(--border);
+	border-radius: 8px;
+	background-color: var(--surface);
+	font-family: inherit;
+	font-size: 0.95rem;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+input[type="submit"]:hover,
+button:hover {
+	background-color: var(--bg);
+}
+
+input.xsmall {
+	width: 60px;
+}
+input.small {
+	width: 110px;
+}
+input.medium {
+	width: 160px;
+}
+input.large {
+	width: 210px;
+}
+input.xlarge {
+	width: 260px;
+}
+input.xxlarge {
+	width: 320px;
+}
+input.numeric {
+	text-align: right;
+}
+input.error {
+	border-color: var(--danger);
+	background-color: #fff5f5;
+}
+
+.errors {
+	margin: 0 0 14px;
+	padding: 10px 12px 10px 30px;
+	border-left: 4px solid var(--danger);
+	border-radius: 8px;
+	background-color: #fdecea;
+}
+
+.errors li {
+	color: #7f1d1d;
+}
+
+div.actions {
+	margin: 10px 0;
+	text-align: right;
+}
+
+fieldset {
+	max-width: 640px;
+	margin-bottom: 10px;
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+}
+
+fieldset.permission {
+	margin-top: 10px;
+	margin-left: 30px;
+	max-width: 50%;
+}
+
+.secondary-item {
+	margin-left: 30px;
+	margin-top: 4px;
+}
+
+.message {
+	margin: 0 0 16px;
+	padding: 12px 14px;
+	border-left: 4px solid var(--border);
+	border-radius: 8px;
+	background-color: #f8fafc;
+	font-weight: 500;
+}
+
+.message .success {
+	color: var(--ok);
+}
+
+.message .error {
+	color: var(--danger);
+}
+
+footer {
+	padding-top: 14px;
+	clear: both;
+	color: var(--muted);
+	font-size: 0.85rem;
+}
+
+@media (max-width: 640px) {
+	body {
+		padding: 16px 12px 32px;
+	}
+
+	#back-to-gui {
+		position: static;
+		display: inline-block;
+		margin-bottom: 12px;
+	}
+
+	.label {
+		display: block;
+		width: auto;
+		padding-right: 0;
+		text-align: left;
+	}
+
+	fieldset.permission {
+		margin-left: 0;
+		max-width: 100%;
+	}
+
+	.secondary-item {
+		margin-left: 0;
+	}
+
+	input,
+	select,
+	textarea {
+		max-width: 100%;
+	}
+}
+
+/* css for timepicker */
+.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
+.ui-timepicker-div dl { text-align: left; }
+.ui-timepicker-div dl dt { height: 25px; margin-bottom: -25px; }
+.ui-timepicker-div dl dd { margin: 0 10px 10px 65px; }
+.ui-timepicker-div td { font-size: 90%; }
+.ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
+
+.ui-timepicker-rtl{ direction: rtl; }
+.ui-timepicker-rtl dl { text-align: right; }
+.ui-timepicker-rtl dl dd { margin: 0 65px 10px 10px; }

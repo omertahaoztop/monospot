@@ -1,0 +1,26 @@
+<model>
+    <mount>//OPNsense/Monospot</mount>
+    <description>Monospot Hotspot (SMS OTP captive portal)</description>
+    <items>
+        <general>
+            <enabled type="BooleanField">
+                <Default>0</Default>
+                <Required>Y</Required>
+            </enabled>
+            <zoneid type="IntegerField">
+                <MinimumValue>0</MinimumValue>
+                <MaximumValue>19</MaximumValue>
+                <Default>0</Default>
+                <Required>N</Required>
+                <ValidationMessage>Captive portal zone numarası 0-19 arasında olmalı.</ValidationMessage>
+            </zoneid>
+            <portal_port type="IntegerField">
+                <MinimumValue>1</MinimumValue>
+                <MaximumValue>65535</MaximumValue>
+                <Default>8100</Default>
+                <Required>N</Required>
+                <ValidationMessage>Geçerli bir port numarası girin.</ValidationMessage>
+            </portal_port>
+        </general>
+    </items>
+</model>

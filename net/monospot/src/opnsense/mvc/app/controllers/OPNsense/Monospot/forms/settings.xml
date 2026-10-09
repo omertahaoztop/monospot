@@ -1,0 +1,25 @@
+<form>
+  <tab id="monospot-general" description="Monospot">
+    <subtab id="monospot-general-settings" description="Portal servisi">
+      <field>
+        <id>monospot.general.enabled</id>
+        <label>Monospot portalını etkinleştir</label>
+        <type>checkbox</type>
+        <help>Portal servisini başlatır ve seçilen zone arayüzlerinde portal portuna geçiş izni tanımlar.</help>
+      </field>
+      <field>
+        <id>monospot.general.zoneid</id>
+        <label>Captive portal zone numarası</label>
+        <type>text</type>
+        <help>Monospot portalının hizmet verdiği zone (0-19). Zone, OPNsense captive portal ayarlarında tanımlı olmalıdır.</help>
+      </field>
+      <field>
+        <id>monospot.general.portal_port</id>
+        <label>Portal portu</label>
+        <type>text</type>
+        <help>Portalın dinleyeceği TCP portu (varsayılan 8100). Değiştirdikten sonra zone şablonunu yeniden kurun.</help>
+      </field>
+    </subtab>
+  </tab>
+  <activetab>monospot-general-settings</activetab>
+</form>

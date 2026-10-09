@@ -1,0 +1,90 @@
+#!/bin/sh
+
+# Copyright (C) 2026 Monobilisim
+# All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#
+# 1. Redistributions of source code must retain the above copyright notice,
+#    this list of conditions and the following disclaimer.
+#
+# 2. Redistributions in binary form must reproduce the above copyright notice,
+#    this list of conditions and the following disclaimer in the documentation
+#    and/or other materials provided with the distribution.
+#
+# THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
+# INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+# AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+# AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY,
+# OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE.
+
+# PROVIDE: monospot
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name="monospot"
+rcvar=${name}_enable
+
+start_precmd="${name}_prestart"
+start_cmd="${name}_start"
+stop_cmd="${name}_stop"
+status_cmd="${name}_status"
+
+load_rc_config "$name"
+: ${monospot_enable="NO"}
+
+lighttpd="/usr/local/sbin/lighttpd"
+conffile="/var/etc/lighttpd-monospot.conf"
+pidfile="/var/run/monospot-lighttpd.pid"
+setup="/usr/local/opnsense/scripts/monospot/setup.sh"
+
+monospot_prestart()
+{
+    # eksik çalışma zamanı dosyalarını hazırla (izinler, örnek ayarlar)
+    ${setup} deploy
+}
+
+monospot_start()
+{
+    if [ ! -f "${conffile}" ]; then
+        echo "yapılandırma dosyası yok: ${conffile} (önce 'configctl template reload OPNsense/Monospot')"
+        exit 1
+    fi
+    if [ -f "${pidfile}" ] && pgrep -qF "${pidfile}" 2> /dev/null; then
+        echo "zaten çalışıyor"
+        exit 0
+    fi
+    echo "Monospot portal lighttpd başlatılıyor"
+    ${lighttpd} -f "${conffile}"
+}
+
+monospot_stop()
+{
+    if [ -f "${pidfile}" ]; then
+        echo "Monospot portal lighttpd durduruluyor"
+        /bin/pkill -TERM -F "${pidfile}"
+        rm -f "${pidfile}"
+    else
+        echo "çalışmıyor"
+    fi
+}
+
+monospot_status()
+{
+    if [ -f "${pidfile}" ] && pgrep -qF "${pidfile}" 2> /dev/null; then
+        echo "monospot çalışıyor (pid $(cat "${pidfile}"))"
+        exit 0
+    fi
+    echo "monospot çalışmıyor"
+    exit 1
+}
+
+run_rc_command "$1"

@@ -1,0 +1,5 @@
+<menu>
+    <Services>
+        <Monospot cssClass="fa fa-wifi fa-fw" url="/ui/monospot" />
+    </Services>
+</menu>

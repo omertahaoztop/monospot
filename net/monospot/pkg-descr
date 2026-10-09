@@ -1,0 +1,12 @@
+Monospot, SMS OTP (tek kullanımlık şifre) ile misafir Wi-Fi erişimi veren
+açık kaynak hotspot/captive portal yazılımıdır.
+
+Bu paket, pfSense üzerinde çalışan Monospot'u OPNsense'in resmi eklenti
+mimarisiyle (os-monospot) çalıştırır: portal kendi lighttpd örneğinde
+(kendi portunda) sunulur, oturum açma/yetkilendirme işini OPNsense'in core
+captive portal servisine devreder, yönetim paneli OPNsense web arayüzünün
+oturum ve ACL denetimi altında çalışır. Veriler (kullanıcı, SMS, izin
+kayıtları) SQLite üzerinde tutulur; pfSense config.xml'ine yazılmaz.
+
+Özellikler: SMS ile şifre, TCKN doğrulama, KVKK izin kayıtları, kullanıcı ve
+grup yönetimi, MAC bazlı kısıtlar, SMS limitleri, portal logoları ve teması.

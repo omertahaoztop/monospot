@@ -1,0 +1,349 @@
+/*
+ * Monospot portal teması (OPNsense sürümü).
+ *
+ * Tasarım: marka rengi `--brand` değişkeninden gelir (yönetim panelinden
+ * ayarlanabilir; layout dosyası bu değişkeni üretir). Mobil öncelikli, tek
+ * sütunlu kart düzeni; form kontrolleri en az 46px dokunma hedefi ve 16px yazı
+ * boyutu kullanır (iOS'un otomatik yakınlaştırmasını engeller).
+ */
+
+:root {
+	--brand: #333333;
+	--brand-contrast: #ffffff;
+	--bg: #eef1f5;
+	--bg-accent: rgba(0, 0, 0, 0.04);
+	--surface: #ffffff;
+	--text: #1f2937;
+	--muted: #6b7280;
+	--border: #dbe0e6;
+	--danger: #b3261e;
+	--danger-bg: #fdecea;
+	--ok: #1b7f3b;
+	--ok-bg: #e9f7ee;
+	--radius: 14px;
+	--shadow: 0 12px 32px rgba(15, 23, 42, 0.12);
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	padding: 28px 16px 44px;
+	font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	font-size: 16px;
+	line-height: 1.5;
+	color: var(--text);
+	background: var(--bg);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+a,
+a:visited {
+	color: var(--brand);
+}
+
+#title {
+	width: min(100%, 440px);
+	padding: 18px 20px;
+	background-color: var(--brand);
+	color: var(--brand-contrast);
+	border-radius: var(--radius) var(--radius) 0 0;
+	font-size: 1.2rem;
+	font-weight: 600;
+	text-align: center;
+	overflow-wrap: anywhere;
+}
+
+#container {
+	width: min(100%, 440px);
+	padding: 20px;
+	background-color: var(--surface);
+	border-radius: 0 0 var(--radius) var(--radius);
+	box-shadow: var(--shadow);
+	text-align: center;
+}
+
+#logo {
+	margin-bottom: 18px;
+}
+
+#logo img {
+	max-width: 72%;
+	max-height: 76px;
+	height: auto;
+}
+
+/* durum mesajları (sunucu ve JS kaynaklı) */
+.message {
+	margin-bottom: 16px;
+	padding: 12px 14px;
+	border-left: 4px solid transparent;
+	border-radius: 10px;
+	background: var(--bg-accent);
+	font-size: 0.95rem;
+	font-weight: 500;
+	text-align: left;
+}
+
+.message.error {
+	background: var(--danger-bg);
+	border-left-color: var(--danger);
+	color: #7f1d1d;
+}
+
+.message.success {
+	background: var(--ok-bg);
+	border-left-color: var(--ok);
+	color: #14532d;
+}
+
+/* yöntem sekmeleri */
+#form-selection {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	margin-bottom: 16px;
+}
+
+#form-selection:empty {
+	display: none;
+}
+
+button {
+	display: block;
+	width: 100%;
+	min-height: 48px;
+	padding: 12px 16px;
+	border: 1px solid var(--border);
+	border-radius: 10px;
+	background-color: #f8fafc;
+	color: var(--text);
+	font-family: inherit;
+	font-size: 1rem;
+	font-weight: 600;
+	cursor: pointer;
+	transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+button:hover {
+	background-color: #eef2f7;
+}
+
+button.active {
+	background-color: var(--brand);
+	border-color: var(--brand);
+	color: var(--brand-contrast);
+}
+
+.form {
+	display: none;
+	text-align: left;
+}
+
+.form.active {
+	display: block;
+}
+
+.form .title {
+	padding: 8px 0;
+	font-size: 1.05rem;
+	font-weight: 600;
+}
+
+.form .content {
+	padding: 18px;
+	border: 1px solid var(--border);
+	border-radius: 10px;
+	background-color: var(--surface);
+}
+
+.form .description {
+	margin: 0 0 14px;
+	color: var(--muted);
+	font-size: 0.92rem;
+}
+
+.form .item {
+	margin-bottom: 14px;
+}
+
+.form label {
+	display: block;
+	margin-bottom: 6px;
+	font-size: 0.9rem;
+	font-weight: 600;
+}
+
+.form .item-description {
+	margin-top: 6px;
+	color: var(--muted);
+	font-size: 0.78rem;
+}
+
+.form input.text {
+	width: 100%;
+	min-height: 46px;
+	padding: 10px 12px;
+	border: 1px solid var(--border);
+	border-radius: 10px;
+	background-color: var(--surface);
+	color: var(--text);
+	font-family: inherit;
+	font-size: 1rem;
+}
+
+.form input.error {
+	border-color: var(--danger);
+	background-color: #fff5f5;
+}
+
+button:focus-visible,
+input:focus-visible,
+a:focus-visible {
+	outline: 3px solid #7aa7ff;
+	outline-offset: 2px;
+}
+
+.form .checkbox {
+	display: flex;
+	align-items: flex-start;
+	gap: 8px;
+}
+
+.form .checkbox input {
+	margin-top: 3px;
+}
+
+.form .checkbox label {
+	margin-bottom: 0;
+	font-size: 0.8rem;
+	font-weight: 400;
+	line-height: 1.4;
+}
+
+.form .submit {
+	width: 100%;
+	min-height: 48px;
+	margin-top: 6px;
+	padding: 12px 16px;
+	border: 0;
+	border-radius: 10px;
+	background-color: var(--brand);
+	color: var(--brand-contrast);
+	font-family: inherit;
+	font-size: 1rem;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.form .submit[disabled],
+.form .submit.busy {
+	opacity: 0.65;
+	cursor: default;
+}
+
+.terms-link {
+	display: inline-block;
+	font-size: 0.8rem;
+}
+
+#lang {
+	display: flex;
+	gap: 6px;
+	align-items: center;
+	justify-content: center;
+	margin-top: 18px;
+	font-size: 0.85rem;
+	color: var(--muted);
+}
+
+#lang input[type="submit"] {
+	padding: 6px 12px;
+	border: 1px solid transparent;
+	border-radius: 8px;
+	background: none;
+	color: var(--muted);
+	font-family: inherit;
+	font-size: 0.85rem;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+#lang input[type="submit"][aria-current="true"] {
+	border-color: var(--border);
+	background-color: var(--bg-accent);
+	color: var(--text);
+}
+
+#wifi-logo {
+	margin-top: 20px;
+	text-align: center;
+}
+
+#wifi-logo img {
+	max-width: 132px;
+	height: auto;
+	opacity: 0.75;
+}
+
+/* sözleşme metni açılır penceresi */
+.popup_cont {
+	width: 65%;
+	max-width: 640px;
+}
+
+/* intl-tel-input ülke seçici, portal temasına uysun */
+.intl-tel-input {
+	width: 100%;
+}
+
+@media all and (max-width: 520px) {
+	body {
+		padding: 16px 12px 32px;
+	}
+
+	#title {
+		padding: 14px 16px;
+		font-size: 1.05rem;
+	}
+
+	#container {
+		padding: 16px;
+	}
+
+	#logo img {
+		max-width: 80%;
+		max-height: 64px;
+	}
+
+	button,
+	.form .submit,
+	.form input.text {
+		min-height: 48px;
+	}
+
+	.popup_cont {
+		width: 88%;
+	}
+
+	.iti-mobile .intl-tel-input.iti-container {
+		top: 24px;
+		bottom: 24px;
+		left: 16px;
+		right: 16px;
+		position: fixed;
+		width: calc(100% - 32px);
+		box-shadow: 0 0 80px 80px rgba(0, 0, 0, 0.5);
+		-webkit-appearance: none;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	* {
+		transition: none !important;
+	}
+}
