@@ -224,7 +224,7 @@ $active_form = !empty($form) ? $form : (isset($settings['authentication']['sms']
                     <div class="description"><?= t('login_desc') ?></div>
                     <div class="item">
                         <label for="manualUser"><?= t('manual_user_name') ?>:</label>
-                        <input id="manualUser" name="user[username]" class="text" type="text" maxlength="11"
+                        <input id="manualUser" name="user[username]" class="text" type="text" maxlength="40"
                                autocomplete="username" value="<?= $user->username ?>">
                     </div>
                     <div class="item">
