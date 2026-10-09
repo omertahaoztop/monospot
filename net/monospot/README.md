@@ -86,6 +86,33 @@ tail -f /var/log/monospot-error.log
 # portal kimlik doğrulama kayıtları: syslog (auth), ident 'monospot'
 ```
 
+## Sayfalar ve menü
+
+Eklenti OPNsense sol menüsünde **Services → Monospot** altında ayrı sayfalar olarak durur:
+
+| Menü | Sayfa | İş |
+|---|---|---|
+| Servis Ayarları | `/ui/monospot` | servis/zone/port ayarları, **Durum paneli**, zone şablonu, 5651 düğmesi |
+| Captive Portal | `/ui/monospot/captiveportal` | core zone ayarları (arayüzler, timeout'lar, roaming, açıklama) |
+| Kullanıcılar / Gruplar / SMS Raporu / İzin Raporu | `/monospot.php?u=...` | uygulama paneli rotaları |
+| 5651 Günlükleri | `/5651/` | günlük arşiv tarayıcısı |
+
+- **Durum paneli** `api/monospot/service/info` → `status.php` çıktısını gösterir: portal adresi, zone ve
+  arayüzleri, yetkili istemci sayısı (+ilk 10 kayıt), uygulama veritabanı sayaçları, 5651 arşiv özeti,
+  SMS sağlayıcı dosyası.
+- **Captive Portal sayfası** veriyi **core modelde** tutar (Services → Captive Portal ile aynı kayıt):
+  okuma `api/monospot/captive_portal/get`, yazma `api/monospot/captive_portal/set` →
+  `configctl monospot set_captiveportal` → `set_captiveportal.php` core zone'a yazar, şablonu yeniler
+  ve captive portal'ı yeniden başlatır.
+- **API rota adı** çok kelimeli controller'da alt çizgi ister: controller dosyası `CaptivePortalController.php`
+  ise URL `captive_portal` olur (`parsePath` → `ucwords`). `captiveportal` yazılırsa "Endpoint not found".
+- **configd action betikleri** doğrudan çalıştığı için hem `chmod +x` hem `#!/usr/local/bin/php`
+  satırı gerekir; aksi hâlde configd "Execute error" (exit 126) verir.
+- pfSense'teki *Pre-authentication redirect URL* / *After authentication Redirection URL* alanlarının
+  OPNsense zone modelinde karşılığı yoktur: istemci portalı görmeden önceki yönlendirmeyi zone şimi,
+  giriş sonrası yönlendirmeyi `settings.inc` içindeki `after_login_url` yapar.
+
+
 ## 5651 günlük arşivi
 
 Portal giriş kayıtları, DHCP kira tablosu ve captive portal oturum listesi gün bazında arşivlenir
