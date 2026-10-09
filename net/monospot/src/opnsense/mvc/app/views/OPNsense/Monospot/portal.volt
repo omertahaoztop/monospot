@@ -21,6 +21,14 @@ $(document).ready(function () {
         var url = 'http://' + window.location.hostname + ':' + data.portal_port + '/';
         setInfo('portal_status.portal_servisi', badge(data.enabled, data.enabled ? '{{ lang._("etkin") }}' : '{{ lang._("kapalı") }}'));
         setInfo('portal_status.portal_adresi', '<a href="' + url + '" target="_blank">' + url + '</a>');
+        /* canlı portal önizlemesi */
+        var frame = document.getElementById('portal_preview');
+        if (frame && frame.getAttribute('src') !== url) {
+            frame.setAttribute('src', url);
+            frame.style.display = 'block';
+            var empty = document.getElementById('portal_preview_empty');
+            if (empty) { empty.style.display = 'none'; }
+        }
         setInfo('portal_status.zone', data.zoneid
             + (data.zone.description ? ' — ' + data.zone.description : '')
             + (data.zone.interfaces.length ? ' (' + data.zone.interfaces.join(', ') + ')' : ''));
@@ -65,4 +73,18 @@ $(document).ready(function () {
 </ul>
 <div class="content-box tab-content">
     {{ partial("layout_partials/base_tabs_content",['formData':portalStatusForm]) }}
+    <div class="row">
+        <div class="col-md-12">
+            <hr/>
+            <h4>{{ lang._("Portal önizleme") }}</h4>
+            <p class="text-muted">
+                {{ lang._("Canlı portal sayfası (giriş ekranı). Logo ve renk Ayarlar → Erişim ekranı sekmesinden değiştirilir:") }}
+                <a href="/ui/monospot">{{ lang._("Ayarlar") }}</a>
+            </p>
+            <div id="portal_preview_empty" class="text-muted">{{ lang._("Yükleniyor...") }}</div>
+            <iframe id="portal_preview" style="display:none; width:100%; max-width:420px; height:560px;
+                    border:1px solid #dfe3e8; background:#fff;"
+                    referrerpolicy="no-referrer"></iframe>
+        </div>
+    </div>
 </div>
