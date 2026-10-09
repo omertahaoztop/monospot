@@ -54,10 +54,12 @@ Kurulumdan sonra:
    Not: `sms.markamsms.php` ayrıca `nusoap/lib/nusoap.php` bekler.
 4. **İsteğe bağlı** `custom_functions.php` ve `captiveportal_custom.php`
    (operatör uyarlamaları) aynı dizine konabilir; yoklukları portalı bozmaz.
-5. **Yönetim paneli:** `https://<fw>/monospot.php`. Erişim, `page-Monospot`
-   ACL iznine bağlıdır (Sistem > Erişim > Kullanıcılar/Gruplar).
-   Panelden kullanıcı/grup/izin kayıtları, SMS raporu, limitler, logo ve tema
-   rengi yönetilir.
+5. **Yönetim paneli:** `https://<fw>/monospot.php` (menüde: *Services →
+   Monospot Management*). Erişim, `page-Monospot` ACL iznine bağlıdır
+   (Sistem > Erişim > Kullanıcılar/Gruplar). Panelden kullanıcı/grup/izin
+   kayıtları, SMS raporu, limitler, logo ve tema rengi yönetilir. Eklentinin
+   servis ayarları ayrı sayfadadır: *Services → Monospot* (`/ui/monospot`:
+   etkinleştirme, zone, port, servis durumu, zone şablonu kurulumu).
 
 ## Loglar ve servis
 
